@@ -9,16 +9,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #07070f;
-      --surface: #0d0d1a;
-      --surface-2: #111120;
-      --border: #1c1c35;
+      --bg: #ffffff;
+      --surface: #f8f9fb;
+      --surface-2: #f1f3f6;
+      --border: #e2e6ed;
       --blue: #0ea5e9;
-      --blue-dim: rgba(14,165,233,0.1);
-      --blue-glow: rgba(14,165,233,0.25);
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
-      --text-dim: #475569;
+      --blue-dim: rgba(14,165,233,0.08);
+      --blue-glow: rgba(14,165,233,0.2);
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
       --font-d: 'Bebas Neue', sans-serif;
       --font-b: 'Outfit', sans-serif;
       --font-m: 'JetBrains Mono', monospace;
@@ -74,8 +74,9 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 1.2rem 0;
       backdrop-filter: blur(24px);
-      background: rgba(7,7,15,0.88);
+      background: rgba(255,255,255,0.92);
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 12px rgba(0,0,0,0.06);
       transition: padding 0.3s;
     }
     nav.scrolled { padding: 0.9rem 0; }
@@ -94,7 +95,7 @@
     /* ─── MOBILE MENU ─── */
     .mob-menu {
       display: none; position: fixed; inset: 0;
-      background: var(--bg); z-index: 200;
+      background: var(--bg); z-index: 200; box-shadow: 0 0 0 1px var(--border);
       flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
     }
     .mob-menu.open { display: flex; }
@@ -103,7 +104,7 @@
     .mob-menu a:hover { color: var(--blue); }
 
     /* ─── TICKER ─── */
-    .ticker-wrap { overflow: hidden; background: var(--blue); padding: 0.6rem 0; }
+    .ticker-wrap { overflow: hidden; background: #0ea5e9; padding: 0.6rem 0; }
     .ticker-track {
       display: flex; gap: 0; white-space: nowrap;
       animation: ticker 30s linear infinite;
@@ -123,20 +124,20 @@
     .hero-grid {
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(14,165,233,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(14,165,233,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(14,165,233,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14,165,233,0.08) 1px, transparent 1px);
       background-size: 64px 64px;
     }
     .hero-glow-1 {
       position: absolute; top: -150px; right: -150px;
       width: 650px; height: 650px;
-      background: radial-gradient(circle, rgba(14,165,233,0.13) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(14,165,233,0.07) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-glow-2 {
       position: absolute; bottom: -200px; left: -100px;
       width: 450px; height: 450px;
-      background: radial-gradient(circle, rgba(14,165,233,0.06) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(14,165,233,0.04) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-diag {
@@ -204,7 +205,7 @@
     #services::before {
       content: 'BUILD';
       position: absolute; font-family: var(--font-d); font-size: 16vw;
-      color: rgba(255,255,255,0.018); top: 50%; left: 50%;
+      color: rgba(0,0,0,0.025); top: 50%; left: 50%;
       transform: translate(-50%,-50%); white-space: nowrap; pointer-events: none;
     }
     .sec-hdr { text-align: center; margin-bottom: 4rem; }
@@ -221,7 +222,7 @@
       background: linear-gradient(135deg, var(--blue-dim) 0%, transparent 55%);
       opacity: 0; transition: opacity 0.35s;
     }
-    .svc-card:hover { background: #09091a; }
+    .svc-card:hover { background: #eef4fb; }
     .svc-card:hover::after { opacity: 1; }
     .svc-top { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue), transparent); }
     .svc-num { font-family: var(--font-m); font-size: 0.68rem; color: var(--blue); letter-spacing: 0.18em; margin-bottom: 1rem; position: relative; z-index: 1; }
@@ -240,18 +241,18 @@
     .port-card { background: var(--surface); overflow: hidden; }
     .port-img {
       height: 210px; position: relative; overflow: hidden;
-      background: linear-gradient(135deg, #0a1428 0%, #060e1e 100%);
+      background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
       transition: transform 0.5s;
     }
     .port-card:hover .port-img { transform: scale(1.04); }
-    .port-img::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(14,165,233,0.18) 0%, transparent 55%); }
+    .port-img::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(14,165,233,0.12) 0%, transparent 55%); }
     .port-badge {
       position: absolute; top: 1rem; right: 1rem;
       font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.15em;
       color: var(--blue); text-transform: uppercase;
       background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.3); padding: 0.28rem 0.7rem;
     }
-    .port-big { position: absolute; bottom: 0.5rem; left: 1.25rem; font-family: var(--font-d); font-size: 5rem; color: rgba(255,255,255,0.04); line-height: 1; }
+    .port-big { position: absolute; bottom: 0.5rem; left: 1.25rem; font-family: var(--font-d); font-size: 5rem; color: rgba(0,0,0,0.06); line-height: 1; }
     .port-body { padding: 1.75rem; }
     .port-tag { font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 0.6rem; }
     .port-card h3 { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 0.03em; margin-bottom: 0.65rem; }
@@ -264,7 +265,7 @@
     .price-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 4rem; }
     .p-card { background: var(--surface); padding: 3rem 2.5rem; position: relative; }
     .p-card.featured {
-      background: #0a1522; border: 1px solid rgba(14,165,233,0.45); margin: -1px; z-index: 1;
+      background: #eff8ff; border: 1px solid rgba(14,165,233,0.45); margin: -1px; z-index: 1;
     }
     .p-card.featured::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); }
 
@@ -500,7 +501,7 @@
         </div>
       </div>
       <div class="port-card reveal reveal-d1">
-        <div class="port-img" style="background:linear-gradient(135deg,#0c1e0f 0%,#071410 100%);">
+        <div class="port-img" style="background:linear-gradient(135deg,#d1fae5 0%,#ecfdf5 100%);">
           <div class="port-badge">AI Agent</div>
           <div class="port-big">02</div>
         </div>
@@ -514,7 +515,7 @@
         </div>
       </div>
       <div class="port-card reveal reveal-d2">
-        <div class="port-img" style="background:linear-gradient(135deg,#180c22 0%,#0f0715 100%);">
+        <div class="port-img" style="background:linear-gradient(135deg,#ede9fe 0%,#f5f3ff 100%);">
           <div class="port-badge">Make.com</div>
           <div class="port-big">03</div>
         </div>
