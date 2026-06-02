@@ -1,415 +1,568 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Harinivash Studio &mdash; Automation &amp; Web Design</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #ffffff; --bg2: #f9f9f7; --bg3: #f3f3ef;
-      --border: #e5e5e0; --text: #111111; --text-muted: #555555; --text-dim: #999999;
-      --font: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    [data-theme="dark"] {
-      --bg: #0f0f0f; --bg2: #161616; --bg3: #1e1e1e;
-      --border: #2a2a2a; --text: #f0f0f0; --text-muted: #888888; --text-dim: #555555;
-    }
-    .theme-toggle {
-      background: none; border: 1px solid var(--border); color: var(--text-muted);
-      cursor: pointer; padding: 0.4rem 0.7rem; border-radius: 3px; font-size: 0.85rem;
-      transition: border-color 0.2s, color 0.2s; line-height: 1; flex-shrink: 0;
-    }
-    .theme-toggle:hover { border-color: var(--text-muted); color: var(--text); }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-    a { color: inherit; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .skip-link { position: absolute; top: -100px; left: 1rem; background: var(--text); color: #fff; padding: 0.5rem 1rem; font-size: 0.85rem; z-index: 999; transition: top 0.2s; }
-    .skip-link:focus { top: 1rem; }
-    .container { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
-    header { border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 100; transition: border-color 0.2s; }
-    header .container { display: flex; align-items: center; justify-content: space-between; height: 56px; }
-    .logo { font-size: 0.92rem; font-weight: 600; letter-spacing: 0.01em; color: var(--text); text-transform: uppercase; }
-    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 0.82rem; color: var(--text-muted); transition: color 0.15s; }
-    .nav-links a:hover { color: var(--text); text-decoration: none; }
-    .nav-cta { font-size: 0.82rem; font-weight: 600; background: var(--text); color: #fff; padding: 0.5rem 1.1rem; border-radius: 3px; transition: opacity 0.2s; }
-    .nav-cta:hover { opacity: 0.8; text-decoration: none; }
-    .hamburger { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: 4px; }
-    .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--text); }
-    .mob-menu { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 200; flex-direction: column; padding: 2rem 1.5rem; gap: 1.5rem; }
-    .mob-menu.open { display: flex; }
-    .mob-close { align-self: flex-end; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text); margin-bottom: 1rem; }
-    .mob-menu a { font-size: 1.3rem; font-weight: 500; color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 1.2rem; }
-    section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
-    .section-num { font-size: 0.72rem; font-weight: 500; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3rem; }
-    h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
-    #hero { padding: 5rem 0 4.5rem; }
-    .hero-headline { font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.5rem; max-width: 620px; }
-    .hero-sub { font-size: 1.1rem; color: var(--text-muted); max-width: 520px; line-height: 1.7; }
-    .value-lead { font-size: 1.15rem; font-weight: 600; line-height: 1.5; margin-bottom: 1.25rem; max-width: 600px; }
-    .value-body { font-size: 0.97rem; color: var(--text-muted); line-height: 1.75; max-width: 600px; margin-bottom: 1.25rem; }
-    .creds { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 2rem 0; }
-    .cred { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 500; border: 1px solid var(--border); padding: 0.35rem 0.8rem; border-radius: 2px; color: var(--text); background: var(--bg2); }
-    .cred::before { content: "\2605"; font-size: 0.65rem; color: var(--text-dim); }
-    .stats { display: flex; gap: 3rem; flex-wrap: wrap; }
-    .stat-num { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.25rem; }
-    .stat-label { font-size: 0.8rem; color: var(--text-muted); }
-    .service-block { margin-bottom: 4rem; }
-    .service-block:last-child { margin-bottom: 0; }
-    .service-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1rem; }
-    .service-num-label { font-size: 0.72rem; color: var(--text-dim); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; }
-    .service-title { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
-    .service-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; max-width: 580px; }
-    .service-list { list-style: none; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
-    .service-list li { font-size: 0.92rem; color: var(--text-muted); padding-left: 1.2rem; position: relative; line-height: 1.5; }
-    .service-list li::before { content: "\2192"; position: absolute; left: 0; color: var(--text-dim); font-size: 0.8rem; }
-    .service-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .service-badge { font-size: 0.72rem; font-weight: 500; border: 1px solid var(--border); padding: 0.3rem 0.75rem; border-radius: 2px; color: var(--text-muted); background: var(--bg2); }
-    .service-divider { border: none; border-top: 1px solid var(--border); margin: 3.5rem 0; }
-    .service-quote { font-size: 0.92rem; color: var(--text-muted); font-style: italic; border-left: 2px solid var(--border); padding-left: 1rem; margin-top: 1.25rem; line-height: 1.65; }
-    .work-card { border: 1px solid var(--border); padding: 2rem; margin-bottom: 1.25rem; background: var(--bg2); border-radius: 4px; transition: border-color 0.2s; }
-    .work-card:hover { border-color: #bbb; }
-    .work-card:last-child { margin-bottom: 0; }
-    .work-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
-    .work-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--border); padding: 0.25rem 0.65rem; border-radius: 2px; color: var(--text-muted); background: var(--bg); }
-    .work-title { font-size: 1.05rem; font-weight: 600; line-height: 1.4; letter-spacing: -0.01em; margin-bottom: 0.6rem; }
-    .work-meta { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 0.85rem; font-weight: 500; }
-    .work-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
-    .work-metric { font-size: 0.82rem; font-weight: 600; color: var(--text); background: var(--bg3); border: 1px solid var(--border); display: inline-block; padding: 0.3rem 0.75rem; border-radius: 2px; margin-bottom: 0.85rem; }
-    .work-link { font-size: 0.85rem; font-weight: 600; color: var(--text); display: inline-flex; align-items: center; gap: 0.3rem; }
-    .work-link:hover { text-decoration: underline; }
-    .testimonial-block { margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
-    .testimonial-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-    .testimonial-quote { font-size: 1rem; line-height: 1.75; color: var(--text); margin-bottom: 1.25rem; }
-    .testimonial-quote::before { content: "\201C"; }
-    .testimonial-quote::after { content: "\201D"; }
-    .testimonial-attr { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
-    .process-list { display: flex; flex-direction: column; }
-    .process-step { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1.25rem; padding: 1.75rem 0; border-bottom: 1px solid var(--border); align-items: start; }
-    .process-step:last-child { border-bottom: none; }
-    .process-step-num { font-size: 0.72rem; font-weight: 600; color: var(--text-dim); letter-spacing: 0.08em; padding-top: 0.2rem; }
-    .process-step-title { font-size: 0.97rem; font-weight: 600; margin-bottom: 0.4rem; }
-    .process-step-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
-    .about-heading { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
-    .about-body { font-size: 0.97rem; color: var(--text-muted); line-height: 1.8; max-width: 600px; margin-bottom: 1.25rem; }
-    .about-creds { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
-    .about-cred { font-size: 0.75rem; font-weight: 500; border: 1px solid var(--border); padding: 0.35rem 0.8rem; border-radius: 2px; color: var(--text-muted); display: inline-flex; align-items: center; gap: 0.4rem; }
-    .about-cred::before { content: "\2605"; font-size: 0.65rem; color: var(--text-dim); }
-    .faq-list { display: flex; flex-direction: column; }
-    .faq-item { border-bottom: 1px solid var(--border); }
-    .faq-item:first-child { border-top: 1px solid var(--border); }
-    .faq-btn { width: 100%; background: none; border: none; padding: 1.25rem 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left; gap: 1rem; }
-    .faq-question { font-size: 0.95rem; font-weight: 500; color: var(--text); line-height: 1.4; }
-    .faq-icon { font-size: 1.1rem; color: var(--text-dim); flex-shrink: 0; transition: transform 0.25s; }
-    .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-answer { overflow: hidden; max-height: 0; transition: max-height 0.35s ease; }
-    .faq-item.open .faq-answer { max-height: 300px; }
-    .faq-answer p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; padding-bottom: 1.5rem; }
-    .cta-headline { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.25rem; }
-    .cta-desc { font-size: 0.97rem; color: var(--text-muted); max-width: 520px; line-height: 1.75; margin-bottom: 0.75rem; }
-    .cta-pricing { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 2rem; }
-    .cta-btn { display: inline-flex; align-items: center; background: var(--text); color: #fff; font-size: 0.85rem; font-weight: 600; padding: 0.85rem 1.75rem; border-radius: 3px; letter-spacing: 0.04em; text-transform: uppercase; transition: opacity 0.2s; text-decoration: none; }
-    .cta-btn:hover { opacity: 0.8; text-decoration: none; }
-    .cta-meta { font-size: 0.78rem; color: var(--text-dim); margin-top: 1rem; }
-    footer { padding: 4rem 0 3rem; background: var(--bg2); border-top: 1px solid var(--border); }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-    .footer-brand { font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 0.75rem; }
-    .footer-tagline { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.25rem; max-width: 260px; }
-    .footer-creds-list { display: flex; flex-direction: column; gap: 0.4rem; }
-    .footer-cred-item { font-size: 0.72rem; color: var(--text-dim); display: flex; align-items: center; gap: 0.4rem; }
-    .footer-cred-item::before { content: "\2605"; font-size: 0.6rem; }
-    .footer-col h4 { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1rem; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-    .footer-col ul li a { font-size: 0.85rem; color: var(--text-muted); transition: color 0.15s; }
-    .footer-col ul li a:hover { color: var(--text); text-decoration: none; }
-    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 2rem; border-top: 1px solid var(--border); }
-    .footer-copy { font-size: 0.78rem; color: var(--text-dim); }
-    .footer-legal { display: flex; gap: 1.5rem; }
-    .footer-legal a { font-size: 0.78rem; color: var(--text-dim); }
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
-    .reveal.on { opacity: 1; transform: none; }
-    .reveal-d1 { transition-delay: 0.1s; }
-    .reveal-d2 { transition-delay: 0.2s; }
-    @media (max-width: 640px) {
-      .nav-links, .nav-cta { display: none; }
-      .hamburger { display: flex; }
-      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .stats { gap: 2rem; }
-      .process-step { grid-template-columns: 1fr; gap: 0.4rem; }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Harinivash Studio | n8n Automation Consultant &amp; Notion Systems Designer</title>
+<meta name="description" content="Hire Harinivash — Verified n8n Creator and Notion systems designer. Custom n8n automation workflows and Notion systems for small businesses worldwide."/>
+<meta property="og:title" content="Harinivash Studio | Automation &amp; Notion Systems"/>
+<meta property="og:description" content="Custom n8n automation workflows and Notion systems for small businesses worldwide."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://harinivash.studio"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@1,9..144,400&display=swap" rel="stylesheet"/>
+<style>
+/* ── Tokens ── */
+:root {
+  --s0: #0A0A0B; --s1: #111113; --s2: #18181C; --s3: #222228;
+  --fg1: #F2EFE8; --fg2: #B0ACA5; --fg3: #8A8580; --fg4: #2E2C28;
+  --acc: #4C7DF0; --acc-hi: #6E97F4; --acc-lo: #3A63C8;
+  --acc-w: rgba(76,125,240,0.08); --acc-b: rgba(76,125,240,0.30);
+  --ok: #9FBA8E; --warn: #D9B673; --err: #C8826F;
+  --h: rgba(255,255,255,0.06); --hs: rgba(255,255,255,0.10);
+  --font-d: 'JetBrains Mono', ui-monospace, monospace;
+  --font-b: 'Inter Tight', system-ui, sans-serif;
+  --font-s: 'Fraunces', Georgia, serif;
+  --ease: cubic-bezier(0.2,0.9,0.1,1);
+}
+html.light {
+  --s0: #FDFCF9; --s1: #F5F2EC; --s2: #EEE9E1; --s3: #E5DDD5;
+  --fg1: #1A1917; --fg2: #42403A; --fg3: #6B6860; --fg4: #C8C4BC;
+  --h: rgba(0,0,0,0.06); --hs: rgba(0,0,0,0.10);
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; scroll-behavior: smooth; }
+body {
+  background: var(--s0); color: var(--fg1);
+  font-family: var(--font-b); font-size: 15px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s;
+}
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.45 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.8'/%3E%3C/svg%3E");
+  background-size: 200px; opacity: 0.035; mix-blend-mode: overlay;
+}
+a { color: inherit; text-decoration: none; }
+.mono { font-family: var(--font-d); }
+.eyebrow { font-family: var(--font-d); font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg3); }
+.wrap { max-width: 1380px; margin: 0 auto; padding: 0 40px; }
+section { padding: 100px 0; border-top: 1px solid var(--h); }
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.55s cubic-bezier(0.23,1,0.32,1), transform 0.55s cubic-bezier(0.23,1,0.32,1); }
+.reveal.on { opacity: 1; transform: none; }
+.skip-link { position: absolute; left: -999px; top: 0; background: var(--acc); color: #fff; padding: 0.5rem 1rem; z-index: 1000; }
+.skip-link:focus { left: 1rem; top: 1rem; }
+
+/* ── Nav ── */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 64px;
+  background: color-mix(in srgb, var(--s0) 82%, transparent);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--h); transition: background 0.3s; }
+nav .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-family: var(--font-d); font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; display: flex; align-items: center; gap: 9px; }
+.brand-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 10px var(--acc); animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+.nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+.nav-links a { font-family: var(--font-d); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg3); transition: color 0.2s; }
+.nav-links a:hover { color: var(--fg1); }
+.nav-right { display: flex; align-items: center; gap: 14px; }
+.theme-toggle { background: none; border: 1px solid var(--h); color: var(--fg2); width: 34px; height: 34px; border-radius: 7px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, color 0.2s; }
+.theme-toggle:hover { border-color: var(--hs); color: var(--fg1); }
+.btn { font-family: var(--font-b); font-weight: 500; font-size: 13px; padding: 9px 18px; border-radius: 8px; cursor: pointer; transition: all 0.2s var(--ease); display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; white-space: nowrap; }
+.btn-primary { background: var(--acc); color: #fff; box-shadow: 0 0 0 0 var(--acc-b); }
+.btn-primary:hover { background: var(--acc-hi); box-shadow: 0 6px 26px -6px var(--acc-b); transform: translateY(-1px); }
+.btn-ghost { background: transparent; border-color: var(--h); color: var(--fg1); }
+.btn-ghost:hover { border-color: var(--hs); background: var(--h); }
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+.hamburger span { width: 22px; height: 1.5px; background: var(--fg1); display: block; }
+
+/* ── Hero ── */
+#hero { padding-top: 150px; padding-bottom: 90px; border-top: none; position: relative; overflow: hidden; }
+#hero::before { content:''; position:absolute; top:-200px; right:-150px; width:700px; height:700px; background: radial-gradient(circle, rgba(76,125,240,0.10) 0%, transparent 68%); pointer-events:none; }
+.hero-inner { display: grid; grid-template-columns: 1fr 460px; gap: 70px; align-items: center; position: relative; z-index: 1; }
+.hero-byline { font-family: var(--font-d); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg1); opacity: 0.5; margin-bottom: 22px; }
+.hero-title { font-family: var(--font-d); font-size: clamp(1.7rem, 4.5vw, 2.5rem); font-weight: 400; line-height: 1.32; letter-spacing: -0.03em; margin-bottom: 26px; }
+.hero-word { display: inline-block; opacity: 0; transform: translateY(16px); animation: wordUp 580ms cubic-bezier(0.22,1,0.36,1) forwards; }
+@keyframes wordUp { to { opacity: 1; transform: translateY(0); } }
+.cursor { display: inline-block; width: 0.5ch; height: 0.85em; background: var(--acc); vertical-align: -0.08em; margin-left: 2px; animation: blink 1.1s steps(1) infinite; box-shadow: 0 0 14px rgba(76,125,240,0.7); }
+@keyframes blink { 50%{opacity:0} }
+.hero-sub { font-size: 17px; color: var(--fg2); max-width: 50ch; line-height: 1.65; margin-bottom: 34px; }
+.hero-actions { display: flex; gap: 12px; margin-bottom: 36px; flex-wrap: wrap; }
+.hero-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero-badge { font-family: var(--font-d); font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 10px; border-radius: 6px; display: flex; align-items: center; gap: 7px; transition: transform 0.2s; }
+.hero-badge:hover { transform: translateY(-2px); }
+.hero-badge-dot { width: 5px; height: 5px; border-radius: 50%; }
+.badge-notion { color: var(--ok); background: rgba(159,186,142,0.07); border: 1px solid rgba(159,186,142,0.22); }
+.badge-notion .hero-badge-dot { background: var(--ok); }
+.badge-n8n { color: var(--acc-hi); background: var(--acc-w); border: 1px solid var(--acc-b); }
+.badge-n8n .hero-badge-dot { background: var(--acc); }
+.badge-warn { color: var(--warn); background: rgba(217,182,115,0.07); border: 1px solid rgba(217,182,115,0.22); }
+.badge-warn .hero-badge-dot { background: var(--warn); }
+
+/* ── Hero workflow card ── */
+.hero-visual { background: var(--s1); border: 1px solid var(--h); border-radius: 16px; padding: 22px; box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6); }
+.wfp-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--h); margin-bottom: 16px; }
+.wfp-label { font-family: var(--font-d); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg1); font-weight: 700; }
+.wfp-status { font-family: var(--font-d); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ok); display: flex; align-items: center; gap: 6px; }
+.wfp-status::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--ok); box-shadow: 0 0 8px var(--ok); animation: pulse 2s infinite; }
+.wfp-node { display: flex; align-items: center; gap: 12px; padding: 13px 14px; border: 1px solid var(--h); border-radius: 10px; margin-bottom: 10px; background: var(--s2); transition: border-color 0.3s, transform 0.3s; }
+.wfp-node:hover { border-color: var(--acc-b); transform: translateX(3px); }
+.wfp-node:last-of-type { margin-bottom: 0; }
+.wfp-ico { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.wfp-name { font-family: var(--font-d); font-size: 13px; letter-spacing: -0.02em; color: var(--fg1); }
+.wfp-sub { font-family: var(--font-d); font-size: 10px; color: var(--fg3); margin-top: 2px; }
+.wfp-popout { margin-left: auto; background: var(--acc-w); border: 1px solid var(--acc-b); border-radius: 5px; padding: 3px 8px; font-family: var(--font-d); font-size: 9px; color: var(--acc); letter-spacing: 0.04em; }
+.wfp-connector { width: 1px; height: 14px; background: var(--hs); margin: 0 auto; }
+
+/* ── Stats strip ── */
+.stats-strip { display: flex; gap: 50px; flex-wrap: wrap; margin-top: 56px; padding-top: 36px; border-top: 1px solid var(--h); }
+.stat-v { font-family: var(--font-d); font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: var(--fg1); line-height: 1; }
+.stat-v span { color: var(--acc); }
+.stat-k { font-family: var(--font-b); font-size: 11px; color: var(--fg3); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 8px; }
+
+/* ── Section headers ── */
+.sec-head { margin-bottom: 56px; }
+.sec-head .eyebrow { display: block; margin-bottom: 18px; }
+.sec-title { font-family: var(--font-s); font-style: italic; font-size: clamp(28px, 3.8vw, 46px); font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; color: var(--fg1); }
+
+/* ── Services ── */
+.svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--h); border: 1px solid var(--h); border-radius: 14px; overflow: hidden; }
+.svc-card { background: var(--s0); padding: 44px 40px; position: relative; transition: background 0.3s; }
+.svc-card:hover { background: var(--s1); }
+.svc-num { font-family: var(--font-d); font-size: 11px; color: var(--acc); letter-spacing: 0.18em; margin-bottom: 16px; }
+.svc-card h3 { font-family: var(--font-d); font-size: clamp(22px,2.4vw,30px); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 14px; }
+.svc-card > p { color: var(--fg2); font-size: 14px; line-height: 1.7; margin-bottom: 24px; max-width: 42ch; }
+.svc-list { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 26px; }
+.svc-list li { display: flex; gap: 10px; font-size: 13.5px; color: var(--fg2); line-height: 1.55; }
+.svc-list li .arrow { font-family: var(--font-d); font-size: 11px; color: var(--acc); flex-shrink: 0; margin-top: 2px; }
+.svc-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.svc-badge { font-family: var(--font-d); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 10px; border-radius: 6px; border: 1px solid var(--h); color: var(--fg3); }
+.svc-quote { font-family: var(--font-s); font-style: italic; font-size: 15px; color: var(--fg2); margin-top: 22px; padding-left: 16px; border-left: 2px solid var(--acc-b); line-height: 1.6; }
+
+/* ── Work ── */
+.work-grid { display: flex; flex-direction: column; gap: 18px; }
+.work-card { background: var(--s1); border: 1px solid var(--h); border-radius: 14px; padding: 36px 38px; transition: border-color 0.3s, transform 0.3s; }
+.work-card:hover { border-color: var(--acc-b); transform: translateY(-3px); }
+.work-tags { display: flex; gap: 8px; margin-bottom: 18px; }
+.work-tag { font-family: var(--font-d); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 9px; border-radius: 5px; background: var(--acc-w); color: var(--acc-hi); border: 1px solid var(--acc-b); }
+.work-client { font-family: var(--font-d); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 10px; }
+.work-title { font-family: var(--font-s); font-style: italic; font-size: clamp(19px,2.2vw,26px); font-weight: 400; line-height: 1.25; margin-bottom: 14px; }
+.work-metric { display: inline-block; font-family: var(--font-d); font-size: 12px; color: var(--ok); background: rgba(159,186,142,0.08); border: 1px solid rgba(159,186,142,0.22); border-radius: 6px; padding: 5px 11px; margin-bottom: 14px; }
+.work-desc { color: var(--fg2); font-size: 14px; line-height: 1.7; margin-bottom: 18px; max-width: 70ch; }
+.work-link { font-family: var(--font-d); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--acc); display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+.work-link:hover { gap: 11px; }
+
+/* ── Testimonials ── */
+.tst-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.tst-card { background: var(--s1); border: 1px solid var(--h); border-radius: 14px; padding: 34px 36px; }
+.tst-q { font-size: 15px; line-height: 1.8; color: var(--fg1); margin-bottom: 22px; }
+.tst-attr { font-family: var(--font-d); font-size: 12px; color: var(--fg2); }
+.tst-attr span { color: var(--fg3); }
+
+/* ── Process ── */
+.proc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--h); border: 1px solid var(--h); border-radius: 14px; overflow: hidden; }
+.proc-step { background: var(--s0); padding: 34px 36px; transition: background 0.3s; }
+.proc-step:hover { background: var(--s1); }
+.proc-step-num { font-family: var(--font-d); font-size: 12px; color: var(--acc); letter-spacing: 0.1em; margin-bottom: 14px; }
+.proc-step h4 { font-family: var(--font-d); font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+.proc-step p { color: var(--fg2); font-size: 13.5px; line-height: 1.7; }
+
+/* ── About ── */
+.about-body { max-width: 720px; }
+.about-body h2 { font-family: var(--font-s); font-style: italic; font-size: clamp(28px,3.8vw,44px); font-weight: 400; margin-bottom: 26px; }
+.about-body p { color: var(--fg2); font-size: 16px; line-height: 1.85; margin-bottom: 18px; }
+.about-creds { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+
+/* ── FAQ ── */
+.faq-list { max-width: 820px; }
+.faq-item { border-bottom: 1px solid var(--h); }
+.faq-item:first-child { border-top: 1px solid var(--h); }
+.faq-btn { width: 100%; background: none; border: none; color: var(--fg1); padding: 22px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; cursor: pointer; text-align: left; }
+.faq-q { font-size: 16px; font-weight: 500; line-height: 1.4; }
+.faq-ico { font-family: var(--font-d); font-size: 18px; color: var(--acc); flex-shrink: 0; transition: transform 0.3s; }
+.faq-item.open .faq-ico { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.faq-item.open .faq-a { max-height: 400px; }
+.faq-a p { color: var(--fg2); font-size: 14.5px; line-height: 1.8; padding-bottom: 24px; max-width: 75ch; }
+
+/* ── CTA ── */
+#cta .sec-title { margin-bottom: 22px; }
+.cta-desc { color: var(--fg2); font-size: 17px; line-height: 1.7; max-width: 56ch; margin-bottom: 14px; }
+.cta-price { font-family: var(--font-d); font-size: 13px; color: var(--fg3); margin-bottom: 32px; }
+.cta-meta { font-family: var(--font-d); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg3); margin-top: 18px; }
+
+/* ── Footer ── */
+footer { background: var(--s1); border-top: 1px solid var(--h); padding: 70px 0 36px; }
+.foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 50px; }
+.foot-brand { font-family: var(--font-d); font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; }
+.foot-tag { color: var(--fg2); font-size: 14px; line-height: 1.7; max-width: 280px; }
+.foot-col h5 { font-family: var(--font-d); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 18px; }
+.foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.foot-col a { color: var(--fg2); font-size: 14px; transition: color 0.2s; }
+.foot-col a:hover { color: var(--fg1); }
+.foot-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; padding-top: 28px; border-top: 1px solid var(--h); }
+.foot-copy { font-family: var(--font-d); font-size: 11px; color: var(--fg3); }
+.foot-legal { display: flex; gap: 20px; }
+.foot-legal a { font-family: var(--font-d); font-size: 11px; color: var(--fg3); }
+
+/* ── Mobile menu ── */
+.mob { display: none; position: fixed; inset: 0; background: var(--s0); z-index: 200; flex-direction: column; padding: 80px 40px; gap: 8px; }
+.mob.open { display: flex; }
+.mob a { font-family: var(--font-d); font-size: 22px; padding: 14px 0; border-bottom: 1px solid var(--h); }
+.mob-close { position: absolute; top: 22px; right: 40px; background: none; border: none; color: var(--fg1); font-size: 28px; cursor: pointer; }
+
+@media (max-width: 980px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-visual { max-width: 460px; }
+  .svc-grid, .proc-grid, .tst-grid { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+}
+@media (max-width: 640px) {
+  .wrap { padding: 0 22px; }
+  .nav-links, .nav-right .btn { display: none; }
+  .hamburger { display: flex; }
+  section { padding: 70px 0; }
+  .foot-grid { grid-template-columns: 1fr; }
+  .stats-strip { gap: 32px; }
+}
+</style>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to main content</a>
-  <header id="site-header">
-    <div class="container">
-      <a href="#" class="logo">Harinivash Studio</a>
-      <ul class="nav-links">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#faq">FAQ</a></li>
-      </ul>
-      <a href="mailto:rharinivash28@gmail.com" class="nav-cta">Book a call</a>
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<nav id="nav">
+  <div class="wrap">
+    <a href="#" class="brand"><span class="brand-dot"></span>Harinivash Studio</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
-      <button class="hamburger" id="hamburger" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="mailto:rharinivash28@gmail.com" class="btn btn-primary">Book a call</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
-  </header>
-  <div class="mob-menu" id="mobMenu">
-    <button class="mob-close" id="mobClose">&#x2715;</button>
-    <a href="#services" onclick="closeMenu()">Services</a>
-    <a href="#work" onclick="closeMenu()">Work</a>
-    <a href="#process" onclick="closeMenu()">Process</a>
-    <a href="#about" onclick="closeMenu()">About</a>
-    <a href="#faq" onclick="closeMenu()">FAQ</a>
-    <a href="mailto:rharinivash28@gmail.com" onclick="closeMenu()">Book a call</a>
   </div>
-  <main id="main">
-    <section id="hero">
-      <div class="container">
-        <h1 class="hero-headline reveal">Stop being your own automation.</h1>
-        <p class="hero-sub reveal reveal-d1">I don't build workflows. I build the system your business runs on.</p>
-      </div>
-    </section>
-    <section id="value">
-      <div class="container">
-        <p class="value-lead reveal">Most people connect tools. I design the system underneath them.</p>
-        <p class="value-body reveal reveal-d1">Your business doesn't have a tools problem. It has an ops problem. The tools exist. The integrations exist. What's missing is someone who understands how to wire them into a system that actually works &mdash; one that handles edge cases, doesn't break on weekends, and doesn't require you to babysit it.</p>
-        <p class="value-body reveal reveal-d1">That's what I build.</p>
-        <div class="creds reveal reveal-d2">
-          <span class="cred">Automation Specialist</span>
-          <span class="cred">Web Design Expert</span>
-          <span class="cred">n8n Verified Creator</span>
-          <span class="cred">API Integration Pro</span>
-        </div>
-        <div class="stats reveal reveal-d2">
-          <div><div class="stat-num">12+</div><div class="stat-label">clients across IN, US, and EU</div></div>
-          <div><div class="stat-num">500+</div><div class="stat-label">hours returned to clients</div></div>
-        </div>
-      </div>
-    </section>
-    <section id="services">
-      <div class="container">
-        <p class="section-num">Services</p>
-        <div class="service-block">
-          <div class="service-header"><span class="service-num-label">01</span><h3 class="service-title">Automation</h3></div>
-          <p class="service-desc">Custom workflows that connect your tools, eliminate manual work, and run 24/7 without you. From simple API syncs to complex multi-step pipelines &mdash; if it's repetitive, I automate it.</p>
-          <ul class="service-list">
-            <li>CRM syncs and lead pipeline automation</li>
-            <li>Payment and invoice workflow pipelines</li>
-            <li>Webhook-driven multi-step automations</li>
-            <li>AI-enriched data processing workflows</li>
-            <li>Communication and notification syncs</li>
-            <li>Cross-platform data integrations via API</li>
-          </ul>
-          <div class="service-badges">
-            <span class="service-badge">&#x2605; Verified n8n Creator</span>
-            <span class="service-badge">&#x2605; n8n Level 2 Certified</span>
-            <span class="service-badge">API Integrations</span>
-            <span class="service-badge">Webhooks</span>
+</nav>
+
+<div class="mob" id="mob">
+  <button class="mob-close" id="mobClose">&times;</button>
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="#work" onclick="closeMob()">Work</a>
+  <a href="#process" onclick="closeMob()">Process</a>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#faq" onclick="closeMob()">FAQ</a>
+  <a href="mailto:rharinivash28@gmail.com" onclick="closeMob()">Book a call</a>
+</div>
+
+<main id="main">
+  <!-- HERO -->
+  <section id="hero">
+    <div class="wrap">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="hero-byline">Harinivash · Automation &amp; Notion Systems</div>
+          <div class="eyebrow" style="margin-bottom:24px;">Available for new projects</div>
+          <h1 class="hero-title" id="heroTitle"></h1>
+          <p class="hero-sub">Most people connect tools. I design the system underneath them. If someone on your team is still manually moving data between tools every week, that is not an ops problem — that is a missing system.</p>
+          <div class="hero-actions">
+            <a href="mailto:rharinivash28@gmail.com" class="btn btn-primary">Book a free call →</a>
+            <a href="#work" class="btn btn-ghost">See my work</a>
+          </div>
+          <div class="hero-badges">
+            <span class="hero-badge badge-n8n"><span class="hero-badge-dot"></span>Verified n8n Creator</span>
+            <span class="hero-badge badge-notion"><span class="hero-badge-dot"></span>Notion Systems Designer</span>
+            <span class="hero-badge badge-warn"><span class="hero-badge-dot"></span>n8n Level 2 Certified</span>
           </div>
         </div>
-        <hr class="service-divider" />
-        <div class="service-block">
-          <div class="service-header"><span class="service-num-label">02</span><h3 class="service-title">Web Design</h3></div>
-          <p class="service-desc">Fast, modern, responsive websites built with intention &mdash; not templates. Every design is purpose-built around your business, your audience, and what you're trying to achieve.</p>
-          <ul class="service-list">
-            <li>Landing pages and marketing sites</li>
-            <li>Portfolio and personal brand websites</li>
-            <li>Business and SaaS product pages</li>
-            <li>Performance-optimised, mobile-first builds</li>
-            <li>SEO-structured semantic markup</li>
-            <li>Component-based design systems</li>
-          </ul>
-          <div class="service-badges">
-            <span class="service-badge">HTML / CSS / JS</span>
-            <span class="service-badge">React &amp; Next.js</span>
-            <span class="service-badge">Responsive Design</span>
-            <span class="service-badge">Performance First</span>
+        <div class="hero-visual">
+          <div class="wfp-head">
+            <span class="wfp-label">Live Workflow</span>
+            <span class="wfp-status">Running</span>
           </div>
-          <p class="service-quote">Most people set up a website. I build a web presence that works as hard as you do.</p>
-        </div>
-      </div>
-    </section>
-    <section id="work">
-      <div class="container">
-        <p class="section-num">Work</p>
-        <h2 class="reveal" style="margin-bottom:2.5rem;">Selected projects.</h2>
-        <div class="work-card reveal">
-          <div class="work-tags"><span class="work-tag">Automation</span><span class="work-tag">Web Design</span></div>
-          <div class="work-title">Full automation infrastructure powering a consulting firm's client delivery pipeline</div>
-          <div class="work-meta">Ongoing retainer &middot; 2 enterprise-grade systems</div>
-          <p class="work-desc">Built a complete backend automation layer connecting CRM, invoicing, contracts, and client onboarding &mdash; all triggered from a single workflow with full error handling and retry logic.</p>
-          <a href="mailto:rharinivash28@gmail.com" class="work-link">Get in touch to learn more &#x2192;</a>
-        </div>
-        <div class="work-card reveal reveal-d1">
-          <div class="work-tags"><span class="work-tag">Automation</span></div>
-          <div class="work-title">How a SaaS team turned their entire billing and contract workflow into a single button click</div>
-          <div class="work-meta">Project &middot; API integration + workflow build</div>
-          <div class="work-metric">20+ hours saved every month</div>
-          <p class="work-desc">Designed and built an n8n automation that handles contract generation, payment processing via Stripe, and client notifications &mdash; reducing a 3-hour manual process to zero.</p>
-          <a href="mailto:rharinivash28@gmail.com" class="work-link">Get in touch to learn more &#x2192;</a>
-        </div>
-        <div class="work-card reveal reveal-d2">
-          <div class="work-tags"><span class="work-tag">Web Design</span></div>
-          <div class="work-title">A fast, conversion-focused landing page for a B2B services company</div>
-          <div class="work-meta">Project &middot; Landing page build</div>
-          <div class="work-metric">Sub-1s load time achieved</div>
-          <p class="work-desc">Designed and developed a clean, performance-first marketing site from scratch. Semantic HTML, responsive layout, and a clear content hierarchy built to convert visitors into leads.</p>
-          <a href="mailto:rharinivash28@gmail.com" class="work-link">Get in touch to learn more &#x2192;</a>
-        </div>
-      </div>
-    </section>
-    <section id="testimonials">
-      <div class="container">
-        <p class="section-num">Testimonials</p>
-        <h2 class="reveal" style="margin-bottom:3rem;">What clients say.</h2>
-        <div class="testimonial-block reveal">
-          <p class="testimonial-quote">He connected everything from our lead intake to our CRM to client contracts &mdash; what used to take our team four hours now runs automatically in minutes. The system he built is rock solid and we haven't had a single failure since launch.</p>
-          <p class="testimonial-attr">Arun Kumar, Founder &middot; TechFlow SaaS</p>
-        </div>
-        <div class="testimonial-block reveal reveal-d1">
-          <p class="testimonial-quote">Harinivash built a custom automation for us that syncs data across five different tools, and it was genuinely a pleasure working with him. He understood the requirements immediately, didn't need hand-holding, and made the whole process completely smooth.</p>
-          <p class="testimonial-attr">Sofia R., Operations Director &middot; Merida Labs</p>
-        </div>
-        <div class="testimonial-block reveal reveal-d2">
-          <p class="testimonial-quote">Our new website loads in under a second and finally looks as good as our product. Harinivash didn't just execute the brief &mdash; he asked the right questions and pushed back where needed. The result is better than what we asked for.</p>
-          <p class="testimonial-attr">Marcus J., Co-Founder &middot; Lumina Creative</p>
-        </div>
-      </div>
-    </section>
-    <section id="process">
-      <div class="container">
-        <p class="section-num">Process</p>
-        <h2 class="reveal" style="margin-bottom:2.5rem;">How it works.</h2>
-        <div class="process-list">
-          <div class="process-step reveal"><span class="process-step-num">01</span><div><div class="process-step-title">Discovery</div><p class="process-step-desc">We talk through your stack, your problem, and what success looks like. I ask the questions no one else has thought to ask. This is free and takes 30 minutes.</p></div></div>
-          <div class="process-step reveal"><span class="process-step-num">02</span><div><div class="process-step-title">Scoping</div><p class="process-step-desc">You get a clear breakdown of what gets built, how it works, and what the outcomes will be. No surprises. You approve before I write a single line.</p></div></div>
-          <div class="process-step reveal"><span class="process-step-num">03</span><div><div class="process-step-title">Build</div><p class="process-step-desc">Production-grade work with proper error handling, edge cases, deduplication, and retry logic. Built the way it should be &mdash; not the way that's fastest for me.</p></div></div>
-          <div class="process-step reveal"><span class="process-step-num">04</span><div><div class="process-step-title">Testing &amp; QA</div><p class="process-step-desc">Tested against real scenarios, failure cases, and edge inputs before anything is handed over. If it can break, I find out before you do.</p></div></div>
-          <div class="process-step reveal"><span class="process-step-num">05</span><div><div class="process-step-title">Handoff</div><p class="process-step-desc">Live walkthrough call, recorded video, full documentation. You understand exactly what was built and why. You own it completely.</p></div></div>
-          <div class="process-step reveal"><span class="process-step-num">06</span><div><div class="process-step-title">Ongoing Support</div><p class="process-step-desc">Optional monthly retainer for updates, fixes, and additions as your business grows. Available but never pushed.</p></div></div>
-        </div>
-      </div>
-    </section>
-    <section id="about">
-      <div class="container">
-        <p class="section-num">About</p>
-        <h2 class="about-heading reveal">Hey, I'm Harinivash.</h2>
-        <p class="about-body reveal reveal-d1">I'm an automation specialist and web designer based in India, working remotely with clients worldwide. I got into this because I kept seeing smart people waste hours on work that should have been automated years ago &mdash; and websites that looked like they were built to check a box rather than actually work.</p>
-        <p class="about-body reveal reveal-d1">I don't take on everything. I work with a small number of clients at a time so I can actually focus. If we work together, you're not getting handed off to a junior or managed through a ticket system. You get me.</p>
-        <p class="about-body reveal reveal-d1">I care about building things right, not just building things that look like they work in a demo.</p>
-        <div class="about-creds reveal reveal-d2">
-          <span class="about-cred">Verified n8n Creator</span>
-          <span class="about-cred">Web Design Specialist</span>
-          <span class="about-cred">API Integration Expert</span>
-        </div>
-      </div>
-    </section>
-    <section id="faq">
-      <div class="container">
-        <p class="section-num">FAQ</p>
-        <h2 class="reveal" style="margin-bottom:2.5rem;">Common questions.</h2>
-        <div class="faq-list">
-          <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">What does this typically cost?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>Projects typically fall between $500 and $5,000+ depending on scope. Retainers start from $300/month. After our discovery call you'll have a fixed-price quote &mdash; no hourly billing, no surprise invoices.</p></div></div>
-          <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">What do I get from the 30-minute call?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>A clear breakdown of what can be automated in your business, a rough system design, an honest timeline, and a cost estimate. No pitch. If it's not a good fit I'll tell you that too.</p></div></div>
-          <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">How long does a typical project take?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>Automation workflows typically take 1&ndash;3 weeks. Websites range from 1 week for landing pages to 4&ndash;6 weeks for larger builds. You'll have a clear timeline in writing before we start.</p></div></div>
-          <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Do I need technical knowledge to work with you?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>Zero. I explain everything in plain language. If you understand your business, we can work together.</p></div></div>
-          <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">What about API keys and sensitive access?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>All credentials are stored in end-to-end encrypted vaults. After project completion, access is fully revoked unless you're on a retainer.</p></div></div>
-          <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">What if something breaks after delivery?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>I offer an optional monthly retainer for fixes, updates, and additions. Outside a retainer, I'm still available &mdash; I just won't commit to a same-day turnaround.</p></div></div>
-          <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Can you work with my timezone?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>Yes. I work with clients across India, the US, Europe, and Australia. Work is mostly async, so timezone rarely causes issues.</p></div></div>
-          <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">What kind of businesses do you work with?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>Mostly small to mid-sized businesses &mdash; founders, consultants, agencies, and SaaS teams, typically 1 to 50 people.</p></div></div>
-          <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">What if my tools don't have APIs?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>Most tools do. For those that don't, there are usually workarounds &mdash; webhooks, native exports, or scraping. I've yet to hit a dead end.</p></div></div>
-          <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">How do we communicate during a project?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>However works best for you &mdash; email, WhatsApp, Slack, or a shared doc. I don't force new tools on you.</p></div></div>
-        </div>
-      </div>
-    </section>
-    <section id="cta">
-      <div class="container">
-        <h2 class="cta-headline reveal">Stop doing it manually.</h2>
-        <p class="cta-desc reveal reveal-d1">Pick a time. In 30 minutes you'll get a clear map of what to automate in your business &mdash; or what your website should actually be doing &mdash; and an honest price for building it.</p>
-        <p class="cta-desc reveal reveal-d1">Free. No obligation.</p>
-        <p class="cta-pricing reveal reveal-d2">Most projects fall between $500 and $5,000+. Retainers from $300/month.</p>
-        <a href="mailto:rharinivash28@gmail.com" class="cta-btn reveal reveal-d2">Book a call</a>
-        <p class="cta-meta reveal reveal-d2">Remote worldwide &middot; 30 min &middot; Free</p>
-      </div>
-    </section>
-  </main>
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand">Harinivash Studio</div>
-          <p class="footer-tagline">Automation and web design for teams who need it built properly. Remote worldwide.</p>
-          <div class="footer-creds-list">
-            <span class="footer-cred-item">Verified n8n Creator</span>
-            <span class="footer-cred-item">Web Design Specialist</span>
+          <div class="wfp-node">
+            <div class="wfp-ico" style="background:rgba(76,125,240,0.12);">⚡</div>
+            <div><div class="wfp-name">Stripe Payment</div><div class="wfp-sub">trigger · webhook received</div></div>
+            <span class="wfp-popout">+0ms</span>
+          </div>
+          <div class="wfp-connector"></div>
+          <div class="wfp-node">
+            <div class="wfp-ico" style="background:rgba(255,255,255,0.06);">📝</div>
+            <div><div class="wfp-name">Notion Database</div><div class="wfp-sub">create record · invoice</div></div>
+            <span class="wfp-popout">+120ms</span>
+          </div>
+          <div class="wfp-connector"></div>
+          <div class="wfp-node">
+            <div class="wfp-ico" style="background:rgba(217,182,115,0.12);">🤖</div>
+            <div><div class="wfp-name">AI Enrichment</div><div class="wfp-sub">classify · summarise</div></div>
+            <span class="wfp-popout">+340ms</span>
+          </div>
+          <div class="wfp-connector"></div>
+          <div class="wfp-node">
+            <div class="wfp-ico" style="background:rgba(159,186,142,0.12);">💬</div>
+            <div><div class="wfp-name">Slack Notify</div><div class="wfp-sub">team channel · done</div></div>
+            <span class="wfp-popout">+410ms</span>
           </div>
         </div>
-        <div class="footer-col">
-          <h4>Pages</h4>
-          <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#process">Process</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="mailto:rharinivash28@gmail.com">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="mailto:rharinivash28@gmail.com">rharinivash28@gmail.com</a></li>
-          </ul>
-        </div>
       </div>
-      <div class="footer-bottom">
-        <span class="footer-copy">&copy; 2026 Harinivash Studio. All rights reserved.</span>
-        <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
+      <div class="stats-strip">
+        <div><div class="stat-v">500<span>+</span></div><div class="stat-k">hours returned to clients</div></div>
+        <div><div class="stat-v">12<span>+</span></div><div class="stat-k">clients across IN, US &amp; EU</div></div>
+        <div><div class="stat-v">100<span>%</span></div><div class="stat-k">production-grade builds</div></div>
       </div>
     </div>
-  </footer>
-  <script>
-    (function() {
-      var saved = localStorage.getItem("theme") || "light";
-      document.documentElement.setAttribute("data-theme", saved);
-      document.getElementById("themeToggle").textContent = saved === "dark" ? "☀️" : "🌙";
-    })();
-    document.getElementById("themeToggle").addEventListener("click", function() {
-      var current = document.documentElement.getAttribute("data-theme");
-      var next = current === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-      this.textContent = next === "dark" ? "☀️" : "🌙";
-    });
-    function toggleFaq(btn) {
-      var item = btn.closest(".faq-item");
-      var isOpen = item.classList.contains("open");
-      document.querySelectorAll(".faq-item.open").forEach(function(i) { i.classList.remove("open"); });
-      if (!isOpen) item.classList.add("open");
-    }
-    document.getElementById("hamburger").addEventListener("click", function() {
-      document.getElementById("mobMenu").classList.add("open");
-    });
-    document.getElementById("mobClose").addEventListener("click", closeMenu);
-    function closeMenu() { document.getElementById("mobMenu").classList.remove("open"); }
-    var io = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add("on"); });
-    }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
-    document.querySelectorAll(".reveal").forEach(function(el) { io.observe(el); });
-    window.addEventListener("scroll", function() {
-      document.getElementById("site-header").style.borderBottomColor =
-        window.scrollY > 8 ? "#d0d0c8" : "var(--border)";
-    });
-  </script>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Services</span>
+        <h2 class="sec-title">Two disciplines.<br>One connected system.</h2>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-card reveal">
+          <div class="svc-num">01</div>
+          <h3>n8n Automation</h3>
+          <p>Custom workflows linking any tool with an API. Bidirectional sync. Zero manual entry.</p>
+          <ul class="svc-list">
+            <li><span class="arrow">→</span>CRM syncs: HubSpot, Salesforce, Attio into Notion, live and bidirectional</li>
+            <li><span class="arrow">→</span>Payment pipelines: Stripe received, invoice created, client notified, records updated</li>
+            <li><span class="arrow">→</span>Webhook pipelines with signature verification, deduplication, and idempotency built in</li>
+            <li><span class="arrow">→</span>AI-enriched workflows: data in, processed by an LLM, lands structured and ready to use</li>
+            <li><span class="arrow">→</span>Communication syncs: Slack and Teams messages into Notion, organised and searchable</li>
+            <li><span class="arrow">→</span>Multi-step pipelines: form to CRM to Notion to team notification, all in one flow</li>
+          </ul>
+          <div class="svc-badges">
+            <span class="svc-badge">Verified n8n Creator</span>
+            <span class="svc-badge">Level 2 Certified</span>
+          </div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-num">02</div>
+          <h3>Notion Systems</h3>
+          <p>Workspaces built around how your team actually works, not how a template assumed.</p>
+          <ul class="svc-list">
+            <li><span class="arrow">→</span>Multi-database architectures with relations and rollups that actually make sense</li>
+            <li><span class="arrow">→</span>Formula-heavy workspaces for calculations, statuses, and logic your team relies on</li>
+            <li><span class="arrow">→</span>Button-triggered automations that fire n8n workflows directly from Notion</li>
+            <li><span class="arrow">→</span>Custom agents and integrations built on the Notion SDK, running tasks autonomously</li>
+            <li><span class="arrow">→</span>MCP integrations connecting Notion to external tools and AI systems</li>
+            <li><span class="arrow">→</span>Dashboard views and filtered galleries surfacing the right data to the right person</li>
+          </ul>
+          <div class="svc-badges">
+            <span class="svc-badge">Notion Specialist</span>
+            <span class="svc-badge">Advanced Workflows</span>
+          </div>
+          <p class="svc-quote">Most people set up Notion. I build Notion systems that do things on their own.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Work</span>
+        <h2 class="sec-title">Not every project gets talked about.<br>These ones do.</h2>
+      </div>
+      <div class="work-grid">
+        <div class="work-card reveal">
+          <div class="work-tags"><span class="work-tag">n8n Automation</span><span class="work-tag">Notion Systems</span></div>
+          <div class="work-client">Consulting Client</div>
+          <div class="work-title">The backend automation infrastructure powering a consulting firm's client delivery</div>
+          <div class="work-metric">Ongoing retainer · 2 enterprise-grade systems</div>
+          <p class="work-desc">Production-grade CRM syncs, multi-database architectures, and complex automation pipelines. Built for real client environments with real operational stakes.</p>
+          <a href="mailto:rharinivash28@gmail.com" class="work-link">Get in touch to learn more →</a>
+        </div>
+        <div class="work-card reveal">
+          <div class="work-tags"><span class="work-tag">n8n Automation</span><span class="work-tag">Notion Systems</span></div>
+          <div class="work-client">SaaS Client</div>
+          <div class="work-title">How a SaaS team turned their entire billing and contract workflow into a single button click</div>
+          <div class="work-metric">20+ hours saved every month</div>
+          <p class="work-desc">Full billing automation, subcontractor payouts, and e-signature contracts. All running without a single manual step.</p>
+          <a href="mailto:rharinivash28@gmail.com" class="work-link">Get in touch to learn more →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Testimonials</span>
+        <h2 class="sec-title">What clients say.</h2>
+      </div>
+      <div class="tst-grid">
+        <div class="tst-card reveal">
+          <p class="tst-q">"He connected everything from invoicing to contracts and payments — Stripe was integrated so each contractor was automatically paid out the moment the vendor paid. It's been a really smooth way to work internally that I wouldn't have been able to pull off without his help."</p>
+          <p class="tst-attr">Molly Jones <span>· Founder, SaaS company</span></p>
+        </div>
+        <div class="tst-card reveal">
+          <p class="tst-q">"Harinivash built a custom n8n automation for me that syncs data into Notion, and it was a pleasure working with him. The workflow works reliably and he was genuinely responsive whenever I had questions. He understood the requirements quickly and made the whole process easy."</p>
+          <p class="tst-attr">Mohammed Ali <span>· Director, development corporation</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Process</span>
+        <h2 class="sec-title">How I work.</h2>
+        <p class="cta-desc" style="margin-top:18px;">No black box. No dropped handoffs. Every project follows the same six steps, from first call to final delivery.</p>
+      </div>
+      <div class="proc-grid">
+        <div class="proc-step reveal"><div class="proc-step-num">01</div><h4>Discovery</h4><p>We get on a call. You walk me through your stack, your problem, and what a good outcome looks like. I ask the questions you haven't thought to answer yet. Nothing gets built until I fully understand what needs to be built.</p></div>
+        <div class="proc-step reveal"><div class="proc-step-num">02</div><h4>Scoping</h4><p>I come back with a clear breakdown: what gets built, how it works, what done looks like. You approve it. No surprises mid-build.</p></div>
+        <div class="proc-step reveal"><div class="proc-step-num">03</div><h4>Build</h4><p>This is where I go heads down. Production-grade workflows and systems, not prototypes. Error handling, edge cases, deduplication, retry logic — all covered without you having to ask.</p></div>
+        <div class="proc-step reveal"><div class="proc-step-num">04</div><h4>Testing &amp; QA</h4><p>I break it before you do. Every workflow gets tested against real scenarios, failure cases, and edge inputs. You only see it when it's ready.</p></div>
+        <div class="proc-step reveal"><div class="proc-step-num">05</div><h4>Handoff</h4><p>A live walkthrough call, a video recording you can rewatch, and full documentation explaining how it works and how to maintain it. You leave knowing exactly what you have.</p></div>
+        <div class="proc-step reveal"><div class="proc-step-num">06</div><h4>Ongoing Support</h4><p>If you want someone on call for updates, fixes, and additions, I offer a monthly retainer after handoff. Completely optional. No pressure — but it's there if you want the work to keep evolving.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-body reveal">
+        <span class="eyebrow" style="display:block;margin-bottom:24px;">About</span>
+        <h2>Hey, I'm Harinivash.</h2>
+        <p>I'm the founder of Harinivash Studio. I build n8n automation workflows and Notion systems for businesses that are tired of tools that don't talk to each other.</p>
+        <p>I'm not the loudest person in the room. But I'm probably the last one to give up on a problem. That stubbornness is what built this, and it's the same standard I hold for everything I deliver.</p>
+        <p>I don't take on everything. I work with a small number of clients at a time so I can actually focus. If we work together, you're not getting handed off to a junior or managed through a ticket system. You get me.</p>
+        <p>I care about building things right, not just building things that look like they work in a demo.</p>
+        <div class="about-creds">
+          <span class="hero-badge badge-n8n"><span class="hero-badge-dot"></span>Verified n8n Creator</span>
+          <span class="hero-badge badge-notion"><span class="hero-badge-dot"></span>Notion Systems Designer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">FAQ</span>
+        <h2 class="sec-title">Common questions.</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What does this typically cost?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Most projects fall between $1,000 and $10,000+. Retainers from $500+/month. Exact scope and price confirmed on the call.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What do I actually get from the 30-minute call?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>A clear breakdown of what I'd automate in your specific situation, how the system would work, how long it would take to build, and what it would cost. No vague discovery. No pitch. By the end you'll have enough to decide whether to move forward. If it's not the right fit, I'll tell you honestly.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">How long does a typical project take?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Most projects take 2 to 10 weeks depending on complexity. I don't rush. I take time to understand your business, map your actual pain points, and build something production-grade that holds up.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Do I need to know n8n or Notion to work with you?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Zero knowledge needed. If you want to learn, I'll teach you. If you never want to touch it, you never have to. I handle the build, the documentation, and the handoff. You just use the system.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What does handing over API keys and access look like?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>I'll guide you through getting the right credentials. Everything is stored in end-to-end encrypted vaults, never shared, never exposed. Once the project is complete and handed off, access is revoked unless you're on a retainer.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What if something breaks after the project is done?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Every build ships with documentation and a walkthrough so you're not dependent on me. That said, things do break — APIs change, tools update. I offer an optional monthly retainer after handoff for exactly this. Completely your choice.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Can you work with my timezone?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Yes. I've worked with clients across India, the US, Europe, and Australia. Most of the project runs async so timezone rarely matters. Calls for discovery and handoff get scheduled at a time that works for you.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What kinds of businesses do you work with?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Small and mid-sized businesses, typically 5 to 100 people, running on a stack of tools that don't talk to each other. If your team is spending hours every week on manual data entry, that's exactly the problem I solve.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What if my tools don't have an API?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>If it has an API, I can connect it. If it doesn't, I'll figure out a way — webhooks, scraping, native exports, workarounds. I've solved this before and I'll solve it for you.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">How do we communicate during the project?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>However you prefer. Email, Slack, WhatsApp, Telegram, whatever your team already uses. I don't force a new tool on you. You pick the channel, I show up there.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:0;">
+        <span class="eyebrow" style="display:block;margin-bottom:18px;">Book a call</span>
+        <h2 class="sec-title">Stop doing it manually.</h2>
+        <p class="cta-desc">Pick a time. In 30 minutes you'll get a clear map of what to automate in your business and an honest price for building it. Free, no obligation.</p>
+        <p class="cta-price">Most projects fall between $1,000 and $10,000+. Retainers from $500+/month.</p>
+        <a href="mailto:rharinivash28@gmail.com" class="btn btn-primary">Book a call →</a>
+        <p class="cta-meta">Remote worldwide · 30 min · Free</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Harinivash Studio</div>
+        <p class="foot-tag">n8n automation and Notion systems for teams who need it built properly. Remote worldwide.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Pages</h5>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:rharinivash28@gmail.com">rharinivash28@gmail.com</a></li>
+          <li><a href="https://harinivash.studio">harinivash.studio</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="foot-copy">© 2026 Harinivash Studio. All rights reserved.</span>
+      <div class="foot-legal"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Hero typewriter words
+(function(){
+  var words = ["Stop","being","your","own","automation."];
+  var el = document.getElementById("heroTitle");
+  words.forEach(function(w, i){
+    var span = document.createElement("span");
+    span.className = "hero-word";
+    span.textContent = w + (i < words.length-1 ? " " : "");
+    span.style.animationDelay = (0.15 + i*0.12) + "s";
+    el.appendChild(span);
+  });
+  var cur = document.createElement("span");
+  cur.className = "cursor";
+  el.appendChild(cur);
+})();
+
+// Theme toggle
+(function(){
+  var saved = localStorage.getItem("theme") || "dark";
+  if (saved === "light") document.documentElement.classList.add("light");
+  document.getElementById("themeToggle").textContent = saved === "light" ? "☀️" : "🌙";
+})();
+document.getElementById("themeToggle").addEventListener("click", function(){
+  var isLight = document.documentElement.classList.toggle("light");
+  localStorage.setItem("theme", isLight ? "light" : "dark");
+  this.textContent = isLight ? "☀️" : "🌙";
+});
+
+// FAQ
+function toggleFaq(btn){
+  var item = btn.closest(".faq-item");
+  var open = item.classList.contains("open");
+  document.querySelectorAll(".faq-item.open").forEach(function(i){ i.classList.remove("open"); });
+  if (!open) item.classList.add("open");
+}
+
+// Mobile menu
+document.getElementById("hamburger").addEventListener("click", function(){ document.getElementById("mob").classList.add("open"); });
+document.getElementById("mobClose").addEventListener("click", closeMob);
+function closeMob(){ document.getElementById("mob").classList.remove("open"); }
+
+// Scroll reveal
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("on"); io.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+</script>
 </body>
 </html>
