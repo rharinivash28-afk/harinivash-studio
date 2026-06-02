@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harinivash Studio — Automation & Notion Expert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #080a0e;
+      --bg-2: #0d1017;
+      --bg-3: #121620;
+      --surface: #161b27;
+      --surface-2: #1e2535;
+      --border: rgba(255,255,255,0.06);
+      --border-active: rgba(0,212,170,0.35);
+      --text: #e8eaf0;
+      --text-2: #8892a4;
+      --text-3: #505868;
+      --accent: #00d4aa;
+      --accent-2: #0099ff;
+      --accent-3: #7c3aed;
+      --accent-glow: rgba(0,212,170,0.15);
+      --accent-glow-2: rgba(0,153,255,0.1);
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'DM Sans', sans-serif;
+      --radius: 6px;
+      --radius-lg: 12px;
+      --transition: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s var(--transition), opacity 0.3s;
+      mix-blend-mode: screen;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(0,212,170,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.18s var(--transition), width 0.25s var(--transition), height 0.25s var(--transition), border-color 0.25s;
+    }
+    .cursor-ring.hovering {
+      width: 56px;
+      height: 56px;
+      border-color: rgba(0,212,170,0.7);
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,10,14,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-logo-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+      50% { opacity: 0.5; box-shadow: 0 0 16px var(--accent); }
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: box-shadow 0.2s, transform 0.2s var(--transition);
+    }
+    .nav-cta:hover {
+      box-shadow: 0 0 24px rgba(0,212,170,0.4);
+      transform: translateY(-1px);
+    }
+
+    /* Sections base */
+    section { position: relative; z-index: 1; }
+
+    /* Hero */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 40px 80px;
+      overflow: hidden;
+    }
+    .hero-content {
+      max-width: 680px;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      background: rgba(0,212,170,0.08);
+      border: 1px solid rgba(0,212,170,0.2);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--transition) 0.1s forwards;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--accent);
+    }
+    h1 {
+      font-family: var(--font-mono);
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      color: var(--text);
+      opacity: 0;
+      animation: fadeUp 0.7s var(--transition) 0.2s forwards;
+    }
+    h1 .accent { color: var(--accent); }
+    h1 .dim { color: var(--text-3); }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-2);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.7s var(--transition) 0.35s forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s var(--transition) 0.5s forwards;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: box-shadow 0.25s, transform 0.25s var(--transition);
+      border: none;
+      cursor: none;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 40px rgba(0,212,170,0.5), 0 0 80px rgba(0,212,170,0.15);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-2);
+      background: transparent;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      cursor: none;
+    }
+    .btn-secondary:hover {
+      border-color: var(--border-active);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.7s var(--transition) 0.65s forwards;
+    }
+    .stat-num {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-3);
+      margin-top: 4px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+
+    /* Hero visual */
+    .hero-visual {
+      position: absolute;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 520px;
+      height: 480px;
+      opacity: 0;
+      animation: fadeIn 1s var(--transition) 0.4s forwards;
+    }
+    .flow-diagram {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .flow-node {
+      position: absolute;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-2);
+      white-space: nowrap;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .flow-node:hover {
+      border-color: var(--border-active);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .flow-node-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .node-notion { top: 20px; left: 20px; }
+    .node-notion .flow-node-icon { background: rgba(255,255,255,0.08); }
+    .node-n8n { top: 120px; right: 30px; }
+    .node-n8n .flow-node-icon { background: rgba(255,100,50,0.15); }
+    .node-zapier { top: 240px; left: 60px; }
+    .node-zapier .flow-node-icon { background: rgba(255,160,0,0.12); }
+    .node-slack { bottom: 100px; right: 60px; }
+    .node-slack .flow-node-icon { background: rgba(100,200,100,0.12); }
+    .node-sheets { bottom: 30px; left: 30px; }
+    .node-sheets .flow-node-icon { background: rgba(0,160,100,0.12); }
+
+    .flow-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .flow-path {
+      fill: none;
+      stroke: url(#lineGrad);
+      stroke-width: 1.5;
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: drawLine 1.5s var(--transition) 0.8s forwards;
+    }
+    .flow-path-2 {
+      animation-delay: 1.1s;
+    }
+    .flow-path-3 {
+      animation-delay: 1.4s;
+    }
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Glow orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 400px;
+      height: 400px;
+      background: rgba(0,212,170,0.07);
+      right: 0;
+      top: 10%;
+    }
+    .orb-2 {
+      width: 300px;
+      height: 300px;
+      background: rgba(0,153,255,0.05);
+      right: 200px;
+      top: 40%;
+    }
+
+    /* Services */
+    #services {
+      padding: 120px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-2);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 64px;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .service-card {
+      background: var(--bg-2);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .service-card:hover { background: var(--surface); }
+    .service-card:hover::before { opacity: 1; }
+    .service-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-3);
+      letter-spacing: 0.08em;
+      margin-bottom: 24px;
+    }
+    .service-icon {
+      font-size: 32px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .service-name {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .service-desc {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.75;
+    }
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 24px;
+    }
+    .service-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--accent);
+      background: rgba(0,212,170,0.08);
+      border: 1px solid rgba(0,212,170,0.15);
+      padding: 3px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.04em;
+    }
+
+    /* How it works */
+    #process {
+      padding: 120px 40px;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .process-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 64px;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), var(--accent-glow), var(--border), transparent);
+    }
+    .process-step {
+      padding: 0 24px;
+      position: relative;
+    }
+    .step-num-wrap {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .process-step:first-child .step-num-wrap,
+    .process-step.active .step-num-wrap {
+      border-color: var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .step-title {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+
+    /* Portfolio */
+    #portfolio {
+      padding: 120px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 64px;
+    }
+    .portfolio-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s var(--transition), box-shadow 0.3s;
+      cursor: none;
+    }
+    .portfolio-card:hover {
+      border-color: var(--border-active);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(0,212,170,0.06);
+    }
+    .portfolio-thumb {
+      height: 200px;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, var(--surface) 100%);
+    }
+    .portfolio-body {
+      padding: 24px 28px 28px;
+    }
+    .portfolio-type {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .portfolio-title {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .portfolio-desc {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+
+    /* Testimonials */
+    #testimonials {
+      padding: 120px 40px;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .testimonials-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 64px;
+    }
+    .testimonial-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: border-color 0.3s;
+    }
+    .testimonial-card:hover { border-color: var(--border-active); }
+    .testimonial-quote {
+      font-size: 32px;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 16px;
+      font-family: var(--font-mono);
+      opacity: 0.5;
+    }
+    .testimonial-text {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .author-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--bg);
+      flex-shrink: 0;
+    }
+    .author-name {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .author-role {
+      font-size: 12px;
+      color: var(--text-3);
+      margin-top: 2px;
+    }
+
+    /* Pricing */
+    #pricing {
+      padding: 120px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 64px;
+    }
+    .pricing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px 36px;
+      position: relative;
+      transition: transform 0.3s var(--transition), box-shadow 0.3s;
+    }
+    .pricing-card.featured {
+      border-color: rgba(0,212,170,0.4);
+      background: linear-gradient(180deg, rgba(0,212,170,0.05) 0%, var(--surface) 100%);
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 4px 14px;
+      border-radius: 100px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .pricing-plan {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .pricing-price {
+      font-family: var(--font-mono);
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 6px;
+      letter-spacing: -0.03em;
+    }
+    .pricing-price sup {
+      font-size: 18px;
+      vertical-align: top;
+      margin-top: 10px;
+      color: var(--text-2);
+    }
+    .pricing-period {
+      font-size: 13px;
+      color: var(--text-3);
+      margin-bottom: 32px;
+      font-family: var(--font-mono);
+    }
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 40px;
+    }
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-2);
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .pricing-cta {
+      display: block;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 13px 24px;
+      border-radius: var(--radius);
+      transition: all 0.2s var(--transition);
+      letter-spacing: 0.02em;
+    }
+    .pricing-cta-outline {
+      color: var(--accent);
+      border: 1px solid rgba(0,212,170,0.35);
+    }
+    .pricing-cta-outline:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent);
+    }
+    .pricing-cta-filled {
+      color: var(--bg);
+      background: var(--accent);
+    }
+    .pricing-cta-filled:hover {
+      box-shadow: 0 0 30px rgba(0,212,170,0.4);
+      transform: translateY(-1px);
+    }
+
+    /* Contact */
+    #contact {
+      padding: 120px 40px;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info {
+      padding-top: 8px;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-detail:first-of-type { border-top: 1px solid var(--border); margin-top: 40px; }
+    .contact-detail-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .contact-detail-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .contact-detail-value {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text);
+    }
+    .contact-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: rgba(0,212,170,0.4);
+      box-shadow: 0 0 0 3px rgba(0,212,170,0.06);
+    }
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23505868' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .form-group select option { background: var(--bg-3); }
+    .form-group textarea { min-height: 120px; resize: vertical; line-height: 1.6; }
+    .form-submit {
+      width: 100%;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--bg);
+      background: var(--accent);
+      border: none;
+      padding: 14px 24px;
+      border-radius: var(--radius);
+      cursor: none;
+      letter-spacing: 0.04em;
+      transition: box-shadow 0.25s, transform 0.25s var(--transition);
+    }
+    .form-submit:hover {
+      box-shadow: 0 0 40px rgba(0,212,170,0.4);
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+      background: var(--bg);
+    }
+    .footer-logo {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-3);
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-right {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s var(--transition), transform 0.7s var(--transition);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      #hero { padding: 100px 20px 60px; }
+      .hero-visual { display: none; }
+      .hero-stats { gap: 24px; flex-wrap: wrap; }
+      #services, #portfolio, #pricing, #testimonials, #process, #contact { padding: 80px 20px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      body { cursor: auto; }
+      .cursor, .cursor-ring { display: none; }
+    }
+
+    @media (max-width: 1024px) {
+      .hero-visual { opacity: 0.3; right: -100px; width: 400px; }
+    }
+
+    /* Scroll indicator */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      z-index: 200;
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">
+      <span class="nav-logo-dot"></span>
+      harinivash.studio
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">services</a></li>
+      <li><a href="#process">process</a></li>
+      <li><a href="#portfolio">work</a></li>
+      <li><a href="#pricing">pricing</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">book a call →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">Available for new projects</div>
+      <h1>
+        Build systems<br>
+        that <span class="accent">think</span> for you<span class="dim">.</span>
+      </h1>
+      <p class="hero-sub">
+        I design intelligent workspaces and automation pipelines using Notion, n8n, and the tools your team already uses — so you can stop managing work and start doing it.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">
+          → Book a free call
+        </a>
+        <a href="#portfolio" class="btn-secondary">
+          View my work
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">40<span>+</span></div>
+          <div class="stat-label">systems built</div>
+        </div>
+        <div>
+          <div class="stat-num">15<span>+</span></div>
+          <div class="stat-label">happy clients</div>
+        </div>
+        <div>
+          <div class="stat-num">200<span>h</span></div>
+          <div class="stat-label">avg. saved/client</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flow diagram -->
+    <div class="hero-visual">
+      <div class="flow-diagram">
+        <svg class="flow-svg" viewBox="0 0 520 480" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:rgba(0,212,170,0.1)"/>
+              <stop offset="50%" style="stop-color:rgba(0,212,170,0.6)"/>
+              <stop offset="100%" style="stop-color:rgba(0,153,255,0.3)"/>
+            </linearGradient>
+          </defs>
+          <path class="flow-path" d="M 120 60 C 200 60 280 140 340 155" />
+          <path class="flow-path flow-path-2" d="M 120 60 C 160 60 180 255 200 265" />
+          <path class="flow-path flow-path-3" d="M 340 155 C 380 155 380 360 340 390" />
+        </svg>
+        <div class="flow-node node-notion">
+          <div class="flow-node-icon">📝</div>
+          <span>Notion DB</span>
+        </div>
+        <div class="flow-node node-n8n">
+          <div class="flow-node-icon" style="color:#ff6432;">⚡</div>
+          <span>n8n Workflow</span>
+        </div>
+        <div class="flow-node node-zapier">
+          <div class="flow-node-icon">🔗</div>
+          <span>API Bridge</span>
+        </div>
+        <div class="flow-node node-slack">
+          <div class="flow-node-icon">💬</div>
+          <span>Slack Alerts</span>
+        </div>
+        <div class="flow-node node-sheets">
+          <div class="flow-node-icon">📊</div>
+          <span>Google Sheets</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-label">What I do</div>
+    <h2 class="section-title reveal">Precision tools for<br>modern workflows.</h2>
+    <p class="section-desc reveal">From Notion workspaces to full automation pipelines — I build the infrastructure that keeps your business running without you.</p>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <span class="service-icon">📋</span>
+        <div class="service-name">Notion Workspace Design</div>
+        <p class="service-desc">Custom databases, linked views, rollups, and dashboards architected around how your team actually thinks. No templates — built from scratch.</p>
+        <div class="service-tags">
+          <span class="service-tag">databases</span>
+          <span class="service-tag">dashboards</span>
+          <span class="service-tag">templates</span>
+          <span class="service-tag">wikis</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <span class="service-icon">⚡</span>
+        <div class="service-name">n8n Automation Pipelines</div>
+        <p class="service-desc">Self-hosted, powerful, zero-subscription automation that connects your apps and runs complex logic — without the Zapier price tag.</p>
+        <div class="service-tags">
+          <span class="service-tag">self-hosted</span>
+          <span class="service-tag">webhooks</span>
+          <span class="service-tag">api flows</span>
+          <span class="service-tag">triggers</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <span class="service-icon">🔄</span>
+        <div class="service-name">Workflow Automation</div>
+        <p class="service-desc">End-to-end process design: identify bottlenecks, map the ideal flow, and build the automation layer that makes it run without human input.</p>
+        <div class="service-tags">
+          <span class="service-tag">process design</span>
+          <span class="service-tag">CRM</span>
+          <span class="service-tag">reporting</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <span class="service-icon">🤖</span>
+        <div class="service-name">AI Integration</div>
+        <p class="service-desc">Weave AI into your existing tools — auto-classify leads, generate reports, summarize meetings, and surface insights exactly when you need them.</p>
+        <div class="service-tags">
+          <span class="service-tag">GPT-4</span>
+          <span class="service-tag">Claude</span>
+          <span class="service-tag">embeddings</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <span class="service-icon">📊</span>
+        <div class="service-name">Data Pipelines</div>
+        <p class="service-desc">Connect your data sources — Airtable, Sheets, Postgres, APIs — and build real-time views and reports that replace manual spreadsheet work.</p>
+        <div class="service-tags">
+          <span class="service-tag">ETL</span>
+          <span class="service-tag">sheets</span>
+          <span class="service-tag">airtable</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <span class="service-icon">🧠</span>
+        <div class="service-name">Systems Consulting</div>
+        <p class="service-desc">Not sure what you need? I'll audit your current tools, identify the highest-leverage automation opportunities, and build a roadmap.</p>
+        <div class="service-tags">
+          <span class="service-tag">audit</span>
+          <span class="service-tag">roadmap</span>
+          <span class="service-tag">strategy</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="process-inner">
+      <div class="section-label">How it works</div>
+      <h2 class="section-title reveal">From idea to running<br>system in days.</h2>
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="step-num-wrap"><span class="step-num">01</span></div>
+          <div class="step-title">Discovery Call</div>
+          <p class="step-desc">We map your current workflow, pain points, and goals. I ask a lot of questions.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-num-wrap"><span class="step-num">02</span></div>
+          <div class="step-title">System Design</div>
+          <p class="step-desc">I architect the solution — databases, automations, integrations — and walk you through it before building.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-num-wrap"><span class="step-num">03</span></div>
+          <div class="step-title">Build & Test</div>
+          <p class="step-desc">I build fast, test thoroughly, and share progress updates. You get a live preview before handoff.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-num-wrap"><span class="step-num">04</span></div>
+          <div class="step-title">Handoff & Support</div>
+          <p class="step-desc">Full documentation, training session, and 2 weeks of post-launch support included in every project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="section-label">Selected work</div>
+    <h2 class="section-title reveal">Systems I've shipped.</h2>
+    <p class="section-desc reveal">A sample of projects across automation, workspace design, and data infrastructure.</p>
+    <div class="portfolio-grid reveal">
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg, #0d1017 0%, #162240 100%);">
+          <span style="position:relative;z-index:1;">📋</span>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-type">Notion + n8n</div>
+          <div class="portfolio-title">SaaS Company CRM & Onboarding System</div>
+          <p class="portfolio-desc">Full customer lifecycle in Notion — from lead capture via n8n webhook to automated onboarding sequences and health score tracking.</p>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg, #0d1017 0%, #1a1640 100%);">
+          <span style="position:relative;z-index:1;">⚡</span>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-type">n8n + AI</div>
+          <div class="portfolio-title">Content Studio Automation</div>
+          <p class="portfolio-desc">Brief → brief review → AI draft → editor queue → publish pipeline. Reduced content turnaround from 5 days to under 24 hours.</p>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg, #0d1017 0%, #142420 100%);">
+          <span style="position:relative;z-index:1;">📊</span>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-type">Data Pipeline</div>
+          <div class="portfolio-title">E-commerce Reporting Dashboard</div>
+          <p class="portfolio-desc">Live Shopify + Google Ads + Meta data flowing into a single Notion dashboard. CEO replaced 3 weekly reports with one morning glance.</p>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg, #0d1017 0%, #241420 100%);">
+          <span style="position:relative;z-index:1;">🤖</span>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-type">AI + Notion</div>
+          <div class="portfolio-title">Meeting Intelligence System</div>
+          <p class="portfolio-desc">Fireflies transcript → n8n → GPT-4 summary + action items → auto-created Notion tasks assigned to the right people. Zero manual notes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="testimonials-inner">
+      <div class="section-label">Client feedback</div>
+      <h2 class="section-title reveal">What people say.</h2>
+      <div class="testimonials-grid reveal">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">Harinivash turned what felt like an impossible problem into something elegant. Our team's productivity jumped immediately after the Notion overhaul.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SK</div>
+            <div>
+              <div class="author-name">Sarah K.</div>
+              <div class="author-role">Founder, SaaS startup</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">The n8n automation he built replaced a part-time hire. It runs flawlessly and the documentation made it easy for our team to extend it ourselves.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MR</div>
+            <div>
+              <div class="author-name">Marcus R.</div>
+              <div class="author-role">COO, digital agency</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">I've worked with three automation consultants before. Harinivash is the only one who actually understood what I needed before I finished explaining it.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">PL</div>
+            <div>
+              <div class="author-name">Priya L.</div>
+              <div class="author-role">CEO, e-commerce brand</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="section-label">Investment</div>
+    <h2 class="section-title reveal">Clear, honest pricing.</h2>
+    <p class="section-desc reveal">Project-based pricing. No hidden fees, no hourly surprises. You know the cost before we start.</p>
+    <div class="pricing-grid reveal">
+      <div class="pricing-card">
+        <div class="pricing-plan">Starter</div>
+        <div class="pricing-price"><sup>$</sup>499</div>
+        <div class="pricing-period">one-time project</div>
+        <ul class="pricing-features">
+          <li>Notion workspace setup</li>
+          <li>Up to 3 linked databases</li>
+          <li>1 automation workflow</li>
+          <li>Documentation included</li>
+          <li>1 week support</li>
+        </ul>
+        <a href="#contact" class="pricing-cta pricing-cta-outline">Get started →</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-plan">Growth</div>
+        <div class="pricing-price"><sup>$</sup>1,299</div>
+        <div class="pricing-period">one-time project</div>
+        <ul class="pricing-features">
+          <li>Full workspace architecture</li>
+          <li>Up to 10 databases + views</li>
+          <li>5 automation workflows</li>
+          <li>AI integration (1 use-case)</li>
+          <li>Training session included</li>
+          <li>2 weeks support</li>
+        </ul>
+        <a href="#contact" class="pricing-cta pricing-cta-filled">Get started →</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-plan">Scale</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-period">scoped per project</div>
+        <ul class="pricing-features">
+          <li>End-to-end system design</li>
+          <li>Unlimited workflows</li>
+          <li>Full AI integration</li>
+          <li>Team training</li>
+          <li>Monthly retainer available</li>
+        </ul>
+        <a href="#contact" class="pricing-cta pricing-cta-outline">Let's talk →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <div class="section-label">Get in touch</div>
+        <h2 class="section-title">Let's build something<br>that works for you.</h2>
+        <p style="font-size:15px;color:var(--text-2);line-height:1.75;margin-top:20px;max-width:380px;">
+          Whether you have a clear brief or just a vague sense that things could run better — I'm happy to explore it with you. The first call is free.
+        </p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉</div>
+          <div>
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-value">rharinivash28@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div>
+            <div class="contact-detail-label">Location</div>
+            <div class="contact-detail-value">India — available worldwide</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">⏱</div>
+          <div>
+            <div class="contact-detail-label">Response time</div>
+            <div class="contact-detail-value">Within 24 hours</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="you@company.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Service</label>
+            <select required>
+              <option value="" disabled selected>What do you need?</option>
+              <option>Notion Workspace Design</option>
+              <option>n8n Automation</option>
+              <option>Workflow Automation</option>
+              <option>AI Integration</option>
+              <option>Data Pipeline</option>
+              <option>Systems Consulting</option>
+              <option>Not sure — let's talk</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea placeholder="Tell me about your project, team size, and what you're hoping to achieve..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send message →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">harinivash<span>.studio</span></div>
+    <ul class="footer-links">
+      <li><a href="#services">services</a></li>
+      <li><a href="#portfolio">work</a></li>
+      <li><a href="#pricing">pricing</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+    <div class="footer-right">© 2026 Harinivash Studio</div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      cursorRing.style.left = rx + 'px';
+      cursorRing.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .service-card, .portfolio-card, .testimonial-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
+    });
+
+    // Scroll progress
+    const bar = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const p = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      bar.style.transform = `scaleX(${p})`;
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger children of grids
+          const delay = entry.target.closest('.services-grid, .portfolio-grid, .pricing-grid, .testimonials-grid, .process-steps') ? 0 : 0;
+          setTimeout(() => entry.target.classList.add('visible'), delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Stagger grid children
+    document.querySelectorAll('.services-grid, .portfolio-grid, .pricing-grid, .testimonials-grid').forEach(grid => {
+      const children = grid.children;
+      Array.from(children).forEach((child, i) => {
+        child.classList.add('reveal');
+        child.style.transitionDelay = (i * 0.08) + 's';
+        observer.observe(child);
+      });
+    });
+
+    // Form submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Message sent ✓';
+      btn.style.background = 'rgba(0,212,170,0.2)';
+      btn.style.color = 'var(--accent)';
+      btn.style.border = '1px solid rgba(0,212,170,0.4)';
+      setTimeout(() => {
+        btn.textContent = 'Send message →';
+        btn.style.cssText = '';
+        e.target.reset();
+      }, 3000);
+    }
+
+    // Animate flow nodes
+    const nodes = document.querySelectorAll('.flow-node');
+    nodes.forEach((node, i) => {
+      node.style.opacity = '0';
+      node.style.transform = 'scale(0.8)';
+      node.style.transition = 'opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+      setTimeout(() => {
+        node.style.opacity = '1';
+        node.style.transform = 'scale(1)';
+      }, 600 + i * 180);
+    });
+
+    // Mobile nav toggle
+    document.querySelector('.nav-cta').addEventListener('click', () => {});
+  </script>
+</body>
+</html>
