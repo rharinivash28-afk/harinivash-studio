@@ -72,9 +72,51 @@ a { color: inherit; text-decoration: none; }
 .eyebrow { font-family: var(--font-d); font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg3); }
 .wrap { max-width: 1380px; margin: 0 auto; padding: 0 40px; }
 section { padding: 100px 0; border-top: 1px solid var(--h); }
+/* full-screen sections */
+#about, #faq { min-height: 100vh; display: flex; align-items: center; }
+#about .wrap, #faq .wrap { width: 100%; }
+@media (max-width: 640px) { #about, #faq { min-height: auto; padding: 70px 0; } }
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.55s cubic-bezier(0.23,1,0.32,1), transform 0.55s cubic-bezier(0.23,1,0.32,1); }
 .reveal.on { opacity: 1; transform: none; }
 .skip-link { position: absolute; left: -999px; top: 0; background: var(--acc); color: #fff; padding: 0.5rem 1rem; z-index: 1000; }
+
+/* ── Custom cursor ── */
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
+  .cur-dot, .cur-ring {
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 100000;
+    transform: translate(-50%, -50%); border-radius: 50%;
+    will-change: transform, width, height;
+  }
+  .cur-dot {
+    width: 7px; height: 7px; background: var(--acc);
+    box-shadow: 0 0 10px var(--acc); transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
+  }
+  .cur-ring {
+    width: 34px; height: 34px; border: 1.5px solid var(--acc-b);
+    transition: width 0.28s var(--ease), height 0.28s var(--ease), border-color 0.28s, background 0.28s, border-radius 0.28s, opacity 0.2s;
+    backdrop-filter: invert(4%);
+  }
+  /* hovering a link/button -> grow + glow blue */
+  body.cur-hover .cur-ring {
+    width: 56px; height: 56px; border-color: var(--acc);
+    background: rgba(76,125,240,0.12);
+    box-shadow: 0 0 26px -4px var(--acc-b);
+  }
+  body.cur-hover .cur-dot { width: 4px; height: 4px; }
+  /* over a CTA button -> bigger, filled, "click" feel */
+  body.cur-cta .cur-ring {
+    width: 70px; height: 70px; border-color: transparent;
+    background: radial-gradient(circle, rgba(76,125,240,0.28), rgba(76,125,240,0.06) 70%);
+    box-shadow: 0 0 36px -2px var(--acc-b);
+  }
+  body.cur-cta .cur-dot { width: 6px; height: 6px; background: #fff; box-shadow: 0 0 14px var(--acc-hi); }
+  /* over text input/email -> I-beam style pill */
+  body.cur-text .cur-ring { width: 4px; height: 30px; border-radius: 3px; border-color: var(--acc); background: var(--acc); }
+  body.cur-text .cur-dot { opacity: 0; }
+  /* pressed */
+  body.cur-down .cur-ring { width: 26px; height: 26px; }
+}
 .skip-link:focus { left: 1rem; top: 1rem; }
 
 /* ── Nav ── */
@@ -352,6 +394,8 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
+<div class="cur-ring" id="curRing"></div>
+<div class="cur-dot" id="curDot"></div>
 
 <nav id="nav">
   <div class="wrap">
@@ -633,6 +677,44 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 </footer>
 
 <script>
+// Custom cursor (desktop pointers only)
+(function(){
+  if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  var dot = document.getElementById("curDot");
+  var ring = document.getElementById("curRing");
+  var mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  var rx = mx, ry = my;
+  document.addEventListener("mousemove", function(e){
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = "translate(" + mx + "px," + my + "px) translate(-50%,-50%)";
+  });
+  (function loop(){
+    rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+    ring.style.transform = "translate(" + rx + "px," + ry + "px) translate(-50%,-50%)";
+    requestAnimationFrame(loop);
+  })();
+  document.addEventListener("mousedown", function(){ document.body.classList.add("cur-down"); });
+  document.addEventListener("mouseup", function(){ document.body.classList.remove("cur-down"); });
+  // hide when leaving window
+  document.addEventListener("mouseleave", function(){ dot.style.opacity = ring.style.opacity = "0"; });
+  document.addEventListener("mouseenter", function(){ dot.style.opacity = ring.style.opacity = "1"; });
+
+  var ctaSel = ".btn-primary, [data-cal-link], .nav-cta";
+  var textSel = ".copy-email, input, textarea";
+  var hoverSel = "a, button, .foot-social, .nav-links a, .faq-btn, .work-link, .theme-switch, .svc-card, .work-card";
+
+  function setClass(target){
+    var b = document.body;
+    b.classList.remove("cur-hover","cur-cta","cur-text");
+    if (!target) return;
+    if (target.closest(ctaSel)) b.classList.add("cur-cta");
+    else if (target.closest(textSel)) b.classList.add("cur-text");
+    else if (target.closest(hoverSel)) b.classList.add("cur-hover");
+  }
+  document.addEventListener("mouseover", function(e){ setClass(e.target); });
+  document.addEventListener("mouseout", function(e){ if (!e.relatedTarget) setClass(null); });
+})();
+
 // Floating nav on scroll
 (function(){
   var nav = document.getElementById("nav");
