@@ -629,12 +629,14 @@ Cal.ns.discovery("ui", {
 });
 
 // Wire all booking buttons to the popup
+// Pass empty name/email so the form always starts blank for the booker
+// (overrides any logged-in-session autofill)
 document.querySelectorAll('[data-cal-link]').forEach(function(el){
   el.addEventListener("click", function(e){
     e.preventDefault();
     Cal.ns.discovery("modal", {
       calLink: "harinivash-r-du3qxx/discovery",
-      config: { theme: "dark" }
+      config: { theme: "dark", name: "", email: "" }
     });
   });
 });
