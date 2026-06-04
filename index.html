@@ -291,7 +291,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
     </ul>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
-      <a href="mailto:rharinivash28@gmail.com" class="btn btn-primary">Book a call</a>
+      <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary">Book a call</a>
       <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -304,7 +304,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
   <a href="#process" onclick="closeMob()">Process</a>
   <a href="#about" onclick="closeMob()">About</a>
   <a href="#faq" onclick="closeMob()">FAQ</a>
-  <a href="mailto:rharinivash28@gmail.com" onclick="closeMob()">Book a call</a>
+  <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' onclick="closeMob()">Book a call</a>
 </div>
 
 <main id="main">
@@ -318,7 +318,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
           <h1 class="hero-title" id="heroTitle"></h1>
           <p class="hero-sub">Most people connect tools. I design the system underneath them. If someone on your team is still manually moving data between tools every week, that is not an ops problem — that is a missing system.</p>
           <div class="hero-actions">
-            <a href="mailto:rharinivash28@gmail.com" class="btn btn-primary">Book a free call →</a>
+            <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary">Book a free call →</a>
             <a href="#work" class="btn btn-ghost">See my work</a>
           </div>
           <div class="hero-badges">
@@ -503,7 +503,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
         <h2 class="sec-title">Stop doing it manually.</h2>
         <p class="cta-desc">Pick a time. In 30 minutes you'll get a clear map of what to automate in your business and an honest price for building it. Free, no obligation.</p>
         <p class="cta-price">Most projects fall between $1,000 and $10,000+. Retainers from $500+/month.</p>
-        <a href="mailto:rharinivash28@gmail.com" class="btn btn-primary">Book a call →</a>
+        <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary">Book a call →</a>
         <p class="cta-meta">Remote worldwide · 30 min · Free</p>
       </div>
     </div>
@@ -611,5 +611,88 @@ var io = new IntersectionObserver(function(entries){
 }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
 document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
 </script>
+
+<!-- Cal.com embed: popup booking + custom thank-you note -->
+<script type="text/javascript">
+(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+
+Cal("init", "discovery", { origin: "https://cal.com" });
+
+Cal.ns.discovery("ui", {
+  theme: "dark",
+  cssVarsPerTheme: {
+    light: { "cal-brand": "#4C7DF0" },
+    dark: { "cal-brand": "#4C7DF0" }
+  },
+  hideEventTypeDetails: false,
+  layout: "month_view"
+});
+
+// Wire all booking buttons to the popup
+document.querySelectorAll('[data-cal-link]').forEach(function(el){
+  el.addEventListener("click", function(e){
+    e.preventDefault();
+    Cal.ns.discovery("modal", {
+      calLink: "harinivash-r-du3qxx/discovery",
+      config: { theme: "dark" }
+    });
+  });
+});
+
+// Custom thank-you note after a successful booking
+Cal.ns.discovery("on", {
+  action: "bookingSuccessful",
+  callback: function (e) {
+    var note = document.createElement("div");
+    note.id = "booking-thankyou";
+    note.innerHTML =
+      '<div class="ty-card">' +
+        '<div class="ty-check">&#10003;</div>' +
+        '<h3>Thank you for booking!</h3>' +
+        '<p>Your discovery call is confirmed. A calendar invite is on its way to your inbox.</p>' +
+        '<p class="ty-sub">I\'m really looking forward to working with you.</p>' +
+        '<p class="ty-sign">&mdash; Harinivash</p>' +
+        '<button onclick="document.getElementById(\'booking-thankyou\').remove()">Close</button>' +
+      '</div>';
+    document.body.appendChild(note);
+  }
+});
+</script>
+
+<style>
+#booking-thankyou {
+  position: fixed; inset: 0; z-index: 99999;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  animation: tyFade 0.3s ease;
+}
+@keyframes tyFade { from { opacity: 0; } to { opacity: 1; } }
+#booking-thankyou .ty-card {
+  background: linear-gradient(180deg, rgba(30,30,40,0.95), rgba(16,16,22,0.97));
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 20px;
+  padding: 44px 40px; max-width: 420px; width: calc(100% - 40px); text-align: center;
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.12);
+  font-family: 'Inter Tight', system-ui, sans-serif; color: #F2EFE8;
+  animation: tyPop 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes tyPop { from { transform: scale(0.92) translateY(10px); opacity: 0; } to { transform: none; opacity: 1; } }
+#booking-thankyou .ty-check {
+  width: 60px; height: 60px; margin: 0 auto 22px; border-radius: 50%;
+  background: linear-gradient(180deg, #6E97F4, #3A63C8); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 30px;
+  box-shadow: 0 8px 24px -6px rgba(76,125,240,0.6), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+#booking-thankyou h3 { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; font-size: 26px; margin-bottom: 14px; }
+#booking-thankyou p { color: #B0ACA5; font-size: 15px; line-height: 1.65; margin-bottom: 10px; }
+#booking-thankyou .ty-sub { color: #F2EFE8; font-weight: 500; }
+#booking-thankyou .ty-sign { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8A8580; margin-top: 18px; }
+#booking-thankyou button {
+  margin-top: 26px; font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: 14px;
+  background: linear-gradient(180deg, #6E97F4, #3A63C8); color: #fff; border: none;
+  padding: 11px 28px; border-radius: 10px; cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35); transition: transform 0.2s;
+}
+#booking-thankyou button:hover { transform: translateY(-2px); }
+</style>
 </body>
 </html>
