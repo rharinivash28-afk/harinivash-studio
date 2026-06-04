@@ -80,42 +80,28 @@ section { padding: 100px 0; border-top: 1px solid var(--h); }
 .reveal.on { opacity: 1; transform: none; }
 .skip-link { position: absolute; left: -999px; top: 0; background: var(--acc); color: #fff; padding: 0.5rem 1rem; z-index: 1000; }
 
-/* ── Custom cursor ── */
+/* ── Custom cursor (only over CTA + nav) ── */
 @media (hover: hover) and (pointer: fine) {
-  * { cursor: none !important; }
-  .cur-dot, .cur-ring {
-    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 100000;
-    transform: translate(-50%, -50%); border-radius: 50%;
-    will-change: transform, width, height;
-  }
-  .cur-dot {
-    width: 7px; height: 7px; background: var(--acc);
-    box-shadow: 0 0 10px var(--acc); transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
-  }
   .cur-ring {
-    width: 34px; height: 34px; border: 1.5px solid var(--acc-b);
-    transition: width 0.28s var(--ease), height 0.28s var(--ease), border-color 0.28s, background 0.28s, border-radius 0.28s, opacity 0.2s;
-    backdrop-filter: invert(4%);
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 100000;
+    transform: translate(-50%, -50%) scale(0.4); border-radius: 50%;
+    width: 64px; height: 64px; opacity: 0;
+    border: 1.5px solid var(--acc);
+    background: radial-gradient(circle, rgba(76,125,240,0.22), rgba(76,125,240,0.04) 70%);
+    box-shadow: 0 0 30px -4px var(--acc-b), inset 0 0 18px -6px var(--acc-b);
+    backdrop-filter: blur(2px);
+    transition: opacity 0.22s var(--ease), transform 0.22s var(--ease), width 0.25s var(--ease), height 0.25s var(--ease), background 0.25s, border-color 0.25s;
+    will-change: transform;
   }
-  /* hovering a link/button -> grow + glow blue */
-  body.cur-hover .cur-ring {
-    width: 56px; height: 56px; border-color: var(--acc);
-    background: rgba(76,125,240,0.12);
-    box-shadow: 0 0 26px -4px var(--acc-b);
-  }
-  body.cur-hover .cur-dot { width: 4px; height: 4px; }
-  /* over a CTA button -> bigger, filled, "click" feel */
-  body.cur-cta .cur-ring {
-    width: 70px; height: 70px; border-color: transparent;
-    background: radial-gradient(circle, rgba(76,125,240,0.28), rgba(76,125,240,0.06) 70%);
-    box-shadow: 0 0 36px -2px var(--acc-b);
-  }
-  body.cur-cta .cur-dot { width: 6px; height: 6px; background: #fff; box-shadow: 0 0 14px var(--acc-hi); }
-  /* over text input/email -> I-beam style pill */
-  body.cur-text .cur-ring { width: 4px; height: 30px; border-radius: 3px; border-color: var(--acc); background: var(--acc); }
-  body.cur-text .cur-dot { opacity: 0; }
-  /* pressed */
-  body.cur-down .cur-ring { width: 26px; height: 26px; }
+  /* active over a hover zone -> fade in + pop to full size, hide native cursor there */
+  body.cur-on .cur-ring { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  /* over nav links -> tighter ring */
+  body.cur-nav .cur-ring { width: 44px; height: 44px; }
+  /* pressed feedback */
+  body.cur-down.cur-on .cur-ring { transform: translate(-50%, -50%) scale(0.82); }
+  /* hide the native pointer only on the special zones */
+  .btn-primary, [data-cal-link], .nav-cta,
+  .nav-links a, .brand, .theme-switch { cursor: none; }
 }
 .skip-link:focus { left: 1rem; top: 1rem; }
 
@@ -395,7 +381,6 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
 <div class="cur-ring" id="curRing"></div>
-<div class="cur-dot" id="curDot"></div>
 
 <nav id="nav">
   <div class="wrap">
@@ -677,42 +662,37 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 </footer>
 
 <script>
-// Custom cursor (desktop pointers only)
+// Custom cursor — only appears over "Book a call" + navigation zones
 (function(){
   if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-  var dot = document.getElementById("curDot");
   var ring = document.getElementById("curRing");
   var mx = window.innerWidth / 2, my = window.innerHeight / 2;
-  var rx = mx, ry = my;
-  document.addEventListener("mousemove", function(e){
-    mx = e.clientX; my = e.clientY;
-    dot.style.transform = "translate(" + mx + "px," + my + "px) translate(-50%,-50%)";
-  });
+  var rx = mx, ry = my, active = false;
+  // zones that trigger the custom cursor
+  var navSel = ".nav-links a, .brand, .theme-switch";
+  var ctaSel = ".btn-primary, [data-cal-link], .nav-cta";
+  var zoneSel = ctaSel + ", " + navSel;
+
+  document.addEventListener("mousemove", function(e){ mx = e.clientX; my = e.clientY; });
   (function loop(){
-    rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
-    ring.style.transform = "translate(" + rx + "px," + ry + "px) translate(-50%,-50%)";
+    rx += (mx - rx) * 0.22; ry += (my - ry) * 0.22;
+    ring.style.left = rx + "px"; ring.style.top = ry + "px";
     requestAnimationFrame(loop);
   })();
   document.addEventListener("mousedown", function(){ document.body.classList.add("cur-down"); });
   document.addEventListener("mouseup", function(){ document.body.classList.remove("cur-down"); });
-  // hide when leaving window
-  document.addEventListener("mouseleave", function(){ dot.style.opacity = ring.style.opacity = "0"; });
-  document.addEventListener("mouseenter", function(){ dot.style.opacity = ring.style.opacity = "1"; });
 
-  var ctaSel = ".btn-primary, [data-cal-link], .nav-cta";
-  var textSel = ".copy-email, input, textarea";
-  var hoverSel = "a, button, .foot-social, .nav-links a, .faq-btn, .work-link, .theme-switch, .svc-card, .work-card";
-
-  function setClass(target){
+  document.addEventListener("mouseover", function(e){
     var b = document.body;
-    b.classList.remove("cur-hover","cur-cta","cur-text");
-    if (!target) return;
-    if (target.closest(ctaSel)) b.classList.add("cur-cta");
-    else if (target.closest(textSel)) b.classList.add("cur-text");
-    else if (target.closest(hoverSel)) b.classList.add("cur-hover");
-  }
-  document.addEventListener("mouseover", function(e){ setClass(e.target); });
-  document.addEventListener("mouseout", function(e){ if (!e.relatedTarget) setClass(null); });
+    var zone = e.target.closest && e.target.closest(zoneSel);
+    if (zone){
+      b.classList.add("cur-on");
+      b.classList.toggle("cur-nav", !!e.target.closest(navSel) && !e.target.closest(ctaSel));
+      if (!active){ rx = mx; ry = my; active = true; } // snap in at pointer
+    } else {
+      b.classList.remove("cur-on","cur-nav"); active = false;
+    }
+  });
 })();
 
 // Floating nav on scroll
@@ -778,21 +758,20 @@ document.querySelectorAll(".btn-primary.magnetic").forEach(function(btn){
     var px = (mx - r.width / 2) / r.width;
     var py = (my - r.height / 2) / r.height;
     btn.style.transform = "translate(" + (px * 8) + "px," + (py * 8 - 2) + "px)";
-    // emit a trail of sparks, denser
+    // emit a light trail of sparks
     var now = Date.now();
-    if (now - lastSpark > 28){
+    if (now - lastSpark > 60){
       lastSpark = now;
-      var n = 2 + Math.floor(Math.random() * 2); // 2-3 per tick
-      for (var k = 0; k < n; k++) emitSpark(e.clientX, e.clientY, false);
+      emitSpark(e.clientX, e.clientY, false);
     }
   });
   btn.addEventListener("mouseenter", function(e){
-    // small welcome burst
-    for (var k = 0; k < 10; k++) emitSpark(e.clientX, e.clientY, true);
+    // subtle welcome burst
+    for (var k = 0; k < 5; k++) emitSpark(e.clientX, e.clientY, true);
   });
   btn.addEventListener("click", function(e){
-    // big celebratory burst
-    for (var k = 0; k < 26; k++) emitSpark(e.clientX, e.clientY, true);
+    // celebratory burst (kept lively on click)
+    for (var k = 0; k < 14; k++) emitSpark(e.clientX, e.clientY, true);
   });
   btn.addEventListener("mouseleave", function(){
     btn.style.transform = "";
