@@ -109,6 +109,56 @@ nav.floating .wrap { padding-left: 26px; padding-right: 26px; }
 .btn-primary:hover { box-shadow: 0 12px 34px -10px var(--acc-b), 0 0 30px -8px var(--acc-b), inset 0 1px 0 rgba(255,255,255,0.45); transform: translateY(-2px); }
 .btn-ghost { background: var(--glass); border-color: var(--glass-brd); color: var(--fg1); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12); }
 .btn-ghost:hover { border-color: var(--hs); background: var(--glass-2); transform: translateY(-2px); }
+/* Magnetic primary button: cursor-following sheen + smooth pull */
+.btn-primary.magnetic { transition: transform 0.18s var(--ease), box-shadow 0.25s var(--ease); will-change: transform; }
+.btn-primary .btn-sheen {
+  position: absolute; width: 180px; height: 180px; border-radius: 50%;
+  left: var(--mx, 50%); top: var(--my, 50%); transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.18) 25%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s ease; pointer-events: none; mix-blend-mode: soft-light; z-index: 0;
+}
+.btn-primary:hover .btn-sheen { opacity: 1; }
+.btn-primary > * { position: relative; z-index: 1; }
+/* sparkle particles emitted on hover */
+.spark {
+  position: fixed; width: 6px; height: 6px; border-radius: 50%;
+  background: #cfe0ff; box-shadow: 0 0 8px #6E97F4, 0 0 14px #4C7DF0;
+  pointer-events: none; z-index: 9000;
+}
+/* Social brand glow on hover */
+.foot-social { transition: all 0.28s var(--ease); }
+.foot-social.ig:hover {
+  color: #fff; border-color: rgba(225,48,108,0.6);
+  background: linear-gradient(45deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888);
+  box-shadow: 0 10px 28px -8px rgba(220,39,67,0.7), 0 0 26px -4px rgba(204,35,102,0.6), inset 0 1px 0 rgba(255,255,255,0.4);
+  transform: translateY(-3px);
+}
+.foot-social.xt:hover {
+  color: #000; border-color: rgba(255,255,255,0.8); background: #fff;
+  box-shadow: 0 10px 28px -8px rgba(255,255,255,0.5), 0 0 26px -6px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.6);
+  transform: translateY(-3px);
+}
+.foot-social.li:hover {
+  color: #fff; border-color: rgba(10,102,194,0.7);
+  background: linear-gradient(180deg, #0a8af0, #0a66c2);
+  box-shadow: 0 10px 28px -8px rgba(10,102,194,0.8), 0 0 26px -4px rgba(10,102,194,0.7), inset 0 1px 0 rgba(255,255,255,0.4);
+  transform: translateY(-3px);
+}
+/* Copy-email affordance + toast */
+.copy-email { cursor: pointer; transition: color 0.2s; position: relative; }
+.copy-email:hover { color: var(--acc-hi); }
+.copy-toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: linear-gradient(180deg, rgba(30,30,40,0.96), rgba(16,16,22,0.98));
+  border: 1px solid var(--glass-brd); color: #F2EFE8;
+  font-family: var(--font-d); font-size: 13px; letter-spacing: 0.02em;
+  padding: 12px 20px; border-radius: 12px; z-index: 99999;
+  box-shadow: 0 16px 40px -16px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.12);
+  display: flex; align-items: center; gap: 9px; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s var(--ease);
+}
+.copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.copy-toast .ct-check { color: var(--ok); font-size: 15px; }
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
 .hamburger span { width: 22px; height: 1.5px; background: var(--fg1); display: block; }
 
@@ -291,7 +341,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
     </ul>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
-      <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary">Book a call</a>
+      <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary magnetic"><span class="btn-sheen"></span><span>Book a call</span></a>
       <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -318,7 +368,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
           <h1 class="hero-title" id="heroTitle"></h1>
           <p class="hero-sub">Most people connect tools. I design the system underneath them. If someone on your team is still manually moving data between tools every week, that is not an ops problem — that is a missing system.</p>
           <div class="hero-actions">
-            <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary">Book a free call →</a>
+            <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary magnetic"><span class="btn-sheen"></span><span>Book a free call →</span></a>
             <a href="#work" class="btn btn-ghost">See my work</a>
           </div>
           <div class="hero-badges">
@@ -503,7 +553,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
         <h2 class="sec-title">Stop doing it manually.</h2>
         <p class="cta-desc">Pick a time. In 30 minutes you'll get a clear map of what to automate in your business and an honest price for building it. Free, no obligation.</p>
         <p class="cta-price">Most projects fall between $1,000 and $10,000+. Retainers from $500+/month.</p>
-        <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary">Book a call →</a>
+        <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary magnetic"><span class="btn-sheen"></span><span>Book a call →</span></a>
         <p class="cta-meta">Remote worldwide · 30 min · Free</p>
       </div>
     </div>
@@ -517,13 +567,13 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
         <div class="foot-brand">Harinivash Studio</div>
         <p class="foot-tag">n8n automation and Notion systems for teams who need it built properly. Remote worldwide.</p>
         <div class="foot-socials">
-          <a href="https://instagram.com/harinivash_consultant" target="_blank" rel="noopener" class="foot-social" aria-label="Instagram">
+          <a href="https://instagram.com/harinivash_consultant" target="_blank" rel="noopener" class="foot-social ig" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
           </a>
-          <a href="https://x.com/Harinivah_R" target="_blank" rel="noopener" class="foot-social" aria-label="X (Twitter)">
+          <a href="https://x.com/Harinivah_R" target="_blank" rel="noopener" class="foot-social xt" aria-label="X (Twitter)">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
           </a>
-          <a href="https://linkedin.com/in/harinivashr" target="_blank" rel="noopener" class="foot-social" aria-label="LinkedIn">
+          <a href="https://linkedin.com/in/harinivashr" target="_blank" rel="noopener" class="foot-social li" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
           </a>
         </div>
@@ -540,7 +590,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
       <div class="foot-col">
         <h5>Contact</h5>
         <ul>
-          <li><a href="mailto:rharinivash28@gmail.com">rharinivash28@gmail.com</a></li>
+          <li><a href="#" class="copy-email" data-email="rharinivash28@gmail.com" role="button" title="Click to copy">rharinivash28@gmail.com</a></li>
           <li><a href="https://harinivash.studio">harinivash.studio</a></li>
         </ul>
       </div>
@@ -604,6 +654,76 @@ function toggleFaq(btn){
 document.getElementById("hamburger").addEventListener("click", function(){ document.getElementById("mob").classList.add("open"); });
 document.getElementById("mobClose").addEventListener("click", closeMob);
 function closeMob(){ document.getElementById("mob").classList.remove("open"); }
+
+// Magnetic "Book a call" buttons: cursor pull + sheen follow + spark emit
+document.querySelectorAll(".btn-primary.magnetic").forEach(function(btn){
+  var sheen = btn.querySelector(".btn-sheen");
+  var lastSpark = 0;
+  btn.addEventListener("mousemove", function(e){
+    var r = btn.getBoundingClientRect();
+    var mx = e.clientX - r.left, my = e.clientY - r.top;
+    // sheen follows cursor
+    if (sheen){ sheen.style.setProperty("--mx", mx + "px"); sheen.style.setProperty("--my", my + "px"); }
+    // magnetic pull toward cursor (subtle)
+    var px = (mx - r.width / 2) / r.width;
+    var py = (my - r.height / 2) / r.height;
+    btn.style.transform = "translate(" + (px * 7) + "px," + (py * 7 - 2) + "px)";
+    // emit sparks, throttled
+    var now = Date.now();
+    if (now - lastSpark > 55){
+      lastSpark = now;
+      emitSpark(e.clientX, e.clientY);
+    }
+  });
+  btn.addEventListener("mouseleave", function(){
+    btn.style.transform = "";
+  });
+});
+function emitSpark(x, y){
+  var s = document.createElement("div");
+  s.className = "spark";
+  s.style.left = x + "px"; s.style.top = y + "px";
+  document.body.appendChild(s);
+  var ang = Math.random() * Math.PI * 2;
+  var dist = Math.random() * 26 + 12;
+  var dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist - 10;
+  s.animate([
+    { transform: "translate(-50%,-50%) scale(1)", opacity: 1 },
+    { transform: "translate(calc(-50% + " + dx + "px),calc(-50% + " + dy + "px)) scale(0)", opacity: 0 }
+  ], { duration: 650, easing: "cubic-bezier(0.22,1,0.36,1)", fill: "forwards" });
+  setTimeout(function(){ s.remove(); }, 680);
+}
+
+// Click footer email to copy to clipboard
+document.querySelectorAll(".copy-email").forEach(function(el){
+  el.addEventListener("click", function(e){
+    e.preventDefault();
+    var email = el.getAttribute("data-email");
+    var done = function(){ showCopyToast("Email copied to clipboard"); };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(email).then(done).catch(function(){ fallbackCopy(email); done(); });
+    } else { fallbackCopy(email); done(); }
+  });
+});
+function fallbackCopy(text){
+  var ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); } catch(err){}
+  ta.remove();
+}
+var toastEl;
+function showCopyToast(msg){
+  if (!toastEl){
+    toastEl = document.createElement("div");
+    toastEl.className = "copy-toast";
+    document.body.appendChild(toastEl);
+  }
+  toastEl.innerHTML = '<span class="ct-check">&#10003;</span>' + msg;
+  toastEl.classList.add("show");
+  clearTimeout(toastEl._t);
+  toastEl._t = setTimeout(function(){ toastEl.classList.remove("show"); }, 2200);
+}
 
 // Scroll reveal
 var io = new IntersectionObserver(function(entries){
