@@ -73,7 +73,18 @@ nav .wrap { height: 100%; display: flex; align-items: center; justify-content: s
 .btn-primary:hover { background: var(--acc-hi); box-shadow: 0 6px 26px -6px var(--acc-b); transform: translateY(-1px); }
 .particle-btn { transition: transform 0.1s ease, background 0.2s, box-shadow 0.2s; }
 .particle-btn.bursting { transform: scale(0.95); }
-.particle { position: fixed; width: 8px; height: 8px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px var(--acc), 0 0 22px var(--acc-hi); pointer-events: none; z-index: 1000; margin-left: -4px; margin-top: -4px; }
+.particle {
+  position: fixed; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--acc); box-shadow: 0 0 12px var(--acc), 0 0 24px var(--acc-hi);
+  pointer-events: none; z-index: 9000; margin-left: -4.5px; margin-top: -4.5px;
+  opacity: 0;
+  animation: particleBurst 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes particleBurst {
+  0%   { transform: translate(0,0) scale(0); opacity: 1; }
+  40%  { transform: translate(calc(var(--dx) * 0.6), calc(var(--dy) * 0.6)) scale(1.5); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+}
 .btn-ghost { background: transparent; border-color: var(--h); color: var(--fg1); }
 .btn-ghost:hover { border-color: var(--hs); background: var(--h); }
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
@@ -546,38 +557,33 @@ function burstParticles(btn){
   var rect = btn.getBoundingClientRect();
   var cx = rect.left + rect.width / 2;
   var cy = rect.top + rect.height / 2;
-  var COUNT = 16;
+  var COUNT = 18;
   for (var i = 0; i < COUNT; i++){
-    (function(i){
-      var p = document.createElement("div");
-      p.className = "particle";
-      p.style.left = cx + "px";
-      p.style.top = cy + "px";
-      document.body.appendChild(p);
-      // full 360° spread, wider radius
-      var angle = (Math.PI * 2 * i) / COUNT + (Math.random() - 0.5) * 0.6;
-      var dist = Math.random() * 60 + 50;
-      var dx = Math.cos(angle) * dist;
-      var dy = Math.sin(angle) * dist;
-      p.animate([
-        { transform: "translate(0,0) scale(0)", opacity: 1 },
-        { transform: "translate(" + dx*0.6 + "px," + dy*0.6 + "px) scale(1.4)", opacity: 1, offset: 0.4 },
-        { transform: "translate(" + dx + "px," + dy + "px) scale(0)", opacity: 0 }
-      ], { duration: 700, delay: i * 18, easing: "cubic-bezier(0.22,1,0.36,1)", fill: "forwards" });
-      setTimeout(function(){ p.remove(); }, 760 + i * 18);
-    })(i);
+    var p = document.createElement("div");
+    p.className = "particle";
+    var angle = (Math.PI * 2 * i) / COUNT + (Math.random() - 0.5) * 0.5;
+    var dist = Math.random() * 60 + 55;
+    p.style.left = cx + "px";
+    p.style.top = cy + "px";
+    // pass travel distance to the CSS keyframe via custom props
+    p.style.setProperty("--dx", (Math.cos(angle) * dist) + "px");
+    p.style.setProperty("--dy", (Math.sin(angle) * dist) + "px");
+    p.style.animationDelay = (i * 16) + "ms";
+    document.body.appendChild(p);
+    (function(node){ setTimeout(function(){ node.remove(); }, 800 + i * 16); })(p);
   }
 }
 document.querySelectorAll(".particle-btn").forEach(function(btn){
   btn.addEventListener("click", function(e){
+    var href = btn.getAttribute("href");
+    // Burst first, always
     burstParticles(btn);
     btn.classList.add("bursting");
     setTimeout(function(){ btn.classList.remove("bursting"); }, 200);
-    // If this is a mailto/link, let the burst play before navigating
-    var href = btn.getAttribute("href");
+    // Hold mailto navigation until the burst has clearly played
     if (href && href.indexOf("mailto:") === 0){
       e.preventDefault();
-      setTimeout(function(){ window.location.href = href; }, 550);
+      setTimeout(function(){ window.location.href = href; }, 750);
     }
   });
 });
