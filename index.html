@@ -101,8 +101,32 @@ nav.floating .wrap { padding-left: 26px; padding-right: 26px; }
 .nav-links a { font-family: var(--font-d); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg3); transition: color 0.2s; }
 .nav-links a:hover { color: var(--fg1); }
 .nav-right { display: flex; align-items: center; gap: 14px; }
-.theme-toggle { background: var(--glass); border: 1px solid var(--glass-brd); color: var(--fg2); width: 36px; height: 36px; border-radius: 10px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14); }
-.theme-toggle:hover { border-color: var(--hs); color: var(--fg1); transform: translateY(-1px); }
+/* Animated sun/moon theme switch */
+.theme-switch { background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; }
+.ts-track {
+  position: relative; width: 60px; height: 30px; border-radius: 30px;
+  background: linear-gradient(180deg, rgba(20,28,55,0.9), rgba(12,16,32,0.95));
+  border: 1px solid var(--glass-brd);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+  display: flex; align-items: center; transition: background 0.4s var(--ease), border-color 0.3s;
+  overflow: hidden;
+}
+html.light .ts-track { background: linear-gradient(180deg, #aee0ff, #6cc0f5); box-shadow: inset 0 2px 6px rgba(0,80,140,0.25), inset 0 1px 0 rgba(255,255,255,0.5); }
+.ts-icon { position: absolute; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); z-index: 1; }
+.ts-icon svg { width: 14px; height: 14px; }
+.ts-sun { left: 8px; color: #ffd84d; opacity: 0; transform: scale(0.5) rotate(-90deg); }
+.ts-moon { right: 8px; color: #cdd6ff; opacity: 1; transform: scale(1); }
+html.light .ts-sun { opacity: 1; transform: scale(1) rotate(0deg); }
+html.light .ts-moon { opacity: 0; transform: scale(0.5) rotate(90deg); }
+.ts-thumb {
+  position: absolute; left: 3px; width: 24px; height: 24px; border-radius: 50%; z-index: 2;
+  background: radial-gradient(circle at 35% 30%, #fff, #c8d2ff 70%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5), 0 0 14px rgba(120,150,255,0.5), inset 0 1px 0 rgba(255,255,255,0.8);
+  transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), background 0.4s, box-shadow 0.4s;
+}
+html.light .ts-thumb { transform: translateX(30px); background: radial-gradient(circle at 35% 30%, #fff7d6, #ffd84d 70%); box-shadow: 0 2px 10px rgba(180,130,0,0.4), 0 0 18px rgba(255,200,60,0.7), inset 0 1px 0 rgba(255,255,255,0.9); }
+.theme-switch:hover .ts-track { border-color: var(--hs); }
+.theme-switch:hover .ts-thumb { box-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 0 20px rgba(120,150,255,0.7), inset 0 1px 0 rgba(255,255,255,0.8); }
 .btn { font-family: var(--font-b); font-weight: 500; font-size: 13px; padding: 9px 18px; border-radius: 10px; cursor: pointer; transition: all 0.25s var(--ease); display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; white-space: nowrap; position: relative; overflow: hidden; }
 .btn::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.06) 40%, transparent 60%); pointer-events: none; }
 .btn-primary { background: linear-gradient(180deg, var(--acc-hi), var(--acc-lo)); color: #fff; box-shadow: 0 6px 18px -8px var(--acc-b), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -2px 6px rgba(0,0,0,0.18); }
@@ -340,7 +364,13 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <button class="theme-switch" id="themeToggle" aria-label="Toggle theme">
+        <span class="ts-track">
+          <span class="ts-icon ts-sun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg></span>
+          <span class="ts-icon ts-moon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+          <span class="ts-thumb"></span>
+        </span>
+      </button>
       <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary magnetic"><span class="btn-sheen"></span><span>Book a call</span></a>
       <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -630,16 +660,14 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
   el.appendChild(cur);
 })();
 
-// Theme toggle
+// Theme toggle (animated switch)
 (function(){
   var saved = localStorage.getItem("theme") || "dark";
   if (saved === "light") document.documentElement.classList.add("light");
-  document.getElementById("themeToggle").textContent = saved === "light" ? "☀️" : "🌙";
 })();
 document.getElementById("themeToggle").addEventListener("click", function(){
   var isLight = document.documentElement.classList.toggle("light");
   localStorage.setItem("theme", isLight ? "light" : "dark");
-  this.textContent = isLight ? "☀️" : "🌙";
 });
 
 // FAQ
@@ -667,31 +695,56 @@ document.querySelectorAll(".btn-primary.magnetic").forEach(function(btn){
     // magnetic pull toward cursor (subtle)
     var px = (mx - r.width / 2) / r.width;
     var py = (my - r.height / 2) / r.height;
-    btn.style.transform = "translate(" + (px * 7) + "px," + (py * 7 - 2) + "px)";
-    // emit sparks, throttled
+    btn.style.transform = "translate(" + (px * 8) + "px," + (py * 8 - 2) + "px)";
+    // emit a trail of sparks, denser
     var now = Date.now();
-    if (now - lastSpark > 55){
+    if (now - lastSpark > 28){
       lastSpark = now;
-      emitSpark(e.clientX, e.clientY);
+      var n = 2 + Math.floor(Math.random() * 2); // 2-3 per tick
+      for (var k = 0; k < n; k++) emitSpark(e.clientX, e.clientY, false);
     }
+  });
+  btn.addEventListener("mouseenter", function(e){
+    // small welcome burst
+    for (var k = 0; k < 10; k++) emitSpark(e.clientX, e.clientY, true);
+  });
+  btn.addEventListener("click", function(e){
+    // big celebratory burst
+    for (var k = 0; k < 26; k++) emitSpark(e.clientX, e.clientY, true);
   });
   btn.addEventListener("mouseleave", function(){
     btn.style.transform = "";
   });
 });
-function emitSpark(x, y){
+var SPARK_COLORS = [
+  { c: "#cfe0ff", g: "#6E97F4", g2: "#4C7DF0" },
+  { c: "#ffffff", g: "#9ab4ff", g2: "#6E97F4" },
+  { c: "#a9c6ff", g: "#4C7DF0", g2: "#3A63C8" },
+  { c: "#e7f0ff", g: "#7c5af0", g2: "#4C7DF0" }
+];
+function emitSpark(x, y, burst){
   var s = document.createElement("div");
   s.className = "spark";
-  s.style.left = x + "px"; s.style.top = y + "px";
+  var col = SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)];
+  var size = Math.random() * 5 + 3; // 3-8px
+  s.style.width = size + "px"; s.style.height = size + "px";
+  s.style.background = col.c;
+  s.style.boxShadow = "0 0 8px " + col.g + ", 0 0 16px " + col.g2;
+  // slight scatter around origin
+  var ox = (Math.random() - 0.5) * 14, oy = (Math.random() - 0.5) * 14;
+  s.style.left = (x + ox) + "px"; s.style.top = (y + oy) + "px";
   document.body.appendChild(s);
   var ang = Math.random() * Math.PI * 2;
-  var dist = Math.random() * 26 + 12;
-  var dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist - 10;
+  var dist = burst ? (Math.random() * 70 + 30) : (Math.random() * 40 + 16);
+  var dx = Math.cos(ang) * dist;
+  var dy = Math.sin(ang) * dist - (burst ? 6 : 16); // drift up a touch
+  var dur = burst ? 750 : 620;
   s.animate([
     { transform: "translate(-50%,-50%) scale(1)", opacity: 1 },
+    { transform: "translate(calc(-50% + " + dx*0.6 + "px),calc(-50% + " + dy*0.6 + "px)) scale(1.1)", opacity: 1, offset: 0.4 },
     { transform: "translate(calc(-50% + " + dx + "px),calc(-50% + " + dy + "px)) scale(0)", opacity: 0 }
-  ], { duration: 650, easing: "cubic-bezier(0.22,1,0.36,1)", fill: "forwards" });
-  setTimeout(function(){ s.remove(); }, 680);
+  ], { duration: dur, easing: "cubic-bezier(0.22,1,0.36,1)", fill: "forwards" });
+  setTimeout(function(){ s.remove(); }, dur + 30);
 }
 
 // Click footer email to copy to clipboard
