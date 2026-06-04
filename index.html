@@ -73,7 +73,7 @@ nav .wrap { height: 100%; display: flex; align-items: center; justify-content: s
 .btn-primary:hover { background: var(--acc-hi); box-shadow: 0 6px 26px -6px var(--acc-b); transform: translateY(-1px); }
 .particle-btn { transition: transform 0.1s ease, background 0.2s, box-shadow 0.2s; }
 .particle-btn.bursting { transform: scale(0.95); }
-.particle { position: fixed; width: 5px; height: 5px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 8px var(--acc); pointer-events: none; z-index: 1000; }
+.particle { position: fixed; width: 8px; height: 8px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px var(--acc), 0 0 22px var(--acc-hi); pointer-events: none; z-index: 1000; margin-left: -4px; margin-top: -4px; }
 .btn-ghost { background: transparent; border-color: var(--h); color: var(--fg1); }
 .btn-ghost:hover { border-color: var(--hs); background: var(--h); }
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
@@ -546,29 +546,39 @@ function burstParticles(btn){
   var rect = btn.getBoundingClientRect();
   var cx = rect.left + rect.width / 2;
   var cy = rect.top + rect.height / 2;
-  for (var i = 0; i < 6; i++){
+  var COUNT = 16;
+  for (var i = 0; i < COUNT; i++){
     (function(i){
       var p = document.createElement("div");
       p.className = "particle";
       p.style.left = cx + "px";
       p.style.top = cy + "px";
       document.body.appendChild(p);
-      var dx = (i % 2 ? 1 : -1) * (Math.random() * 50 + 20);
-      var dy = -(Math.random() * 50 + 20);
+      // full 360° spread, wider radius
+      var angle = (Math.PI * 2 * i) / COUNT + (Math.random() - 0.5) * 0.6;
+      var dist = Math.random() * 60 + 50;
+      var dx = Math.cos(angle) * dist;
+      var dy = Math.sin(angle) * dist;
       p.animate([
         { transform: "translate(0,0) scale(0)", opacity: 1 },
-        { transform: "translate(" + dx*0.5 + "px," + dy*0.5 + "px) scale(1)", opacity: 1, offset: 0.5 },
+        { transform: "translate(" + dx*0.6 + "px," + dy*0.6 + "px) scale(1.4)", opacity: 1, offset: 0.4 },
         { transform: "translate(" + dx + "px," + dy + "px) scale(0)", opacity: 0 }
-      ], { duration: 600, delay: i * 100, easing: "ease-out", fill: "forwards" });
-      setTimeout(function(){ p.remove(); }, 600 + i * 100 + 50);
+      ], { duration: 700, delay: i * 18, easing: "cubic-bezier(0.22,1,0.36,1)", fill: "forwards" });
+      setTimeout(function(){ p.remove(); }, 760 + i * 18);
     })(i);
   }
 }
 document.querySelectorAll(".particle-btn").forEach(function(btn){
-  btn.addEventListener("click", function(){
+  btn.addEventListener("click", function(e){
     burstParticles(btn);
     btn.classList.add("bursting");
     setTimeout(function(){ btn.classList.remove("bursting"); }, 200);
+    // If this is a mailto/link, let the burst play before navigating
+    var href = btn.getAttribute("href");
+    if (href && href.indexOf("mailto:") === 0){
+      e.preventDefault();
+      setTimeout(function(){ window.location.href = href; }, 550);
+    }
   });
 });
 
