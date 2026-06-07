@@ -82,14 +82,23 @@ section { padding: 100px 0; border-top: 1px solid var(--h); }
 
 .skip-link:focus { left: 1rem; top: 1rem; }
 
-/* ── Nav (transparent bar, visible controls) ── */
+/* ── Nav (transparent at top, glossy on scroll) ── */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 64px;
-  background: transparent; border: none; box-shadow: none;
-  transition: height 0.35s var(--ease); }
+  background: transparent; border-bottom: 1px solid transparent; box-shadow: none;
+  backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
+  transition: background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), backdrop-filter 0.4s var(--ease), height 0.35s var(--ease); }
 nav .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; }
-/* Keep logo + links readable over any background with a soft text shadow */
-.brand, .nav-links a { text-shadow: 0 1px 14px rgba(0,0,0,0.45); }
+/* Glossy frosted state once scrolled */
+nav.scrolled {
+  background: color-mix(in srgb, var(--s0) 62%, transparent);
+  backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur);
+  border-bottom: 1px solid var(--glass-brd);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 30px -20px rgba(0,0,0,0.5);
+}
+/* readable controls over hero when transparent; shadow fades once glossy */
+.brand, .nav-links a { text-shadow: 0 1px 14px rgba(0,0,0,0.45); transition: text-shadow 0.4s; }
 html.light .brand, html.light .nav-links a { text-shadow: 0 1px 12px rgba(255,255,255,0.6); }
+nav.scrolled .brand, nav.scrolled .nav-links a { text-shadow: none; }
 .brand { font-family: var(--font-d); font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; display: flex; align-items: center; gap: 9px; }
 .brand-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 10px var(--acc); animation: pulse 2.4s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
@@ -629,6 +638,17 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 </footer>
 
 <script>
+// Glossy nav on scroll (transparent at top)
+(function(){
+  var nav = document.getElementById("nav");
+  function onScroll(){
+    if (window.scrollY > 24) nav.classList.add("scrolled");
+    else nav.classList.remove("scrolled");
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
+
 // Hero typewriter words
 (function(){
   var words = ["Stop","being","your","own","automation."];
