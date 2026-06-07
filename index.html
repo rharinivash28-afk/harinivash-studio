@@ -156,7 +156,7 @@ html.light .ts-thumb { transform: translateX(30px); background: radial-gradient(
 /* ── Hero ── */
 #hero { padding-top: 150px; padding-bottom: 70px; border-top: none; position: relative; overflow: hidden; }
 #hero::before { content:''; position:absolute; top:-200px; right:-150px; width:700px; height:700px; background: radial-gradient(circle, rgba(76,125,240,0.10) 0%, transparent 68%); pointer-events:none; }
-.hero-inner { display: grid; grid-template-columns: 1fr 460px; gap: 70px; align-items: center; position: relative; z-index: 1; }
+.hero-inner { display: grid; grid-template-columns: 1fr 500px; gap: 60px; align-items: center; position: relative; z-index: 1; }
 .hero-byline { font-family: var(--font-d); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg1); opacity: 0.5; margin-bottom: 22px; }
 .hero-title { font-family: var(--font-d); font-size: clamp(1.7rem, 4.5vw, 2.5rem); font-weight: 400; line-height: 1.32; letter-spacing: -0.03em; margin-bottom: 26px; }
 .hero-word { display: inline-block; opacity: 0; transform: translateY(16px); animation: wordUp 580ms cubic-bezier(0.22,1,0.36,1) forwards; }
@@ -198,6 +198,28 @@ html.light .ts-thumb { transform: translateX(30px); background: radial-gradient(
 .wfp-connector { width: 1px; height: 14px; background: var(--hs); margin: 0 auto; position: relative; overflow: hidden; }
 .wfp-connector.lit::after { content: ''; position: absolute; inset: 0; background: var(--acc); box-shadow: 0 0 8px var(--acc); animation: connFlow 0.5s ease forwards; }
 @keyframes connFlow { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+
+/* hero stage: animated node-network + floating chips behind the glass card */
+.hero-stage { position: relative; width: 100%; min-height: 500px; display: flex; align-items: center; justify-content: center; perspective: 1200px; }
+.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; z-index: 1; opacity: 0; animation: fadeIn 1.3s ease 0.5s forwards; transition: transform 0.25s var(--ease); }
+.net-line { fill: none; stroke: url(#netGrad); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 5 9; opacity: 0.55; animation: dashFlow 1.3s linear infinite; }
+@keyframes dashFlow { to { stroke-dashoffset: -28; } }
+.net-ring { fill: rgba(20,22,30,0.7); stroke: var(--acc-b); stroke-width: 1.4; }
+html.light .net-ring { fill: rgba(255,255,255,0.85); }
+.net-hub { fill: none; stroke: var(--acc); stroke-width: 1.6; opacity: 0.5; animation: hubPulse 2.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+@keyframes hubPulse { 0%,100%{opacity:0.5; transform:scale(1)} 50%{opacity:0.15; transform:scale(1.25)} }
+.net-ico { font-size: 16px; }
+.net-cap { font-family: var(--font-d); font-size: 8px; fill: var(--fg3); letter-spacing: 0.05em; text-anchor: middle; }
+.net-dot { fill: #dbe8ff; filter: drop-shadow(0 0 6px var(--acc)); }
+.float-chip { position: absolute; z-index: 2; font-family: var(--font-d); font-size: 11px; color: var(--fg1); background: var(--glass-2); border: 1px solid var(--glass-brd); border-radius: 10px; padding: 7px 11px; display: flex; align-items: center; gap: 7px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: var(--glass-shadow); white-space: nowrap; transition: transform 0.25s var(--ease); }
+.float-chip .fc-dot { width: 6px; height: 6px; border-radius: 50%; box-shadow: 0 0 8px currentColor; }
+.fc1 { top: 3%; left: -2%; color: var(--acc-hi); animation: floaty 6s ease-in-out infinite; }
+.fc2 { top: 16%; right: -3%; color: var(--ok); animation: floaty 7s ease-in-out infinite 0.6s; }
+.fc3 { bottom: 16%; left: -4%; color: var(--warn); animation: floaty 6.5s ease-in-out infinite 0.3s; }
+.fc4 { bottom: 4%; right: 0%; color: var(--vio); animation: floaty 7.4s ease-in-out infinite 0.9s; }
+@keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.hero-stage .hero-visual { max-width: 320px; z-index: 3; transition: transform 0.25s var(--ease); }
+@media (max-width: 980px) { .hero-stage { min-height: 440px; } .float-chip { display: none; } }
 
 /* ── Logo / trust strip ── */
 .trust { padding: 28px 0 6px; border-top: none; }
@@ -420,33 +442,72 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
             <span class="hero-badge badge-warn"><span class="hero-badge-dot"></span>AI Agents &amp; Web</span>
           </div>
         </div>
-        <div class="hero-visual" id="wfp">
-          <div class="wfp-head">
-            <span class="wfp-label">Live Workflow</span>
-            <span class="wfp-status">Running</span>
-          </div>
-          <div class="wfp-node">
-            <div class="wfp-ico" style="background:rgba(76,125,240,0.12);">⚡</div>
-            <div><div class="wfp-name">Stripe Payment</div><div class="wfp-sub">trigger · webhook received</div></div>
-            <span class="wfp-popout">+0ms</span>
-          </div>
-          <div class="wfp-connector"></div>
-          <div class="wfp-node">
-            <div class="wfp-ico" style="background:rgba(255,255,255,0.06);">📝</div>
-            <div><div class="wfp-name">Notion Database</div><div class="wfp-sub">create record · invoice</div></div>
-            <span class="wfp-popout">+120ms</span>
-          </div>
-          <div class="wfp-connector"></div>
-          <div class="wfp-node">
-            <div class="wfp-ico" style="background:rgba(217,182,115,0.12);">🤖</div>
-            <div><div class="wfp-name">AI Enrichment</div><div class="wfp-sub">classify · summarise</div></div>
-            <span class="wfp-popout">+340ms</span>
-          </div>
-          <div class="wfp-connector"></div>
-          <div class="wfp-node">
-            <div class="wfp-ico" style="background:rgba(159,186,142,0.12);">💬</div>
-            <div><div class="wfp-name">Slack Notify</div><div class="wfp-sub">team channel · done</div></div>
-            <span class="wfp-popout">+410ms</span>
+        <div class="hero-stage" id="heroStage">
+          <svg class="hero-net" viewBox="0 0 460 480" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+              <linearGradient id="netGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#4C7DF0"/>
+                <stop offset="1" stop-color="#7c5af0"/>
+              </linearGradient>
+            </defs>
+            <!-- connection lines (hub → tool nodes) -->
+            <path id="p1" class="net-line" d="M230,235 C175,180 130,120 90,84"/>
+            <path id="p2" class="net-line" d="M230,235 C300,190 345,140 372,96"/>
+            <path id="p3" class="net-line" d="M230,235 C320,235 372,235 408,235"/>
+            <path id="p4" class="net-line" d="M230,235 C310,310 340,355 360,392"/>
+            <path id="p5" class="net-line" d="M230,235 C165,310 125,355 98,388"/>
+            <path id="p6" class="net-line" d="M230,235 C160,235 108,235 60,235"/>
+            <!-- travelling pulses -->
+            <circle class="net-dot" r="4"><animateMotion dur="2.8s" repeatCount="indefinite" begin="0s"><mpath xlink:href="#p1"/></animateMotion></circle>
+            <circle class="net-dot" r="4"><animateMotion dur="3.1s" repeatCount="indefinite" begin="-0.5s"><mpath xlink:href="#p2"/></animateMotion></circle>
+            <circle class="net-dot" r="4"><animateMotion dur="2.6s" repeatCount="indefinite" begin="-1s"><mpath xlink:href="#p3"/></animateMotion></circle>
+            <circle class="net-dot" r="4"><animateMotion dur="3.0s" repeatCount="indefinite" begin="-1.5s"><mpath xlink:href="#p4"/></animateMotion></circle>
+            <circle class="net-dot" r="4"><animateMotion dur="2.9s" repeatCount="indefinite" begin="-2s"><mpath xlink:href="#p5"/></animateMotion></circle>
+            <circle class="net-dot" r="4"><animateMotion dur="2.7s" repeatCount="indefinite" begin="-2.5s"><mpath xlink:href="#p6"/></animateMotion></circle>
+            <!-- hub pulse rings -->
+            <circle class="net-hub" cx="230" cy="235" r="40"/>
+            <!-- tool nodes -->
+            <g><circle class="net-ring" cx="90" cy="84" r="21"/><text class="net-ico" x="90" y="90" text-anchor="middle">📝</text><text class="net-cap" x="90" y="118">Notion</text></g>
+            <g><circle class="net-ring" cx="372" cy="96" r="21"/><text class="net-ico" x="372" y="102" text-anchor="middle">⚡</text><text class="net-cap" x="372" y="130">Stripe</text></g>
+            <g><circle class="net-ring" cx="408" cy="235" r="21"/><text class="net-ico" x="408" y="241" text-anchor="middle">🤖</text><text class="net-cap" x="408" y="269">AI</text></g>
+            <g><circle class="net-ring" cx="360" cy="392" r="21"/><text class="net-ico" x="360" y="398" text-anchor="middle">💬</text><text class="net-cap" x="360" y="420">Slack</text></g>
+            <g><circle class="net-ring" cx="98" cy="388" r="21"/><text class="net-ico" x="98" y="394" text-anchor="middle">📊</text><text class="net-cap" x="98" y="416">Sheets</text></g>
+            <g><circle class="net-ring" cx="60" cy="235" r="21"/><text class="net-ico" x="60" y="241" text-anchor="middle">🔗</text><text class="net-cap" x="60" y="269">Zapier</text></g>
+          </svg>
+
+          <span class="float-chip fc1"><span class="fc-dot" style="background:currentColor"></span>200ms latency</span>
+          <span class="float-chip fc2"><span class="fc-dot" style="background:currentColor"></span>0 manual steps</span>
+          <span class="float-chip fc3"><span class="fc-dot" style="background:currentColor"></span>retries built in</span>
+          <span class="float-chip fc4"><span class="fc-dot" style="background:currentColor"></span>runs 24/7</span>
+
+          <div class="hero-visual" id="wfp">
+            <div class="wfp-head">
+              <span class="wfp-label">Live Workflow</span>
+              <span class="wfp-status">Running</span>
+            </div>
+            <div class="wfp-node">
+              <div class="wfp-ico" style="background:rgba(76,125,240,0.12);">⚡</div>
+              <div><div class="wfp-name">Stripe Payment</div><div class="wfp-sub">trigger · webhook received</div></div>
+              <span class="wfp-popout">+0ms</span>
+            </div>
+            <div class="wfp-connector"></div>
+            <div class="wfp-node">
+              <div class="wfp-ico" style="background:rgba(255,255,255,0.06);">📝</div>
+              <div><div class="wfp-name">Notion Database</div><div class="wfp-sub">create record · invoice</div></div>
+              <span class="wfp-popout">+120ms</span>
+            </div>
+            <div class="wfp-connector"></div>
+            <div class="wfp-node">
+              <div class="wfp-ico" style="background:rgba(217,182,115,0.12);">🤖</div>
+              <div><div class="wfp-name">AI Enrichment</div><div class="wfp-sub">classify · summarise</div></div>
+              <span class="wfp-popout">+340ms</span>
+            </div>
+            <div class="wfp-connector"></div>
+            <div class="wfp-node">
+              <div class="wfp-ico" style="background:rgba(159,186,142,0.12);">💬</div>
+              <div><div class="wfp-name">Slack Notify</div><div class="wfp-sub">team channel · done</div></div>
+              <span class="wfp-popout">+410ms</span>
+            </div>
           </div>
         </div>
       </div>
@@ -729,6 +790,34 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
   }
   step();
   setInterval(step, 1100);
+})();
+
+// Hero stage mouse parallax (depth layers)
+(function(){
+  if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  var hero = document.getElementById("hero");
+  var stage = document.getElementById("heroStage");
+  if (!hero || !stage) return;
+  var net = stage.querySelector(".hero-net");
+  var card = stage.querySelector(".hero-visual");
+  var chips = stage.querySelectorAll(".float-chip");
+  var raf;
+  hero.addEventListener("mousemove", function(e){
+    var r = hero.getBoundingClientRect();
+    var px = (e.clientX - r.left) / r.width - 0.5;
+    var py = (e.clientY - r.top) / r.height - 0.5;
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(function(){
+      if (net) net.style.transform = "translate(" + (px*16).toFixed(1) + "px," + (py*16).toFixed(1) + "px)";
+      if (card) card.style.transform = "translate(" + (px*-10).toFixed(1) + "px," + (py*-10).toFixed(1) + "px) rotateY(" + (px*5).toFixed(1) + "deg) rotateX(" + (-py*5).toFixed(1) + "deg)";
+      chips.forEach(function(c, idx){ var d = (idx % 2 ? 22 : 30); c.style.transform = "translate(" + (px*-d).toFixed(1) + "px," + (py*-d).toFixed(1) + "px)"; });
+    });
+  });
+  hero.addEventListener("mouseleave", function(){
+    if (net) net.style.transform = "";
+    if (card) card.style.transform = "";
+    chips.forEach(function(c){ c.style.transform = ""; });
+  });
 })();
 
 // Theme toggle (animated switch)
