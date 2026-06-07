@@ -308,6 +308,42 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 .mob a { font-family: var(--font-d); font-size: 22px; padding: 14px 0; border-bottom: 1px solid var(--h); }
 .mob-close { position: absolute; top: 22px; right: 40px; background: none; border: none; color: var(--fg1); font-size: 28px; cursor: pointer; }
 
+/* ── Extra motion: drifting blobs, mouse glow, tilt, scroll bar ── */
+.fx-blobs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.blob { position: absolute; border-radius: 50%; filter: blur(72px); opacity: 0.55; mix-blend-mode: screen; will-change: transform; }
+.blob.b1 { width: 520px; height: 520px; background: radial-gradient(circle, rgba(76,125,240,0.55), transparent 70%); top: -12%; left: -8%; animation: blobDrift1 22s ease-in-out infinite; }
+.blob.b2 { width: 460px; height: 460px; background: radial-gradient(circle, rgba(124,90,240,0.5), transparent 70%); top: 28%; right: -10%; animation: blobDrift2 27s ease-in-out infinite; }
+.blob.b3 { width: 440px; height: 440px; background: radial-gradient(circle, rgba(159,186,142,0.32), transparent 70%); bottom: -14%; left: 24%; animation: blobDrift3 31s ease-in-out infinite; }
+html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
+@keyframes blobDrift1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(70px,50px) scale(1.18)} }
+@keyframes blobDrift2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-60px,70px) scale(1.12)} }
+@keyframes blobDrift3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(50px,-60px) scale(1.22)} }
+@media (prefers-reduced-motion: reduce) { .blob { animation: none; } }
+
+.mouse-glow { position: fixed; width: 520px; height: 520px; border-radius: 50%; pointer-events: none; z-index: 0; background: radial-gradient(circle, rgba(76,125,240,0.12), transparent 62%); transform: translate(-50%,-50%); opacity: 0; transition: opacity 0.5s; mix-blend-mode: screen; }
+
+.scroll-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 300; background: linear-gradient(90deg, var(--acc), var(--vio)); box-shadow: 0 0 12px var(--acc-b); }
+
+/* 3D tilt cards */
+.tilt { transition: transform 0.25s var(--ease), background 0.35s, box-shadow 0.35s; will-change: transform; }
+
+/* animated conic glow ring on card hover */
+.svc-card::after, .proc-step::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; z-index: 0;
+  background: conic-gradient(from var(--a, 0deg), transparent 0%, var(--acc) 18%, var(--vio) 30%, transparent 45%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity 0.4s; pointer-events: none;
+  animation: spinBorder 5s linear infinite;
+}
+.svc-card:hover::after, .proc-step:hover::after { opacity: 0.9; }
+@property --a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes spinBorder { to { --a: 360deg; } }
+
+/* blur-in reveal variant */
+.reveal.blur-in { filter: blur(12px); }
+.reveal.blur-in.on { filter: blur(0); }
+
 /* ── Responsive ── */
 @media (max-width: 980px) {
   .hero-inner { grid-template-columns: 1fr; }
@@ -328,6 +364,9 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
+<div class="scroll-bar" id="scrollBar"></div>
+<div class="fx-blobs" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
+<div class="mouse-glow" id="mouseGlow" aria-hidden="true"></div>
 
 <nav id="nav">
   <div class="wrap">
@@ -455,42 +494,42 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
         <h2 class="sec-title">Six disciplines.<br>One connected system.</h2>
       </div>
       <div class="svc-grid">
-        <div class="svc-card reveal">
+        <div class="svc-card reveal tilt">
           <div class="svc-num">01</div>
           <span class="svc-ico">⚡</span>
           <h3>n8n Automation</h3>
           <p>Custom, self-hosted workflows linking any tool with an API. Bidirectional sync, webhooks with dedup and retries, zero manual entry.</p>
           <div class="svc-chips"><span class="svc-chip">Webhooks</span><span class="svc-chip">CRM sync</span><span class="svc-chip">Pipelines</span></div>
         </div>
-        <div class="svc-card reveal">
+        <div class="svc-card reveal tilt">
           <div class="svc-num">02</div>
           <span class="svc-ico">📝</span>
           <h3>Notion Systems</h3>
           <p>Workspaces built around how your team actually works — multi-database architectures, rollups, formulas, dashboards, and button-triggered automations.</p>
           <div class="svc-chips"><span class="svc-chip">Databases</span><span class="svc-chip">Dashboards</span><span class="svc-chip">Templates</span></div>
         </div>
-        <div class="svc-card reveal">
+        <div class="svc-card reveal tilt">
           <div class="svc-num">03</div>
           <span class="svc-ico">🔗</span>
           <h3>Zapier &amp; Make.com</h3>
           <p>Cloud automation when you want speed and zero infrastructure. Clean, well-documented scenarios connecting the apps you already pay for.</p>
           <div class="svc-chips"><span class="svc-chip">Zapier</span><span class="svc-chip">Make</span><span class="svc-chip">No-code</span></div>
         </div>
-        <div class="svc-card reveal">
+        <div class="svc-card reveal tilt">
           <div class="svc-num">04</div>
           <span class="svc-ico">🤖</span>
           <h3>AI Agents</h3>
           <p>LLM-powered agents that read, decide, and act — lead triage, content drafting, summarisation, and AI-enriched workflows that land structured data.</p>
           <div class="svc-chips"><span class="svc-chip">GPT</span><span class="svc-chip">Claude</span><span class="svc-chip">RAG</span></div>
         </div>
-        <div class="svc-card reveal">
+        <div class="svc-card reveal tilt">
           <div class="svc-num">05</div>
           <span class="svc-ico">🎨</span>
           <h3>Web Design</h3>
           <p>Fast, modern, responsive websites and landing pages built from scratch — not templates. Performance-first, SEO-structured, and built to convert.</p>
           <div class="svc-chips"><span class="svc-chip">Landing pages</span><span class="svc-chip">Next.js</span><span class="svc-chip">Responsive</span></div>
         </div>
-        <div class="svc-card reveal">
+        <div class="svc-card reveal tilt">
           <div class="svc-num">06</div>
           <span class="svc-ico">📊</span>
           <h3>Consulting &amp; Pipelines</h3>
@@ -523,12 +562,12 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
         <p class="cta-desc" style="margin-top:18px;">No black box. No dropped handoffs. Every project follows the same six steps, from first call to final delivery.</p>
       </div>
       <div class="proc-grid">
-        <div class="proc-step reveal"><div class="proc-step-num">01</div><h4>Discovery</h4><p>We get on a call. You walk me through your stack, your problem, and what a good outcome looks like. Nothing gets built until I fully understand what needs to be built.</p></div>
-        <div class="proc-step reveal"><div class="proc-step-num">02</div><h4>Scoping</h4><p>I come back with a clear breakdown: what gets built, how it works, what done looks like. You approve it. No surprises mid-build.</p></div>
-        <div class="proc-step reveal"><div class="proc-step-num">03</div><h4>Build</h4><p>Heads down. Production-grade workflows, systems, and sites — not prototypes. Error handling, edge cases, and retry logic covered without you asking.</p></div>
-        <div class="proc-step reveal"><div class="proc-step-num">04</div><h4>Testing &amp; QA</h4><p>I break it before you do. Every build gets tested against real scenarios, failure cases, and edge inputs. You only see it when it's ready.</p></div>
-        <div class="proc-step reveal"><div class="proc-step-num">05</div><h4>Handoff</h4><p>A live walkthrough call, a video recording you can rewatch, and full documentation. You leave knowing exactly what you have.</p></div>
-        <div class="proc-step reveal"><div class="proc-step-num">06</div><h4>Ongoing Support</h4><p>Want someone on call for updates, fixes, and additions? I offer an optional monthly retainer after handoff. No pressure — there if you want it.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">01</div><h4>Discovery</h4><p>We get on a call. You walk me through your stack, your problem, and what a good outcome looks like. Nothing gets built until I fully understand what needs to be built.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">02</div><h4>Scoping</h4><p>I come back with a clear breakdown: what gets built, how it works, what done looks like. You approve it. No surprises mid-build.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">03</div><h4>Build</h4><p>Heads down. Production-grade workflows, systems, and sites — not prototypes. Error handling, edge cases, and retry logic covered without you asking.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">04</div><h4>Testing &amp; QA</h4><p>I break it before you do. Every build gets tested against real scenarios, failure cases, and edge inputs. You only see it when it's ready.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">05</div><h4>Handoff</h4><p>A live walkthrough call, a video recording you can rewatch, and full documentation. You leave knowing exactly what you have.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">06</div><h4>Ongoing Support</h4><p>Want someone on call for updates, fixes, and additions? I offer an optional monthly retainer after handoff. No pressure — there if you want it.</p></div>
       </div>
     </div>
   </section>
@@ -626,15 +665,36 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 </footer>
 
 <script>
-// Glossy nav on scroll (transparent at top)
+// Glossy nav on scroll + scroll progress bar
 (function(){
   var nav = document.getElementById("nav");
+  var bar = document.getElementById("scrollBar");
   function onScroll(){
     if (window.scrollY > 24) nav.classList.add("scrolled");
     else nav.classList.remove("scrolled");
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (bar) bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+})();
+
+// Mouse-follow glow + 3D tilt on cards (fine pointers only)
+(function(){
+  if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  var glow = document.getElementById("mouseGlow");
+  window.addEventListener("mousemove", function(e){
+    if (glow){ glow.style.left = e.clientX + "px"; glow.style.top = e.clientY + "px"; glow.style.opacity = "1"; }
+  }, { passive: true });
+  document.querySelectorAll(".tilt").forEach(function(card){
+    card.addEventListener("mousemove", function(e){
+      var r = card.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = "perspective(900px) rotateX(" + (-py*6).toFixed(2) + "deg) rotateY(" + (px*6).toFixed(2) + "deg) translateY(-6px)";
+    });
+    card.addEventListener("mouseleave", function(){ card.style.transform = ""; });
+  });
 })();
 
 // Hero typewriter words
