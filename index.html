@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Harinivash Studio | n8n Automation Consultant &amp; Notion Systems Designer</title>
-<meta name="description" content="Hire Harinivash — Verified n8n Creator and Notion systems designer. Custom n8n automation workflows and Notion systems for small businesses worldwide."/>
-<meta property="og:title" content="Harinivash Studio | Automation &amp; Notion Systems"/>
-<meta property="og:description" content="Custom n8n automation workflows and Notion systems for small businesses worldwide."/>
+<title>Harinivash Studio | Automation, Notion, AI Agents &amp; Web Design</title>
+<meta name="description" content="Harinivash Studio — n8n &amp; Zapier automation, Notion systems, AI agents, data pipelines, and web design for teams who want it built properly. Remote worldwide."/>
+<meta property="og:title" content="Harinivash Studio | Automation &amp; Systems"/>
+<meta property="og:description" content="Automation, Notion systems, AI agents, and web design for businesses tired of tools that don't talk to each other."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://harinivash.studio"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@1,9..144,400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap" rel="stylesheet"/>
 <style>
 /* ── Tokens ── */
 :root {
@@ -19,13 +19,12 @@
   --fg1: #F2EFE8; --fg2: #B0ACA5; --fg3: #8A8580; --fg4: #2E2C28;
   --acc: #4C7DF0; --acc-hi: #6E97F4; --acc-lo: #3A63C8;
   --acc-w: rgba(76,125,240,0.08); --acc-b: rgba(76,125,240,0.30);
-  --ok: #9FBA8E; --warn: #D9B673; --err: #C8826F;
+  --ok: #9FBA8E; --warn: #D9B673; --err: #C8826F; --vio: #7c5af0;
   --h: rgba(255,255,255,0.06); --hs: rgba(255,255,255,0.10);
   --font-d: 'JetBrains Mono', ui-monospace, monospace;
   --font-b: 'Inter Tight', system-ui, sans-serif;
   --font-s: 'Fraunces', Georgia, serif;
   --ease: cubic-bezier(0.2,0.9,0.1,1);
-  /* glossy / glass tokens */
   --glass: rgba(255,255,255,0.045);
   --glass-2: rgba(255,255,255,0.07);
   --glass-brd: rgba(255,255,255,0.12);
@@ -62,6 +61,7 @@ body::before {
 }
 html.light body::before { opacity: 0.7; }
 .wrap, nav, footer, main { position: relative; z-index: 1; }
+/* grain */
 body::after {
   content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 999;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.45 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.8'/%3E%3C/svg%3E");
@@ -72,53 +72,55 @@ a { color: inherit; text-decoration: none; }
 .eyebrow { font-family: var(--font-d); font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg3); }
 .wrap { max-width: 1380px; margin: 0 auto; padding: 0 40px; }
 section { padding: 100px 0; border-top: 1px solid var(--h); }
-/* full-screen sections */
-#about, #faq { min-height: 130vh; display: flex; align-items: center; scroll-snap-align: center; scroll-snap-stop: normal; padding-top: 140px; padding-bottom: 140px; }
-#about .wrap, #faq .wrap { width: 100%; }
-/* gentle proximity snap so About/FAQ lock to the viewport when scrolled near */
-@media (min-width: 641px) and (hover: hover) {
-  html { scroll-snap-type: y proximity; scroll-padding-top: 0; }
-}
-@media (max-width: 640px) { #about, #faq { min-height: auto; padding: 90px 0; scroll-snap-align: none; } }
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.55s cubic-bezier(0.23,1,0.32,1), transform 0.55s cubic-bezier(0.23,1,0.32,1); }
-.reveal.on { opacity: 1; transform: none; }
 .skip-link { position: absolute; left: -999px; top: 0; background: var(--acc); color: #fff; padding: 0.5rem 1rem; z-index: 1000; }
-
 .skip-link:focus { left: 1rem; top: 1rem; }
 
-/* ── Nav (transparent at top, glossy on scroll) ── */
+/* full-screen sections + gentle snap */
+#about, #faq { min-height: 130vh; display: flex; align-items: center; padding-top: 140px; padding-bottom: 140px; scroll-snap-align: center; }
+#about .wrap, #faq .wrap { width: 100%; }
+@media (min-width: 641px) and (hover: hover) { html { scroll-snap-type: y proximity; } }
+@media (max-width: 640px) { #about, #faq { min-height: auto; padding: 90px 0; scroll-snap-align: none; } }
+
+/* reveal */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.reveal.on { opacity: 1; transform: none; }
+.reveal.from-left { transform: translateX(-26px); }
+.reveal.from-right { transform: translateX(26px); }
+.reveal.from-left.on, .reveal.from-right.on { transform: none; }
+
+/* ── Nav ── */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 64px;
   background: transparent; border-bottom: 1px solid transparent; box-shadow: none;
   backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
   transition: background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), backdrop-filter 0.4s var(--ease), height 0.35s var(--ease); }
 nav .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; }
-/* Glossy frosted state once scrolled */
 nav.scrolled {
   background: color-mix(in srgb, var(--s0) 62%, transparent);
   backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur);
   border-bottom: 1px solid var(--glass-brd);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 30px -20px rgba(0,0,0,0.5);
 }
-/* readable controls over hero when transparent; shadow fades once glossy */
-.brand, .nav-links a { text-shadow: 0 1px 14px rgba(0,0,0,0.45); transition: text-shadow 0.4s; }
+.brand, .nav-links a { text-shadow: 0 1px 14px rgba(0,0,0,0.45); transition: text-shadow 0.4s, color 0.2s; }
 html.light .brand, html.light .nav-links a { text-shadow: 0 1px 12px rgba(255,255,255,0.6); }
 nav.scrolled .brand, nav.scrolled .nav-links a { text-shadow: none; }
 .brand { font-family: var(--font-d); font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; display: flex; align-items: center; gap: 9px; }
 .brand-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 10px var(--acc); animation: pulse 2.4s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
 .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
-.nav-links a { font-family: var(--font-d); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg3); transition: color 0.2s; }
+.nav-links a { font-family: var(--font-d); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg3); position: relative; }
+.nav-links a::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 0; height: 1px; background: var(--acc); transition: width 0.28s var(--ease); }
 .nav-links a:hover { color: var(--fg1); }
+.nav-links a:hover::after { width: 100%; }
 .nav-right { display: flex; align-items: center; gap: 14px; }
-/* Animated sun/moon theme switch */
+
+/* theme switch */
 .theme-switch { background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; }
 .ts-track {
   position: relative; width: 60px; height: 30px; border-radius: 30px;
   background: linear-gradient(180deg, rgba(20,28,55,0.9), rgba(12,16,32,0.95));
   border: 1px solid var(--glass-brd);
   box-shadow: inset 0 2px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
-  display: flex; align-items: center; transition: background 0.4s var(--ease), border-color 0.3s;
-  overflow: hidden;
+  display: flex; align-items: center; transition: background 0.4s var(--ease), border-color 0.3s; overflow: hidden;
 }
 html.light .ts-track { background: linear-gradient(180deg, #aee0ff, #6cc0f5); box-shadow: inset 0 2px 6px rgba(0,80,140,0.25), inset 0 1px 0 rgba(255,255,255,0.5); }
 .ts-icon { position: absolute; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); z-index: 1; }
@@ -135,79 +137,37 @@ html.light .ts-moon { opacity: 0; transform: scale(0.5) rotate(90deg); }
 }
 html.light .ts-thumb { transform: translateX(30px); background: radial-gradient(circle at 35% 30%, #fff7d6, #ffd84d 70%); box-shadow: 0 2px 10px rgba(180,130,0,0.4), 0 0 18px rgba(255,200,60,0.7), inset 0 1px 0 rgba(255,255,255,0.9); }
 .theme-switch:hover .ts-track { border-color: var(--hs); }
-.theme-switch:hover .ts-thumb { box-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 0 20px rgba(120,150,255,0.7), inset 0 1px 0 rgba(255,255,255,0.8); }
+
+/* buttons */
 .btn { font-family: var(--font-b); font-weight: 500; font-size: 13px; padding: 9px 18px; border-radius: 10px; cursor: pointer; transition: all 0.25s var(--ease); display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; white-space: nowrap; position: relative; overflow: hidden; }
 .btn::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.06) 40%, transparent 60%); pointer-events: none; }
 .btn-primary { background: linear-gradient(180deg, var(--acc-hi), var(--acc-lo)); color: #fff; box-shadow: 0 6px 18px -8px var(--acc-b), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -2px 6px rgba(0,0,0,0.18); }
 .btn-primary:hover { box-shadow: 0 12px 34px -10px var(--acc-b), 0 0 30px -8px var(--acc-b), inset 0 1px 0 rgba(255,255,255,0.45); transform: translateY(-2px); }
+.btn-primary.magnetic { transition: transform 0.18s var(--ease), box-shadow 0.25s var(--ease); will-change: transform; }
+.btn-primary .btn-sheen { position: absolute; width: 180px; height: 180px; border-radius: 50%; left: var(--mx, 50%); top: var(--my, 50%); transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.18) 25%, transparent 60%); opacity: 0; transition: opacity 0.3s ease; pointer-events: none; mix-blend-mode: soft-light; z-index: 0; }
+.btn-primary:hover .btn-sheen { opacity: 1; }
+.btn-primary > span:not(.btn-sheen) { position: relative; z-index: 1; }
 .btn-ghost { background: var(--glass); border-color: var(--glass-brd); color: var(--fg1); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12); }
 .btn-ghost:hover { border-color: var(--hs); background: var(--glass-2); transform: translateY(-2px); }
-/* Magnetic primary button: cursor-following sheen + smooth pull */
-.btn-primary.magnetic { transition: transform 0.18s var(--ease), box-shadow 0.25s var(--ease); will-change: transform; }
-.btn-primary .btn-sheen {
-  position: absolute; width: 180px; height: 180px; border-radius: 50%;
-  left: var(--mx, 50%); top: var(--my, 50%); transform: translate(-50%,-50%);
-  background: radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.18) 25%, transparent 60%);
-  opacity: 0; transition: opacity 0.3s ease; pointer-events: none; mix-blend-mode: soft-light; z-index: 0;
-}
-.btn-primary:hover .btn-sheen { opacity: 1; }
-.btn-primary > * { position: relative; z-index: 1; }
-/* sparkle particles emitted on hover */
-.spark {
-  position: fixed; width: 6px; height: 6px; border-radius: 50%;
-  background: #cfe0ff; box-shadow: 0 0 8px #6E97F4, 0 0 14px #4C7DF0;
-  pointer-events: none; z-index: 9000;
-}
-/* Social brand glow on hover */
-.foot-social { transition: all 0.28s var(--ease); }
-.foot-social.ig:hover {
-  color: #fff; border-color: rgba(225,48,108,0.6);
-  background: linear-gradient(45deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888);
-  box-shadow: 0 10px 28px -8px rgba(220,39,67,0.7), 0 0 26px -4px rgba(204,35,102,0.6), inset 0 1px 0 rgba(255,255,255,0.4);
-  transform: translateY(-3px);
-}
-.foot-social.xt:hover {
-  color: #000; border-color: rgba(255,255,255,0.8); background: #fff;
-  box-shadow: 0 10px 28px -8px rgba(255,255,255,0.5), 0 0 26px -6px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.6);
-  transform: translateY(-3px);
-}
-.foot-social.li:hover {
-  color: #fff; border-color: rgba(10,102,194,0.7);
-  background: linear-gradient(180deg, #0a8af0, #0a66c2);
-  box-shadow: 0 10px 28px -8px rgba(10,102,194,0.8), 0 0 26px -4px rgba(10,102,194,0.7), inset 0 1px 0 rgba(255,255,255,0.4);
-  transform: translateY(-3px);
-}
-/* Copy-email affordance + toast */
-.copy-email { cursor: pointer; transition: color 0.2s; position: relative; }
-.copy-email:hover { color: var(--acc-hi); }
-.copy-toast {
-  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
-  background: linear-gradient(180deg, rgba(30,30,40,0.96), rgba(16,16,22,0.98));
-  border: 1px solid var(--glass-brd); color: #F2EFE8;
-  font-family: var(--font-d); font-size: 13px; letter-spacing: 0.02em;
-  padding: 12px 20px; border-radius: 12px; z-index: 99999;
-  box-shadow: 0 16px 40px -16px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.12);
-  display: flex; align-items: center; gap: 9px; opacity: 0; pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s var(--ease);
-}
-.copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-.copy-toast .ct-check { color: var(--ok); font-size: 15px; }
+.spark { position: fixed; width: 6px; height: 6px; border-radius: 50%; background: #cfe0ff; box-shadow: 0 0 8px #6E97F4, 0 0 14px #4C7DF0; pointer-events: none; z-index: 9000; }
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
 .hamburger span { width: 22px; height: 1.5px; background: var(--fg1); display: block; }
 
 /* ── Hero ── */
-#hero { padding-top: 150px; padding-bottom: 90px; border-top: none; position: relative; overflow: hidden; }
+#hero { padding-top: 150px; padding-bottom: 70px; border-top: none; position: relative; overflow: hidden; }
 #hero::before { content:''; position:absolute; top:-200px; right:-150px; width:700px; height:700px; background: radial-gradient(circle, rgba(76,125,240,0.10) 0%, transparent 68%); pointer-events:none; }
 .hero-inner { display: grid; grid-template-columns: 1fr 460px; gap: 70px; align-items: center; position: relative; z-index: 1; }
 .hero-byline { font-family: var(--font-d); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg1); opacity: 0.5; margin-bottom: 22px; }
 .hero-title { font-family: var(--font-d); font-size: clamp(1.7rem, 4.5vw, 2.5rem); font-weight: 400; line-height: 1.32; letter-spacing: -0.03em; margin-bottom: 26px; }
 .hero-word { display: inline-block; opacity: 0; transform: translateY(16px); animation: wordUp 580ms cubic-bezier(0.22,1,0.36,1) forwards; }
+.hero-word.grad { background: linear-gradient(100deg, var(--acc-hi), var(--vio)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 @keyframes wordUp { to { opacity: 1; transform: translateY(0); } }
 .cursor { display: inline-block; width: 0.5ch; height: 0.85em; background: var(--acc); vertical-align: -0.08em; margin-left: 2px; animation: blink 1.1s steps(1) infinite; box-shadow: 0 0 14px rgba(76,125,240,0.7); }
 @keyframes blink { 50%{opacity:0} }
-.hero-sub { font-size: 17px; color: var(--fg2); max-width: 50ch; line-height: 1.65; margin-bottom: 34px; }
-.hero-actions { display: flex; gap: 12px; margin-bottom: 36px; flex-wrap: wrap; }
-.hero-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero-sub { font-size: 17px; color: var(--fg2); max-width: 50ch; line-height: 1.65; margin-bottom: 34px; opacity: 0; animation: fadeIn 0.8s ease 0.9s forwards; }
+@keyframes fadeIn { to { opacity: 1; } }
+.hero-actions { display: flex; gap: 12px; margin-bottom: 36px; flex-wrap: wrap; opacity: 0; animation: fadeIn 0.8s ease 1.05s forwards; }
+.hero-badges { display: flex; gap: 8px; flex-wrap: wrap; opacity: 0; animation: fadeIn 0.8s ease 1.2s forwards; }
 .hero-badge { font-family: var(--font-d); font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 10px; border-radius: 7px; display: flex; align-items: center; gap: 7px; transition: all 0.2s; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .hero-badge:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 6px 16px -8px rgba(0,0,0,0.4); }
 .hero-badge-dot { width: 5px; height: 5px; border-radius: 50%; }
@@ -218,78 +178,77 @@ html.light .ts-thumb { transform: translateX(30px); background: radial-gradient(
 .badge-warn { color: var(--warn); background: rgba(217,182,115,0.07); border: 1px solid rgba(217,182,115,0.22); }
 .badge-warn .hero-badge-dot { background: var(--warn); }
 
-/* ── Hero workflow card ── */
-.hero-visual { position: relative; background: var(--glass-2); border: 1px solid var(--glass-brd); border-radius: 18px; padding: 22px; box-shadow: var(--glass-shadow), 0 40px 90px -40px rgba(0,0,0,0.7); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); overflow: hidden; }
+/* hero workflow card (animated loop) */
+.hero-visual { position: relative; background: var(--glass-2); border: 1px solid var(--glass-brd); border-radius: 18px; padding: 22px; box-shadow: var(--glass-shadow), 0 40px 90px -40px rgba(0,0,0,0.7); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); overflow: hidden; opacity: 0; animation: fadeIn 1s ease 0.6s forwards; }
 .hero-visual::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--sheen); pointer-events: none; }
 .hero-visual > * { position: relative; z-index: 1; }
 .wfp-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--h); margin-bottom: 16px; }
 .wfp-label { font-family: var(--font-d); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg1); font-weight: 700; }
 .wfp-status { font-family: var(--font-d); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ok); display: flex; align-items: center; gap: 6px; }
 .wfp-status::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--ok); box-shadow: 0 0 8px var(--ok); animation: pulse 2s infinite; }
-.wfp-node { display: flex; align-items: center; gap: 12px; padding: 13px 14px; border: 1px solid var(--glass-brd); border-radius: 11px; margin-bottom: 10px; background: var(--glass); transition: all 0.3s; box-shadow: inset 0 1px 0 rgba(255,255,255,0.10); }
-.wfp-node:hover { border-color: var(--acc-b); transform: translateX(3px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), 0 8px 22px -12px var(--acc-b); }
+.wfp-node { display: flex; align-items: center; gap: 12px; padding: 13px 14px; border: 1px solid var(--glass-brd); border-radius: 11px; margin-bottom: 10px; background: var(--glass); transition: all 0.4s var(--ease); box-shadow: inset 0 1px 0 rgba(255,255,255,0.10); }
 .wfp-node:last-of-type { margin-bottom: 0; }
-.wfp-ico { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.wfp-node.active { border-color: var(--acc); background: var(--acc-w); box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), 0 8px 26px -10px var(--acc-b), 0 0 0 1px var(--acc-b); transform: translateX(4px); }
+.wfp-ico { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; transition: transform 0.4s var(--ease); }
+.wfp-node.active .wfp-ico { transform: scale(1.12); }
 .wfp-name { font-family: var(--font-d); font-size: 13px; letter-spacing: -0.02em; color: var(--fg1); }
 .wfp-sub { font-family: var(--font-d); font-size: 10px; color: var(--fg3); margin-top: 2px; }
-.wfp-popout { margin-left: auto; background: var(--acc-w); border: 1px solid var(--acc-b); border-radius: 5px; padding: 3px 8px; font-family: var(--font-d); font-size: 9px; color: var(--acc); letter-spacing: 0.04em; }
-.wfp-connector { width: 1px; height: 14px; background: var(--hs); margin: 0 auto; }
+.wfp-popout { margin-left: auto; background: var(--acc-w); border: 1px solid var(--acc-b); border-radius: 5px; padding: 3px 8px; font-family: var(--font-d); font-size: 9px; color: var(--acc); letter-spacing: 0.04em; opacity: 0.5; transition: opacity 0.4s; }
+.wfp-node.active .wfp-popout { opacity: 1; }
+.wfp-connector { width: 1px; height: 14px; background: var(--hs); margin: 0 auto; position: relative; overflow: hidden; }
+.wfp-connector.lit::after { content: ''; position: absolute; inset: 0; background: var(--acc); box-shadow: 0 0 8px var(--acc); animation: connFlow 0.5s ease forwards; }
+@keyframes connFlow { from { transform: translateY(-100%); } to { transform: translateY(0); } }
 
-/* ── Stats strip ── */
-.stats-strip { display: flex; gap: 50px; flex-wrap: wrap; margin-top: 56px; padding-top: 36px; border-top: 1px solid var(--h); }
-.stat-v { font-family: var(--font-d); font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: var(--fg1); line-height: 1; }
-.stat-v span { color: var(--acc); }
-.stat-k { font-family: var(--font-b); font-size: 11px; color: var(--fg3); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 8px; }
+/* ── Logo / trust strip ── */
+.trust { padding: 28px 0 6px; border-top: none; }
+.trust .wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; justify-content: center; }
+.trust-label { font-family: var(--font-d); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg3); }
+.trust-logos { display: flex; gap: 26px; flex-wrap: wrap; align-items: center; justify-content: center; }
+.trust-logo { font-family: var(--font-d); font-size: 13px; color: var(--fg2); opacity: 0.75; transition: opacity 0.2s, color 0.2s; letter-spacing: -0.01em; }
+.trust-logo:hover { opacity: 1; color: var(--acc-hi); }
 
-/* ── Section headers ── */
+/* ── Tech-stack ticker ── */
+.ticker { padding: 0; border-top: 1px solid var(--h); border-bottom: 1px solid var(--h); overflow: hidden; background: var(--glass); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); margin-top: 40px; }
+.ticker-row { display: flex; width: max-content; animation: tickerScroll 32s linear infinite; }
+.ticker:hover .ticker-row { animation-play-state: paused; }
+.ticker-item { font-family: var(--font-d); font-size: 14px; letter-spacing: 0.04em; color: var(--fg2); padding: 18px 30px; display: flex; align-items: center; gap: 30px; white-space: nowrap; }
+.ticker-item::after { content: '✦'; color: var(--acc); font-size: 10px; opacity: 0.6; }
+@keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── Section header ── */
 .sec-head { margin-bottom: 56px; }
 .sec-head .eyebrow { display: block; margin-bottom: 18px; }
 .sec-title { font-family: var(--font-s); font-style: italic; font-size: clamp(28px, 3.8vw, 46px); font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; color: var(--fg1); }
 
-/* ── Services ── */
-.svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.svc-card { background: var(--glass); padding: 44px 40px; position: relative; transition: all 0.3s var(--ease); border: 1px solid var(--glass-brd); border-radius: 16px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: var(--glass-shadow); overflow: hidden; }
+/* ── Services (6 cards) ── */
+.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.svc-card { background: var(--glass); padding: 34px 30px; position: relative; transition: all 0.35s var(--ease); border: 1px solid var(--glass-brd); border-radius: 16px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: var(--glass-shadow); overflow: hidden; }
 .svc-card::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--sheen); pointer-events: none; }
 .svc-card > * { position: relative; z-index: 1; }
-.svc-card:hover { background: var(--glass-2); transform: translateY(-4px); box-shadow: var(--glass-shadow), 0 28px 60px -30px var(--acc-b); }
-.svc-num { font-family: var(--font-d); font-size: 11px; color: var(--acc); letter-spacing: 0.18em; margin-bottom: 16px; }
-.svc-card h3 { font-family: var(--font-d); font-size: clamp(22px,2.4vw,30px); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 14px; }
-.svc-card > p { color: var(--fg2); font-size: 14px; line-height: 1.7; margin-bottom: 24px; max-width: 42ch; }
-.svc-list { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 26px; }
-.svc-list li { display: flex; gap: 10px; font-size: 13.5px; color: var(--fg2); line-height: 1.55; }
-.svc-list li .arrow { font-family: var(--font-d); font-size: 11px; color: var(--acc); flex-shrink: 0; margin-top: 2px; }
-.svc-badges { display: flex; gap: 8px; flex-wrap: wrap; }
-.svc-badge { font-family: var(--font-d); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 10px; border-radius: 6px; border: 1px solid var(--h); color: var(--fg3); }
-.svc-quote { font-family: var(--font-s); font-style: italic; font-size: 15px; color: var(--fg2); margin-top: 22px; padding-left: 16px; border-left: 2px solid var(--acc-b); line-height: 1.6; }
+.svc-card:hover { background: var(--glass-2); transform: translateY(-5px); box-shadow: var(--glass-shadow), 0 30px 60px -30px var(--acc-b); }
+.svc-num { font-family: var(--font-d); font-size: 11px; color: var(--acc); letter-spacing: 0.18em; margin-bottom: 18px; }
+.svc-ico { font-size: 24px; margin-bottom: 14px; display: block; }
+.svc-card h3 { font-family: var(--font-d); font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+.svc-card > p { color: var(--fg2); font-size: 13.5px; line-height: 1.7; margin-bottom: 18px; }
+.svc-chips { display: flex; gap: 7px; flex-wrap: wrap; }
+.svc-chip { font-family: var(--font-d); font-size: 9.5px; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--glass-brd); color: var(--fg3); }
+.svc-quote { font-family: var(--font-s); font-style: italic; font-size: 17px; color: var(--fg2); margin-top: 48px; text-align: center; line-height: 1.5; max-width: 620px; margin-left: auto; margin-right: auto; }
+.svc-quote span { color: var(--acc-hi); }
 
-/* ── Work ── */
-.work-grid { display: flex; flex-direction: column; gap: 18px; }
-.work-card { position: relative; background: var(--glass); border: 1px solid var(--glass-brd); border-radius: 16px; padding: 36px 38px; transition: all 0.3s var(--ease); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: var(--glass-shadow); overflow: hidden; }
-.work-card::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--sheen); pointer-events: none; }
-.work-card > * { position: relative; z-index: 1; }
-.work-card:hover { border-color: var(--acc-b); transform: translateY(-4px); background: var(--glass-2); box-shadow: var(--glass-shadow), 0 28px 60px -30px var(--acc-b); }
-.work-tags { display: flex; gap: 8px; margin-bottom: 18px; }
-.work-tag { font-family: var(--font-d); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 9px; border-radius: 5px; background: var(--acc-w); color: var(--acc-hi); border: 1px solid var(--acc-b); }
-.work-client { font-family: var(--font-d); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 10px; }
-.work-title { font-family: var(--font-s); font-style: italic; font-size: clamp(19px,2.2vw,26px); font-weight: 400; line-height: 1.25; margin-bottom: 14px; }
-.work-metric { display: inline-block; font-family: var(--font-d); font-size: 12px; color: var(--ok); background: rgba(159,186,142,0.08); border: 1px solid rgba(159,186,142,0.22); border-radius: 6px; padding: 5px 11px; margin-bottom: 14px; }
-.work-desc { color: var(--fg2); font-size: 14px; line-height: 1.7; margin-bottom: 18px; max-width: 70ch; }
-.work-link { font-family: var(--font-d); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--acc); display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; }
-.work-link:hover { gap: 11px; }
-
-/* ── Testimonials ── */
-.tst-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.tst-card { background: var(--s1); border: 1px solid var(--h); border-radius: 14px; padding: 34px 36px; }
-.tst-q { font-size: 15px; line-height: 1.8; color: var(--fg1); margin-bottom: 22px; }
-.tst-attr { font-family: var(--font-d); font-size: 12px; color: var(--fg2); }
-.tst-attr span { color: var(--fg3); }
+/* ── Stats counter ── */
+#stats { background: var(--glass); border-top: 1px solid var(--h); border-bottom: 1px solid var(--h); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+.stat-cell { text-align: center; }
+.stat-v { font-family: var(--font-d); font-size: clamp(36px, 5vw, 56px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; background: linear-gradient(180deg, var(--fg1), var(--acc-hi)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.stat-v span { color: var(--acc); -webkit-text-fill-color: var(--acc); }
+.stat-k { font-family: var(--font-b); font-size: 12px; color: var(--fg3); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 12px; }
 
 /* ── Process ── */
-.proc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.proc-step { position: relative; background: var(--glass); padding: 34px 36px; transition: all 0.3s var(--ease); border: 1px solid var(--glass-brd); border-radius: 14px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: var(--glass-shadow); overflow: hidden; }
+.proc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; position: relative; }
+.proc-step { position: relative; background: var(--glass); padding: 30px 28px; transition: all 0.35s var(--ease); border: 1px solid var(--glass-brd); border-radius: 14px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: var(--glass-shadow); overflow: hidden; }
 .proc-step::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--sheen); pointer-events: none; }
 .proc-step > * { position: relative; z-index: 1; }
-.proc-step:hover { background: var(--glass-2); transform: translateY(-3px); box-shadow: var(--glass-shadow), 0 22px 50px -28px var(--acc-b); }
+.proc-step:hover { background: var(--glass-2); transform: translateY(-4px); box-shadow: var(--glass-shadow), 0 22px 50px -28px var(--acc-b); }
 .proc-step-num { font-family: var(--font-d); font-size: 12px; color: var(--acc); letter-spacing: 0.1em; margin-bottom: 14px; }
 .proc-step h4 { font-family: var(--font-d); font-size: 16px; font-weight: 600; margin-bottom: 10px; }
 .proc-step p { color: var(--fg2); font-size: 13.5px; line-height: 1.7; }
@@ -298,7 +257,6 @@ html.light .ts-thumb { transform: translateX(30px); background: radial-gradient(
 .about-body { max-width: 720px; }
 .about-body h2 { font-family: var(--font-s); font-style: italic; font-size: clamp(28px,3.8vw,44px); font-weight: 400; margin-bottom: 26px; }
 .about-body p { color: var(--fg2); font-size: 16px; line-height: 1.85; margin-bottom: 18px; }
-.about-creds { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
 
 /* ── FAQ ── */
 .faq-list { max-width: 820px; background: var(--glass); border: 1px solid var(--glass-brd); border-radius: 16px; padding: 8px 28px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: var(--glass-shadow); }
@@ -320,22 +278,29 @@ html.light .ts-thumb { transform: translateX(30px); background: radial-gradient(
 
 /* ── Footer ── */
 footer { background: var(--glass); border-top: 1px solid var(--glass-brd); padding: 70px 0 36px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
-.foot-socials { display: flex; gap: 12px; margin-top: 22px; }
-.foot-social { width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; background: var(--glass); border: 1px solid var(--glass-brd); color: var(--fg2); transition: all 0.25s var(--ease); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12); position: relative; overflow: hidden; }
-.foot-social::before { content: ''; position: absolute; inset: 0; background: var(--sheen); pointer-events: none; }
-.foot-social svg { position: relative; z-index: 1; width: 18px; height: 18px; }
-.foot-social:hover { color: #fff; border-color: var(--acc-b); transform: translateY(-3px); background: linear-gradient(180deg, var(--acc-hi), var(--acc-lo)); box-shadow: 0 10px 26px -10px var(--acc-b), inset 0 1px 0 rgba(255,255,255,0.4); }
 .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 50px; }
 .foot-brand { font-family: var(--font-d); font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; }
 .foot-tag { color: var(--fg2); font-size: 14px; line-height: 1.7; max-width: 280px; }
+.foot-socials { display: flex; gap: 12px; margin-top: 22px; }
+.foot-social { width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; background: var(--glass); border: 1px solid var(--glass-brd); color: var(--fg2); transition: all 0.28s var(--ease); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12); position: relative; overflow: hidden; }
+.foot-social::before { content: ''; position: absolute; inset: 0; background: var(--sheen); pointer-events: none; }
+.foot-social svg { position: relative; z-index: 1; width: 18px; height: 18px; }
+.foot-social.ig:hover { color: #fff; border-color: rgba(225,48,108,0.6); background: linear-gradient(45deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888); box-shadow: 0 10px 28px -8px rgba(220,39,67,0.7), 0 0 26px -4px rgba(204,35,102,0.6), inset 0 1px 0 rgba(255,255,255,0.4); transform: translateY(-3px); }
+.foot-social.xt:hover { color: #000; border-color: rgba(255,255,255,0.8); background: #fff; box-shadow: 0 10px 28px -8px rgba(255,255,255,0.5), 0 0 26px -6px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.6); transform: translateY(-3px); }
+.foot-social.li:hover { color: #fff; border-color: rgba(10,102,194,0.7); background: linear-gradient(180deg, #0a8af0, #0a66c2); box-shadow: 0 10px 28px -8px rgba(10,102,194,0.8), 0 0 26px -4px rgba(10,102,194,0.7), inset 0 1px 0 rgba(255,255,255,0.4); transform: translateY(-3px); }
 .foot-col h5 { font-family: var(--font-d); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 18px; }
 .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
 .foot-col a { color: var(--fg2); font-size: 14px; transition: color 0.2s; }
 .foot-col a:hover { color: var(--fg1); }
+.copy-email { cursor: pointer; }
+.copy-email:hover { color: var(--acc-hi); }
 .foot-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; padding-top: 28px; border-top: 1px solid var(--h); }
 .foot-copy { font-family: var(--font-d); font-size: 11px; color: var(--fg3); }
 .foot-legal { display: flex; gap: 20px; }
 .foot-legal a { font-family: var(--font-d); font-size: 11px; color: var(--fg3); }
+.copy-toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: linear-gradient(180deg, rgba(30,30,40,0.96), rgba(16,16,22,0.98)); border: 1px solid var(--glass-brd); color: #F2EFE8; font-family: var(--font-d); font-size: 13px; padding: 12px 20px; border-radius: 12px; z-index: 99999; box-shadow: 0 16px 40px -16px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.12); display: flex; align-items: center; gap: 9px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s var(--ease); }
+.copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.copy-toast .ct-check { color: var(--ok); font-size: 15px; }
 
 /* ── Mobile menu ── */
 .mob { display: none; position: fixed; inset: 0; background: color-mix(in srgb, var(--s0) 75%, transparent); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); z-index: 200; flex-direction: column; padding: 80px 40px; gap: 8px; }
@@ -343,10 +308,12 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 .mob a { font-family: var(--font-d); font-size: 22px; padding: 14px 0; border-bottom: 1px solid var(--h); }
 .mob-close { position: absolute; top: 22px; right: 40px; background: none; border: none; color: var(--fg1); font-size: 28px; cursor: pointer; }
 
+/* ── Responsive ── */
 @media (max-width: 980px) {
   .hero-inner { grid-template-columns: 1fr; }
   .hero-visual { max-width: 460px; }
-  .svc-grid, .proc-grid, .tst-grid { grid-template-columns: 1fr; }
+  .svc-grid, .proc-grid { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 40px 20px; }
   .foot-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
 }
 @media (max-width: 640px) {
@@ -354,8 +321,8 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
   .nav-links, .nav-right .btn { display: none; }
   .hamburger { display: flex; }
   section { padding: 70px 0; }
+  .svc-grid, .proc-grid { grid-template-columns: 1fr; }
   .foot-grid { grid-template-columns: 1fr; }
-  .stats-strip { gap: 32px; }
 }
 </style>
 </head>
@@ -367,7 +334,6 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
     <a href="#" class="brand"><span class="brand-dot"></span>Harinivash Studio</a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
-      <li><a href="#work">Work</a></li>
       <li><a href="#process">Process</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#faq">FAQ</a></li>
@@ -389,7 +355,6 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 <div class="mob" id="mob">
   <button class="mob-close" id="mobClose">&times;</button>
   <a href="#services" onclick="closeMob()">Services</a>
-  <a href="#work" onclick="closeMob()">Work</a>
   <a href="#process" onclick="closeMob()">Process</a>
   <a href="#about" onclick="closeMob()">About</a>
   <a href="#faq" onclick="closeMob()">FAQ</a>
@@ -402,21 +367,21 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
     <div class="wrap">
       <div class="hero-inner">
         <div class="hero-copy">
-          <div class="hero-byline">Harinivash · Automation &amp; Notion Systems</div>
+          <div class="hero-byline">Harinivash · Automation · Notion · AI · Web</div>
           <div class="eyebrow" style="margin-bottom:24px;">Available for new projects</div>
           <h1 class="hero-title" id="heroTitle"></h1>
-          <p class="hero-sub">Most people connect tools. I design the system underneath them. If someone on your team is still manually moving data between tools every week, that is not an ops problem — that is a missing system.</p>
+          <p class="hero-sub">Most people connect tools. I design the system underneath them — automations, Notion workspaces, AI agents, and the websites that tie it all together. If your team is still moving data by hand every week, that's not an ops problem. It's a missing system.</p>
           <div class="hero-actions">
             <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary magnetic"><span class="btn-sheen"></span><span>Book a free call →</span></a>
-            <a href="#work" class="btn btn-ghost">See my work</a>
+            <a href="#services" class="btn btn-ghost">Explore services</a>
           </div>
           <div class="hero-badges">
-            <span class="hero-badge badge-n8n"><span class="hero-badge-dot"></span>Verified n8n Creator</span>
-            <span class="hero-badge badge-notion"><span class="hero-badge-dot"></span>Notion Systems Designer</span>
-            <span class="hero-badge badge-warn"><span class="hero-badge-dot"></span>n8n Level 2 Certified</span>
+            <span class="hero-badge badge-n8n"><span class="hero-badge-dot"></span>n8n &amp; Zapier Automation</span>
+            <span class="hero-badge badge-notion"><span class="hero-badge-dot"></span>Notion Systems</span>
+            <span class="hero-badge badge-warn"><span class="hero-badge-dot"></span>AI Agents &amp; Web</span>
           </div>
         </div>
-        <div class="hero-visual">
+        <div class="hero-visual" id="wfp">
           <div class="wfp-head">
             <span class="wfp-label">Live Workflow</span>
             <span class="wfp-status">Running</span>
@@ -446,85 +411,105 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
           </div>
         </div>
       </div>
-      <div class="stats-strip">
-        <div><div class="stat-v">500<span>+</span></div><div class="stat-k">hours returned to clients</div></div>
-        <div><div class="stat-v">12<span>+</span></div><div class="stat-k">clients across IN, US &amp; EU</div></div>
-        <div><div class="stat-v">100<span>%</span></div><div class="stat-k">production-grade builds</div></div>
+    </div>
+  </section>
+
+  <!-- TRUST / LOGO STRIP -->
+  <section class="trust">
+    <div class="wrap">
+      <span class="trust-label">Works with your stack</span>
+      <div class="trust-logos">
+        <span class="trust-logo">n8n</span>
+        <span class="trust-logo">Notion</span>
+        <span class="trust-logo">Zapier</span>
+        <span class="trust-logo">Make.com</span>
+        <span class="trust-logo">OpenAI</span>
+        <span class="trust-logo">Claude</span>
+        <span class="trust-logo">Slack</span>
+        <span class="trust-logo">Stripe</span>
+        <span class="trust-logo">Airtable</span>
+        <span class="trust-logo">Next.js</span>
       </div>
     </div>
   </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-row" id="tickerRow">
+      <div class="ticker-item">n8n Automation</div>
+      <div class="ticker-item">Notion Systems</div>
+      <div class="ticker-item">Zapier &amp; Make.com</div>
+      <div class="ticker-item">AI Agents</div>
+      <div class="ticker-item">Web Design</div>
+      <div class="ticker-item">Data Pipelines</div>
+      <div class="ticker-item">API Integrations</div>
+      <div class="ticker-item">Systems Consulting</div>
+    </div>
+  </div>
 
   <!-- SERVICES -->
   <section id="services">
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">Services</span>
-        <h2 class="sec-title">Two disciplines.<br>One connected system.</h2>
+        <h2 class="sec-title">Six disciplines.<br>One connected system.</h2>
       </div>
       <div class="svc-grid">
         <div class="svc-card reveal">
           <div class="svc-num">01</div>
+          <span class="svc-ico">⚡</span>
           <h3>n8n Automation</h3>
-          <p>Custom workflows linking any tool with an API. Bidirectional sync. Zero manual entry.</p>
-          <ul class="svc-list">
-            <li><span class="arrow">→</span>CRM syncs: HubSpot, Salesforce, Attio into Notion, live and bidirectional</li>
-            <li><span class="arrow">→</span>Payment pipelines: Stripe received, invoice created, client notified, records updated</li>
-            <li><span class="arrow">→</span>Webhook pipelines with signature verification, deduplication, and idempotency built in</li>
-            <li><span class="arrow">→</span>AI-enriched workflows: data in, processed by an LLM, lands structured and ready to use</li>
-            <li><span class="arrow">→</span>Communication syncs: Slack and Teams messages into Notion, organised and searchable</li>
-            <li><span class="arrow">→</span>Multi-step pipelines: form to CRM to Notion to team notification, all in one flow</li>
-          </ul>
-          <div class="svc-badges">
-            <span class="svc-badge">Verified n8n Creator</span>
-            <span class="svc-badge">Level 2 Certified</span>
-          </div>
+          <p>Custom, self-hosted workflows linking any tool with an API. Bidirectional sync, webhooks with dedup and retries, zero manual entry.</p>
+          <div class="svc-chips"><span class="svc-chip">Webhooks</span><span class="svc-chip">CRM sync</span><span class="svc-chip">Pipelines</span></div>
         </div>
         <div class="svc-card reveal">
           <div class="svc-num">02</div>
+          <span class="svc-ico">📝</span>
           <h3>Notion Systems</h3>
-          <p>Workspaces built around how your team actually works, not how a template assumed.</p>
-          <ul class="svc-list">
-            <li><span class="arrow">→</span>Multi-database architectures with relations and rollups that actually make sense</li>
-            <li><span class="arrow">→</span>Formula-heavy workspaces for calculations, statuses, and logic your team relies on</li>
-            <li><span class="arrow">→</span>Button-triggered automations that fire n8n workflows directly from Notion</li>
-            <li><span class="arrow">→</span>Custom agents and integrations built on the Notion SDK, running tasks autonomously</li>
-            <li><span class="arrow">→</span>MCP integrations connecting Notion to external tools and AI systems</li>
-            <li><span class="arrow">→</span>Dashboard views and filtered galleries surfacing the right data to the right person</li>
-          </ul>
-          <div class="svc-badges">
-            <span class="svc-badge">Notion Specialist</span>
-            <span class="svc-badge">Advanced Workflows</span>
-          </div>
-          <p class="svc-quote">Most people set up Notion. I build Notion systems that do things on their own.</p>
+          <p>Workspaces built around how your team actually works — multi-database architectures, rollups, formulas, dashboards, and button-triggered automations.</p>
+          <div class="svc-chips"><span class="svc-chip">Databases</span><span class="svc-chip">Dashboards</span><span class="svc-chip">Templates</span></div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-num">03</div>
+          <span class="svc-ico">🔗</span>
+          <h3>Zapier &amp; Make.com</h3>
+          <p>Cloud automation when you want speed and zero infrastructure. Clean, well-documented scenarios connecting the apps you already pay for.</p>
+          <div class="svc-chips"><span class="svc-chip">Zapier</span><span class="svc-chip">Make</span><span class="svc-chip">No-code</span></div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-num">04</div>
+          <span class="svc-ico">🤖</span>
+          <h3>AI Agents</h3>
+          <p>LLM-powered agents that read, decide, and act — lead triage, content drafting, summarisation, and AI-enriched workflows that land structured data.</p>
+          <div class="svc-chips"><span class="svc-chip">GPT</span><span class="svc-chip">Claude</span><span class="svc-chip">RAG</span></div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-num">05</div>
+          <span class="svc-ico">🎨</span>
+          <h3>Web Design</h3>
+          <p>Fast, modern, responsive websites and landing pages built from scratch — not templates. Performance-first, SEO-structured, and built to convert.</p>
+          <div class="svc-chips"><span class="svc-chip">Landing pages</span><span class="svc-chip">Next.js</span><span class="svc-chip">Responsive</span></div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-num">06</div>
+          <span class="svc-ico">📊</span>
+          <h3>Consulting &amp; Pipelines</h3>
+          <p>Not sure what to automate? I audit your stack, map where time leaks, and build the data pipelines and reporting that surface the right numbers.</p>
+          <div class="svc-chips"><span class="svc-chip">Audit</span><span class="svc-chip">ETL</span><span class="svc-chip">Reporting</span></div>
         </div>
       </div>
+      <p class="svc-quote reveal">Most people set up tools. I build <span>systems that run on their own.</span></p>
     </div>
   </section>
 
-  <!-- WORK -->
-  <section id="work">
+  <!-- STATS -->
+  <section id="stats">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Work</span>
-        <h2 class="sec-title">Not every project gets talked about.<br>These ones do.</h2>
-      </div>
-      <div class="work-grid">
-        <div class="work-card reveal">
-          <div class="work-tags"><span class="work-tag">n8n Automation</span><span class="work-tag">Notion Systems</span></div>
-          <div class="work-client">Consulting Client</div>
-          <div class="work-title">The backend automation infrastructure powering a consulting firm's client delivery</div>
-          <div class="work-metric">Ongoing retainer · 2 enterprise-grade systems</div>
-          <p class="work-desc">Production-grade CRM syncs, multi-database architectures, and complex automation pipelines. Built for real client environments with real operational stakes.</p>
-          <a href="mailto:rharinivash28@gmail.com" class="work-link">Get in touch to learn more →</a>
-        </div>
-        <div class="work-card reveal">
-          <div class="work-tags"><span class="work-tag">n8n Automation</span><span class="work-tag">Notion Systems</span></div>
-          <div class="work-client">SaaS Client</div>
-          <div class="work-title">How a SaaS team turned their entire billing and contract workflow into a single button click</div>
-          <div class="work-metric">20+ hours saved every month</div>
-          <p class="work-desc">Full billing automation, subcontractor payouts, and e-signature contracts. All running without a single manual step.</p>
-          <a href="mailto:rharinivash28@gmail.com" class="work-link">Get in touch to learn more →</a>
-        </div>
+      <div class="stats-grid">
+        <div class="stat-cell reveal"><div class="stat-v" data-count="500" data-suffix="+">0</div><div class="stat-k">Hours returned to clients</div></div>
+        <div class="stat-cell reveal"><div class="stat-v" data-count="12" data-suffix="+">0</div><div class="stat-k">Clients across IN, US &amp; EU</div></div>
+        <div class="stat-cell reveal"><div class="stat-v" data-count="40" data-suffix="+">0</div><div class="stat-k">Systems &amp; sites shipped</div></div>
+        <div class="stat-cell reveal"><div class="stat-v" data-count="100" data-suffix="%">0</div><div class="stat-k">Production-grade builds</div></div>
       </div>
     </div>
   </section>
@@ -538,12 +523,12 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
         <p class="cta-desc" style="margin-top:18px;">No black box. No dropped handoffs. Every project follows the same six steps, from first call to final delivery.</p>
       </div>
       <div class="proc-grid">
-        <div class="proc-step reveal"><div class="proc-step-num">01</div><h4>Discovery</h4><p>We get on a call. You walk me through your stack, your problem, and what a good outcome looks like. I ask the questions you haven't thought to answer yet. Nothing gets built until I fully understand what needs to be built.</p></div>
+        <div class="proc-step reveal"><div class="proc-step-num">01</div><h4>Discovery</h4><p>We get on a call. You walk me through your stack, your problem, and what a good outcome looks like. Nothing gets built until I fully understand what needs to be built.</p></div>
         <div class="proc-step reveal"><div class="proc-step-num">02</div><h4>Scoping</h4><p>I come back with a clear breakdown: what gets built, how it works, what done looks like. You approve it. No surprises mid-build.</p></div>
-        <div class="proc-step reveal"><div class="proc-step-num">03</div><h4>Build</h4><p>This is where I go heads down. Production-grade workflows and systems, not prototypes. Error handling, edge cases, deduplication, retry logic — all covered without you having to ask.</p></div>
-        <div class="proc-step reveal"><div class="proc-step-num">04</div><h4>Testing &amp; QA</h4><p>I break it before you do. Every workflow gets tested against real scenarios, failure cases, and edge inputs. You only see it when it's ready.</p></div>
-        <div class="proc-step reveal"><div class="proc-step-num">05</div><h4>Handoff</h4><p>A live walkthrough call, a video recording you can rewatch, and full documentation explaining how it works and how to maintain it. You leave knowing exactly what you have.</p></div>
-        <div class="proc-step reveal"><div class="proc-step-num">06</div><h4>Ongoing Support</h4><p>If you want someone on call for updates, fixes, and additions, I offer a monthly retainer after handoff. Completely optional. No pressure — but it's there if you want the work to keep evolving.</p></div>
+        <div class="proc-step reveal"><div class="proc-step-num">03</div><h4>Build</h4><p>Heads down. Production-grade workflows, systems, and sites — not prototypes. Error handling, edge cases, and retry logic covered without you asking.</p></div>
+        <div class="proc-step reveal"><div class="proc-step-num">04</div><h4>Testing &amp; QA</h4><p>I break it before you do. Every build gets tested against real scenarios, failure cases, and edge inputs. You only see it when it's ready.</p></div>
+        <div class="proc-step reveal"><div class="proc-step-num">05</div><h4>Handoff</h4><p>A live walkthrough call, a video recording you can rewatch, and full documentation. You leave knowing exactly what you have.</p></div>
+        <div class="proc-step reveal"><div class="proc-step-num">06</div><h4>Ongoing Support</h4><p>Want someone on call for updates, fixes, and additions? I offer an optional monthly retainer after handoff. No pressure — there if you want it.</p></div>
       </div>
     </div>
   </section>
@@ -554,7 +539,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
       <div class="about-body reveal">
         <span class="eyebrow" style="display:block;margin-bottom:24px;">About</span>
         <h2>Hey, I'm Harinivash.</h2>
-        <p>I'm the founder of Harinivash Studio. I build n8n automation workflows and Notion systems for businesses that are tired of tools that don't talk to each other.</p>
+        <p>I'm the founder of Harinivash Studio. I build automation workflows, Notion systems, AI agents, and websites for businesses that are tired of tools that don't talk to each other.</p>
         <p>Most people connect tools. I design the system underneath them — the one that handles edge cases, doesn't break on weekends, and doesn't need you to babysit it. If your team is still manually moving data between apps every week, that's not an ops problem. That's a missing system, and that's exactly what I build.</p>
         <p>I'm not the loudest person in the room, but I'm probably the last one to give up on a problem. I don't take on everything — I work with a small number of clients at a time so I can actually focus. If we work together, you're not getting handed off to a junior or managed through a ticket system. You get me, start to finish.</p>
         <p>I work remotely with clients across India, the US, and Europe. I care about building things right, not just building things that look like they work in a demo.</p>
@@ -569,17 +554,16 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
         <span class="eyebrow">FAQ</span>
         <h2 class="sec-title">Common questions.</h2>
       </div>
-      <div class="faq-list">
+      <div class="faq-list reveal">
         <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What does this typically cost?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Most projects fall between $1,000 and $10,000+. Retainers from $500+/month. Exact scope and price confirmed on the call.</p></div></div>
-        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What do I actually get from the 30-minute call?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>A clear breakdown of what I'd automate in your specific situation, how the system would work, how long it would take to build, and what it would cost. No vague discovery. No pitch. By the end you'll have enough to decide whether to move forward. If it's not the right fit, I'll tell you honestly.</p></div></div>
-        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">How long does a typical project take?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Most projects take 2 to 10 weeks depending on complexity. I don't rush. I take time to understand your business, map your actual pain points, and build something production-grade that holds up.</p></div></div>
-        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Do I need to know n8n or Notion to work with you?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Zero knowledge needed. If you want to learn, I'll teach you. If you never want to touch it, you never have to. I handle the build, the documentation, and the handoff. You just use the system.</p></div></div>
-        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What does handing over API keys and access look like?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>I'll guide you through getting the right credentials. Everything is stored in end-to-end encrypted vaults, never shared, never exposed. Once the project is complete and handed off, access is revoked unless you're on a retainer.</p></div></div>
-        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What if something breaks after the project is done?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Every build ships with documentation and a walkthrough so you're not dependent on me. That said, things do break — APIs change, tools update. I offer an optional monthly retainer after handoff for exactly this. Completely your choice.</p></div></div>
-        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Can you work with my timezone?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Yes. I've worked with clients across India, the US, Europe, and Australia. Most of the project runs async so timezone rarely matters. Calls for discovery and handoff get scheduled at a time that works for you.</p></div></div>
-        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What kinds of businesses do you work with?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Small and mid-sized businesses, typically 5 to 100 people, running on a stack of tools that don't talk to each other. If your team is spending hours every week on manual data entry, that's exactly the problem I solve.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What do I actually get from the call?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>A clear breakdown of what I'd automate or build in your specific situation, how the system would work, how long it would take, and what it would cost. No vague discovery. No pitch. If it's not the right fit, I'll tell you honestly.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">How long does a typical project take?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Most projects take 2 to 10 weeks depending on complexity. I don't rush — I take time to understand your business, map your actual pain points, and build something production-grade that holds up.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Do I need to know n8n, Notion, or code?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Zero knowledge needed. If you want to learn, I'll teach you. If you never want to touch it, you never have to. I handle the build, the documentation, and the handoff. You just use the system.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What does handing over access look like?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>I'll guide you through getting the right credentials. Everything is stored in end-to-end encrypted vaults, never shared, never exposed. Once the project is handed off, access is revoked unless you're on a retainer.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What if something breaks after delivery?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Every build ships with documentation and a walkthrough so you're not dependent on me. That said, APIs change and tools update. I offer an optional monthly retainer after handoff for exactly this. Completely your choice.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Can you work with my timezone?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>Yes. I've worked with clients across India, the US, Europe, and Australia. Most of the project runs async so timezone rarely matters. Calls get scheduled at a time that works for you.</p></div></div>
         <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What if my tools don't have an API?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>If it has an API, I can connect it. If it doesn't, I'll figure out a way — webhooks, scraping, native exports, workarounds. I've solved this before and I'll solve it for you.</p></div></div>
-        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">How do we communicate during the project?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>However you prefer. Email, Slack, WhatsApp, Telegram, whatever your team already uses. I don't force a new tool on you. You pick the channel, I show up there.</p></div></div>
+        <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">How do we communicate during the project?</span><span class="faq-ico">+</span></button><div class="faq-a"><p>However you prefer. Email, Slack, WhatsApp, Telegram — whatever your team already uses. I don't force a new tool on you. You pick the channel, I show up there.</p></div></div>
       </div>
     </div>
   </section>
@@ -590,10 +574,10 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
       <div class="sec-head reveal" style="margin-bottom:0;">
         <span class="eyebrow" style="display:block;margin-bottom:18px;">Book a call</span>
         <h2 class="sec-title">Stop doing it manually.</h2>
-        <p class="cta-desc">Pick a time. In 30 minutes you'll get a clear map of what to automate in your business and an honest price for building it. Free, no obligation.</p>
+        <p class="cta-desc">Pick a time. In 15 minutes you'll get a clear map of what to automate or build in your business and an honest price for it. Free, no obligation.</p>
         <p class="cta-price">Most projects fall between $1,000 and $10,000+. Retainers from $500+/month.</p>
         <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary magnetic"><span class="btn-sheen"></span><span>Book a call →</span></a>
-        <p class="cta-meta">Remote worldwide · 30 min · Free</p>
+        <p class="cta-meta">Remote worldwide · 15 min · Free</p>
       </div>
     </div>
   </section>
@@ -604,7 +588,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
     <div class="foot-grid">
       <div>
         <div class="foot-brand">Harinivash Studio</div>
-        <p class="foot-tag">n8n automation and Notion systems for teams who need it built properly. Remote worldwide.</p>
+        <p class="foot-tag">Automation, Notion systems, AI agents, and web design for teams who need it built properly. Remote worldwide.</p>
         <div class="foot-socials">
           <a href="https://instagram.com/harinivash_consultant" target="_blank" rel="noopener" class="foot-social ig" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -620,9 +604,9 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
       <div class="foot-col">
         <h5>Pages</h5>
         <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#work">Work</a></li>
+          <li><a href="#services">Services</a></li>
           <li><a href="#process">Process</a></li>
+          <li><a href="#about">About</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
       </div>
@@ -655,18 +639,36 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 
 // Hero typewriter words
 (function(){
-  var words = ["Stop","being","your","own","automation."];
+  var words = [["Stop",0],["being",0],["your",0],["own",0],["automation.",1]];
   var el = document.getElementById("heroTitle");
   words.forEach(function(w, i){
     var span = document.createElement("span");
-    span.className = "hero-word";
-    span.textContent = w + (i < words.length-1 ? " " : "");
+    span.className = "hero-word" + (w[1] ? " grad" : "");
+    span.textContent = w[0] + (i < words.length-1 ? " " : "");
     span.style.animationDelay = (0.15 + i*0.12) + "s";
     el.appendChild(span);
   });
   var cur = document.createElement("span");
   cur.className = "cursor";
   el.appendChild(cur);
+})();
+
+// Animated workflow loop in hero card
+(function(){
+  var wfp = document.getElementById("wfp");
+  if (!wfp) return;
+  var nodes = wfp.querySelectorAll(".wfp-node");
+  var conns = wfp.querySelectorAll(".wfp-connector");
+  var i = 0;
+  function step(){
+    nodes.forEach(function(n){ n.classList.remove("active"); });
+    conns.forEach(function(c){ c.classList.remove("lit"); });
+    nodes[i].classList.add("active");
+    if (i > 0 && conns[i-1]) conns[i-1].classList.add("lit");
+    i = (i + 1) % nodes.length;
+  }
+  step();
+  setInterval(step, 1100);
 })();
 
 // Theme toggle (animated switch)
@@ -692,6 +694,12 @@ document.getElementById("hamburger").addEventListener("click", function(){ docum
 document.getElementById("mobClose").addEventListener("click", closeMob);
 function closeMob(){ document.getElementById("mob").classList.remove("open"); }
 
+// Duplicate ticker content for seamless loop
+(function(){
+  var row = document.getElementById("tickerRow");
+  if (row) row.innerHTML += row.innerHTML;
+})();
+
 // Magnetic "Book a call" buttons: cursor pull + sheen follow + spark emit
 document.querySelectorAll(".btn-primary.magnetic").forEach(function(btn){
   var sheen = btn.querySelector(".btn-sheen");
@@ -699,30 +707,16 @@ document.querySelectorAll(".btn-primary.magnetic").forEach(function(btn){
   btn.addEventListener("mousemove", function(e){
     var r = btn.getBoundingClientRect();
     var mx = e.clientX - r.left, my = e.clientY - r.top;
-    // sheen follows cursor
     if (sheen){ sheen.style.setProperty("--mx", mx + "px"); sheen.style.setProperty("--my", my + "px"); }
-    // magnetic pull toward cursor (subtle)
     var px = (mx - r.width / 2) / r.width;
     var py = (my - r.height / 2) / r.height;
     btn.style.transform = "translate(" + (px * 8) + "px," + (py * 8 - 2) + "px)";
-    // emit a light trail of sparks
     var now = Date.now();
-    if (now - lastSpark > 60){
-      lastSpark = now;
-      emitSpark(e.clientX, e.clientY, false);
-    }
+    if (now - lastSpark > 60){ lastSpark = now; emitSpark(e.clientX, e.clientY, false); }
   });
-  btn.addEventListener("mouseenter", function(e){
-    // subtle welcome burst
-    for (var k = 0; k < 5; k++) emitSpark(e.clientX, e.clientY, true);
-  });
-  btn.addEventListener("click", function(e){
-    // celebratory burst (kept lively on click)
-    for (var k = 0; k < 14; k++) emitSpark(e.clientX, e.clientY, true);
-  });
-  btn.addEventListener("mouseleave", function(){
-    btn.style.transform = "";
-  });
+  btn.addEventListener("mouseenter", function(e){ for (var k = 0; k < 5; k++) emitSpark(e.clientX, e.clientY, true); });
+  btn.addEventListener("click", function(e){ for (var k = 0; k < 14; k++) emitSpark(e.clientX, e.clientY, true); });
+  btn.addEventListener("mouseleave", function(){ btn.style.transform = ""; });
 });
 var SPARK_COLORS = [
   { c: "#cfe0ff", g: "#6E97F4", g2: "#4C7DF0" },
@@ -734,18 +728,17 @@ function emitSpark(x, y, burst){
   var s = document.createElement("div");
   s.className = "spark";
   var col = SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)];
-  var size = Math.random() * 5 + 3; // 3-8px
+  var size = Math.random() * 5 + 3;
   s.style.width = size + "px"; s.style.height = size + "px";
   s.style.background = col.c;
   s.style.boxShadow = "0 0 8px " + col.g + ", 0 0 16px " + col.g2;
-  // slight scatter around origin
   var ox = (Math.random() - 0.5) * 14, oy = (Math.random() - 0.5) * 14;
   s.style.left = (x + ox) + "px"; s.style.top = (y + oy) + "px";
   document.body.appendChild(s);
   var ang = Math.random() * Math.PI * 2;
   var dist = burst ? (Math.random() * 70 + 30) : (Math.random() * 40 + 16);
   var dx = Math.cos(ang) * dist;
-  var dy = Math.sin(ang) * dist - (burst ? 6 : 16); // drift up a touch
+  var dy = Math.sin(ang) * dist - (burst ? 6 : 16);
   var dur = burst ? 750 : 620;
   s.animate([
     { transform: "translate(-50%,-50%) scale(1)", opacity: 1 },
@@ -775,21 +768,44 @@ function fallbackCopy(text){
 }
 var toastEl;
 function showCopyToast(msg){
-  if (!toastEl){
-    toastEl = document.createElement("div");
-    toastEl.className = "copy-toast";
-    document.body.appendChild(toastEl);
-  }
+  if (!toastEl){ toastEl = document.createElement("div"); toastEl.className = "copy-toast"; document.body.appendChild(toastEl); }
   toastEl.innerHTML = '<span class="ct-check">&#10003;</span>' + msg;
   toastEl.classList.add("show");
   clearTimeout(toastEl._t);
   toastEl._t = setTimeout(function(){ toastEl.classList.remove("show"); }, 2200);
 }
 
-// Scroll reveal
+// Stats count-up on scroll into view
+function animateCount(el){
+  var target = parseFloat(el.getAttribute("data-count"));
+  var suffix = el.getAttribute("data-suffix") || "";
+  var dur = 1400, start = performance.now();
+  function tick(now){
+    var p = Math.min((now - start) / dur, 1);
+    var eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * eased) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// Scroll reveal (with stagger inside grids) + stat triggers
 var io = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("on"); io.unobserve(e.target); } });
-}, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+  entries.forEach(function(e){
+    if (e.isIntersecting){
+      e.target.classList.add("on");
+      var c = e.target.querySelector("[data-count]");
+      if (c && !c._done){ c._done = true; animateCount(c); }
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+// stagger reveals within a grid
+document.querySelectorAll(".svc-grid, .proc-grid, .stats-grid").forEach(function(grid){
+  Array.prototype.forEach.call(grid.children, function(child, idx){
+    if (child.classList.contains("reveal")) child.style.transitionDelay = (idx % 3) * 0.08 + "s";
+  });
+});
 document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
 </script>
 
@@ -809,9 +825,7 @@ Cal.ns.discovery("ui", {
   layout: "month_view"
 });
 
-// Wire all booking buttons to the popup
-// Pass empty name/email so the form always starts blank for the booker
-// (overrides any logged-in-session autofill)
+// Wire all booking buttons to the popup; blank name/email for the booker
 document.querySelectorAll('[data-cal-link]').forEach(function(el){
   el.addEventListener("click", function(e){
     e.preventDefault();
