@@ -80,48 +80,16 @@ section { padding: 100px 0; border-top: 1px solid var(--h); }
 .reveal.on { opacity: 1; transform: none; }
 .skip-link { position: absolute; left: -999px; top: 0; background: var(--acc); color: #fff; padding: 0.5rem 1rem; z-index: 1000; }
 
-/* ── Custom cursor (only over CTA + nav) ── */
-@media (hover: hover) and (pointer: fine) {
-  .cur-ring {
-    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 100000;
-    transform: translate(-50%, -50%) scale(0.4); border-radius: 50%;
-    width: 64px; height: 64px; opacity: 0;
-    border: 1.5px solid var(--acc);
-    background: radial-gradient(circle, rgba(76,125,240,0.22), rgba(76,125,240,0.04) 70%);
-    box-shadow: 0 0 30px -4px var(--acc-b), inset 0 0 18px -6px var(--acc-b);
-    backdrop-filter: blur(2px);
-    transition: opacity 0.22s var(--ease), transform 0.22s var(--ease), width 0.25s var(--ease), height 0.25s var(--ease), background 0.25s, border-color 0.25s;
-    will-change: transform;
-  }
-  /* active over a hover zone -> fade in + pop to full size, hide native cursor there */
-  body.cur-on .cur-ring { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  /* over nav links -> tighter ring */
-  body.cur-nav .cur-ring { width: 44px; height: 44px; }
-  /* pressed feedback */
-  body.cur-down.cur-on .cur-ring { transform: translate(-50%, -50%) scale(0.82); }
-  /* hide the native pointer only on the special zones */
-  .btn-primary, [data-cal-link], .nav-cta,
-  .nav-links a, .brand, .theme-switch { cursor: none; }
-}
 .skip-link:focus { left: 1rem; top: 1rem; }
 
-/* ── Nav ── */
+/* ── Nav (transparent bar, visible controls) ── */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 64px;
-  background: color-mix(in srgb, var(--s0) 62%, transparent);
-  backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur);
-  border-bottom: 1px solid var(--glass-brd);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 30px -20px rgba(0,0,0,0.5);
-  transition: top 0.4s var(--ease), left 0.4s var(--ease), right 0.4s var(--ease), height 0.35s var(--ease), border-radius 0.4s var(--ease), background 0.3s, box-shadow 0.4s var(--ease), border-color 0.3s; }
-nav .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; transition: padding 0.35s var(--ease); }
-/* Floating pill state on scroll */
-nav.floating { top: 16px; left: 16px; right: 16px; height: 58px; border-radius: 16px;
-  background: var(--glass-2);
-  border: 1px solid var(--glass-brd);
-  box-shadow: var(--glass-shadow), 0 18px 44px -22px rgba(0,0,0,0.7); }
-@media (min-width: 920px) {
-  nav.floating { left: max(16px, calc((100% - 1140px) / 2)); right: max(16px, calc((100% - 1140px) / 2)); }
-}
-nav.floating .wrap { padding-left: 26px; padding-right: 26px; }
+  background: transparent; border: none; box-shadow: none;
+  transition: height 0.35s var(--ease); }
+nav .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+/* Keep logo + links readable over any background with a soft text shadow */
+.brand, .nav-links a { text-shadow: 0 1px 14px rgba(0,0,0,0.45); }
+html.light .brand, html.light .nav-links a { text-shadow: 0 1px 12px rgba(255,255,255,0.6); }
 .brand { font-family: var(--font-d); font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; display: flex; align-items: center; gap: 9px; }
 .brand-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 10px var(--acc); animation: pulse 2.4s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
@@ -380,7 +348,6 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
-<div class="cur-ring" id="curRing"></div>
 
 <nav id="nav">
   <div class="wrap">
@@ -662,50 +629,6 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 </footer>
 
 <script>
-// Custom cursor — only appears over "Book a call" + navigation zones
-(function(){
-  if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-  var ring = document.getElementById("curRing");
-  var mx = window.innerWidth / 2, my = window.innerHeight / 2;
-  var rx = mx, ry = my, active = false;
-  // zones that trigger the custom cursor
-  var navSel = ".nav-links a, .brand, .theme-switch";
-  var ctaSel = ".btn-primary, [data-cal-link], .nav-cta";
-  var zoneSel = ctaSel + ", " + navSel;
-
-  document.addEventListener("mousemove", function(e){ mx = e.clientX; my = e.clientY; });
-  (function loop(){
-    rx += (mx - rx) * 0.22; ry += (my - ry) * 0.22;
-    ring.style.left = rx + "px"; ring.style.top = ry + "px";
-    requestAnimationFrame(loop);
-  })();
-  document.addEventListener("mousedown", function(){ document.body.classList.add("cur-down"); });
-  document.addEventListener("mouseup", function(){ document.body.classList.remove("cur-down"); });
-
-  document.addEventListener("mouseover", function(e){
-    var b = document.body;
-    var zone = e.target.closest && e.target.closest(zoneSel);
-    if (zone){
-      b.classList.add("cur-on");
-      b.classList.toggle("cur-nav", !!e.target.closest(navSel) && !e.target.closest(ctaSel));
-      if (!active){ rx = mx; ry = my; active = true; } // snap in at pointer
-    } else {
-      b.classList.remove("cur-on","cur-nav"); active = false;
-    }
-  });
-})();
-
-// Floating nav on scroll
-(function(){
-  var nav = document.getElementById("nav");
-  function onScroll(){
-    if (window.scrollY > 24) nav.classList.add("floating");
-    else nav.classList.remove("floating");
-  }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
-})();
-
 // Hero typewriter words
 (function(){
   var words = ["Stop","being","your","own","automation."];
