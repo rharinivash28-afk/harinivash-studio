@@ -77,7 +77,7 @@ section { padding: 100px 0; border-top: 1px solid var(--h); }
 
 /* full-screen sections + gentle snap */
 #about, #faq { min-height: 78vh; display: flex; align-items: center; padding-top: 90px; padding-bottom: 90px; scroll-snap-align: center; }
-#about .wrap, #faq .wrap { width: 100%; }
+#about .wrap, #faq .wrap { width: 100%; max-width: none; padding-left: clamp(22px, 5vw, 72px); padding-right: clamp(22px, 5vw, 72px); }
 @media (min-width: 641px) and (hover: hover) { html { scroll-snap-type: y proximity; } }
 @media (max-width: 640px) { #about, #faq { min-height: auto; padding: 70px 0; scroll-snap-align: none; } }
 
@@ -276,21 +276,23 @@ html.light .net-ring { fill: rgba(255,255,255,0.85); }
 .proc-step p { color: var(--fg2); font-size: 13.5px; line-height: 1.7; }
 
 /* ── About ── */
-.about-body { max-width: 980px; }
+.about-body { max-width: 100%; }
 .about-body h2 { font-family: var(--font-s); font-style: italic; font-size: clamp(28px,3.8vw,44px); font-weight: 400; margin-bottom: 26px; }
-.about-body p { color: var(--fg2); font-size: 16px; line-height: 1.85; margin-bottom: 18px; }
+.about-cols { columns: 2; column-gap: 56px; }
+.about-cols p { color: var(--fg2); font-size: 16px; line-height: 1.85; margin-bottom: 18px; break-inside: avoid; }
+@media (max-width: 760px) { .about-cols { columns: 1; } }
 
 /* ── FAQ ── */
-.faq-list { max-width: 1040px; background: var(--glass); border: 1px solid var(--glass-brd); border-radius: 16px; padding: 8px 34px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: var(--glass-shadow); }
+.faq-list { max-width: 100%; background: var(--glass); border: 1px solid var(--glass-brd); border-radius: 16px; padding: 6px 40px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: var(--glass-shadow); display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; align-items: start; }
 .faq-item { border-bottom: 1px solid var(--h); }
-.faq-item:last-child { border-bottom: none; }
+@media (max-width: 760px) { .faq-list { grid-template-columns: 1fr; gap: 0; } }
 .faq-btn { width: 100%; background: none; border: none; color: var(--fg1); padding: 22px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; cursor: pointer; text-align: left; }
 .faq-q { font-size: 16px; font-weight: 500; line-height: 1.4; }
 .faq-ico { font-family: var(--font-d); font-size: 18px; color: var(--acc); flex-shrink: 0; transition: transform 0.3s; }
 .faq-item.open .faq-ico { transform: rotate(45deg); }
 .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
 .faq-item.open .faq-a { max-height: 400px; }
-.faq-a p { color: var(--fg2); font-size: 14.5px; line-height: 1.8; padding-bottom: 24px; max-width: 75ch; }
+.faq-a p { color: var(--fg2); font-size: 14.5px; line-height: 1.8; padding-bottom: 24px; max-width: 100%; }
 
 /* ── CTA ── */
 #cta .sec-title { margin-bottom: 22px; }
@@ -639,10 +641,12 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
       <div class="about-body reveal">
         <span class="eyebrow" style="display:block;margin-bottom:24px;">About</span>
         <h2>Hey, I'm Harinivash.</h2>
-        <p>I'm the founder of Harinivash Studio. I build automation workflows, Notion systems, AI agents, and websites for businesses that are tired of tools that don't talk to each other.</p>
-        <p>Most people connect tools. I design the system underneath them — the one that handles edge cases, doesn't break on weekends, and doesn't need you to babysit it. If your team is still manually moving data between apps every week, that's not an ops problem. That's a missing system, and that's exactly what I build.</p>
-        <p>I'm not the loudest person in the room, but I'm probably the last one to give up on a problem. I don't take on everything — I work with a small number of clients at a time so I can actually focus. If we work together, you're not getting handed off to a junior or managed through a ticket system. You get me, start to finish.</p>
-        <p>I work remotely with clients across India, the US, and Europe. I care about building things right, not just building things that look like they work in a demo.</p>
+        <div class="about-cols">
+          <p>I'm the founder of Harinivash Studio. I build automation workflows, Notion systems, AI agents, and websites for businesses that are tired of tools that don't talk to each other.</p>
+          <p>Most people connect tools. I design the system underneath them — the one that handles edge cases, doesn't break on weekends, and doesn't need you to babysit it. If your team is still manually moving data between apps every week, that's not an ops problem. That's a missing system, and that's exactly what I build.</p>
+          <p>I'm not the loudest person in the room, but I'm probably the last one to give up on a problem. I don't take on everything — I work with a small number of clients at a time so I can actually focus. If we work together, you're not getting handed off to a junior or managed through a ticket system. You get me, start to finish.</p>
+          <p>I work remotely with clients across India, the US, and Europe. I care about building things right, not just building things that look like they work in a demo.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -945,6 +949,9 @@ var io = new IntersectionObserver(function(entries){
       e.target.classList.add("on");
       var c = e.target.querySelector("[data-count]");
       if (c && !c._done){ c._done = true; animateCount(c); }
+      // clear the stagger delay once revealed so it doesn't lag hover/tilt later
+      var delay = parseFloat(e.target.style.transitionDelay) || 0;
+      setTimeout(function(){ e.target.style.transitionDelay = ""; }, (delay + 0.7) * 1000);
       io.unobserve(e.target);
     }
   });
