@@ -73,9 +73,13 @@ a { color: inherit; text-decoration: none; }
 .wrap { max-width: 1380px; margin: 0 auto; padding: 0 40px; }
 section { padding: 100px 0; border-top: 1px solid var(--h); }
 /* full-screen sections */
-#about, #faq { min-height: 100vh; display: flex; align-items: center; }
+#about, #faq { min-height: 100vh; display: flex; align-items: center; scroll-snap-align: center; scroll-snap-stop: normal; }
 #about .wrap, #faq .wrap { width: 100%; }
-@media (max-width: 640px) { #about, #faq { min-height: auto; padding: 70px 0; } }
+/* gentle proximity snap so About/FAQ lock to the viewport when scrolled near */
+@media (min-width: 641px) and (hover: hover) {
+  html { scroll-snap-type: y proximity; scroll-padding-top: 0; }
+}
+@media (max-width: 640px) { #about, #faq { min-height: auto; padding: 70px 0; scroll-snap-align: none; } }
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.55s cubic-bezier(0.23,1,0.32,1), transform 0.55s cubic-bezier(0.23,1,0.32,1); }
 .reveal.on { opacity: 1; transform: none; }
 .skip-link { position: absolute; left: -999px; top: 0; background: var(--acc); color: #fff; padding: 0.5rem 1rem; z-index: 1000; }
