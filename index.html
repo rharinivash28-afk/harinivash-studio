@@ -102,7 +102,7 @@ a { color: inherit; text-decoration: none; }
 /* ── Custom glossy arrow cursor ── */
 @media (hover: hover) and (pointer: fine) {
   * { cursor: none !important; }
-  .cursor-arrow { position: fixed; top: 0; left: 0; width: 30px; height: 34px; pointer-events: none; z-index: 100000; will-change: transform; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.45)); transition: opacity 0.25s, filter 0.25s; }
+  .cursor-arrow { position: fixed; top: 0; left: 0; width: 20px; height: 23px; pointer-events: none; z-index: 100000; will-change: transform; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.45)); transition: opacity 0.25s, filter 0.25s; }
   .cursor-arrow svg { display: block; width: 100%; height: 100%; transition: transform 0.12s var(--ease); transform-origin: 14% 8%; }
   body.cur-press .cursor-arrow svg { transform: scale(0.88); }
 }
@@ -795,7 +795,7 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
   document.addEventListener("mousemove", function(e){
     x = e.clientX; y = e.clientY;
     cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(function(){ c.style.transform = "translate(" + (x - 3) + "px," + (y - 2) + "px)"; });
+    raf = requestAnimationFrame(function(){ c.style.transform = "translate(" + (x - 2) + "px," + (y - 1) + "px)"; });
   });
   document.addEventListener("mousedown", function(){ document.body.classList.add("cur-press"); });
   document.addEventListener("mouseup", function(){ document.body.classList.remove("cur-press"); });
