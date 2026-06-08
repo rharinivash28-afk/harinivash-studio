@@ -257,7 +257,13 @@ html.light .ts-thumb { transform: translateX(30px); background: radial-gradient(
 @keyframes wordUp { to { opacity: 1; transform: translateY(0); } }
 .cursor { display: inline-block; width: 0.5ch; height: 0.85em; background: var(--acc); vertical-align: -0.08em; margin-left: 2px; animation: blink 1.1s steps(1) infinite; box-shadow: 0 0 14px rgba(76,125,240,0.7); }
 @keyframes blink { 50%{opacity:0} }
-.hero-sub { font-size: 17px; color: var(--fg2); max-width: 50ch; line-height: 1.65; margin-bottom: 34px; opacity: 0; animation: fadeIn 0.8s ease 0.9s forwards; }
+.hero-sub { font-size: 18px; color: var(--fg2); max-width: 54ch; line-height: 1.7; margin-bottom: 34px; opacity: 0; animation: fadeIn 0.8s ease 0.9s forwards; }
+.hero-status { display: inline-flex; align-items: center; gap: 9px; padding: 6px 14px; border-radius: 100px; background: rgba(159,186,142,0.08); border: 1px solid rgba(159,186,142,0.25); color: var(--ok); }
+.hero-status::before { display: none; }
+.hero-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 rgba(159,186,142,0.6); animation: statusPulse 2s ease-out infinite; }
+@keyframes statusPulse { 0%{ box-shadow: 0 0 0 0 rgba(159,186,142,0.55); } 70%{ box-shadow: 0 0 0 8px rgba(159,186,142,0); } 100%{ box-shadow: 0 0 0 0 rgba(159,186,142,0); } }
+.hero-trust { margin-top: 26px; font-family: var(--font-d); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg3); opacity: 0; animation: fadeIn 0.8s ease 1.35s forwards; }
+.hero-trust strong { color: var(--fg2); font-weight: 600; }
 @keyframes fadeIn { to { opacity: 1; } }
 .hero-actions { display: flex; gap: 12px; margin-bottom: 36px; flex-wrap: wrap; opacity: 0; animation: fadeIn 0.8s ease 1.05s forwards; }
 .hero-badges { display: flex; gap: 8px; flex-wrap: wrap; opacity: 0; animation: fadeIn 0.8s ease 1.2s forwards; }
@@ -592,19 +598,19 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
     </div>
     <div class="wrap">
       <div class="hero-copy hero-centered">
-        <div class="hero-byline">Harinivash · Automation · Notion · AI · Web</div>
-        <div class="eyebrow" style="margin-bottom:24px;">Available for new projects</div>
+        <div class="eyebrow hero-status" style="margin-bottom:24px;"><span class="hero-status-dot"></span>Available for 2 new projects this month</div>
         <h1 class="hero-title" id="heroTitle"></h1>
-        <p class="hero-sub">Most people connect tools. I design the system underneath them — automations, Notion workspaces, AI agents, and the websites that tie it all together. If your team is still moving data by hand every week, that's not an ops problem. It's a missing system.</p>
+        <p class="hero-sub">I build the automations, Notion systems, AI agents, and websites that run your operations for you — so your team stops copy-pasting between apps and gets back to the work that actually matters.</p>
         <div class="hero-actions">
-          <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary magnetic"><span class="btn-sheen"></span><span>Book a free call →</span></a>
-          <a href="#services" class="btn btn-ghost">Explore services</a>
+          <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary magnetic"><span class="btn-sheen"></span><span>Book a free 15-min call →</span></a>
+          <a href="/work.html" class="btn btn-ghost">See the work</a>
         </div>
         <div class="hero-badges">
-          <span class="hero-badge badge-n8n"><span class="hero-badge-dot"></span>n8n &amp; Zapier Automation</span>
-          <span class="hero-badge badge-notion"><span class="hero-badge-dot"></span>Notion Systems</span>
-          <span class="hero-badge badge-warn"><span class="hero-badge-dot"></span>AI Agents &amp; Web</span>
+          <span class="hero-badge badge-n8n"><span class="hero-badge-dot"></span>500+ hours saved for clients</span>
+          <span class="hero-badge badge-notion"><span class="hero-badge-dot"></span>Remote worldwide</span>
+          <span class="hero-badge badge-warn"><span class="hero-badge-dot"></span>Replies in 24h</span>
         </div>
+        <p class="hero-trust">Trusted by founders &amp; teams across <strong>IN · US · EU</strong></p>
       </div>
     </div>
   </section>
@@ -882,7 +888,7 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
 
 // Hero typewriter words
 (function(){
-  var words = [["Stop",0],["being",0],["your",0],["own",0],["automation.",1]];
+  var words = [["Your",0],["business,",0],["running",0],["on",0],["autopilot.",1]];
   var el = document.getElementById("heroTitle");
   words.forEach(function(w, i){
     var span = document.createElement("span");
