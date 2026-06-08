@@ -12,7 +12,7 @@
     { id:'crimson',acc:'#e23b54', hi:'#f0607a', lo:'#bd2840', vio:'#f05a86' },
     { id:'lime',   acc:'#7bbf3a', hi:'#9bd45e', lo:'#5e9a26', vio:'#a6d36c' }
   ];
-  var FONTS = { sm:'14px', md:'15px', lg:'16.5px' };
+  var FONTS = { sm:0.92, md:1, lg:1.12 };
 
   function rgb(hex){ var n=parseInt(hex.slice(1),16); return [n>>16&255, n>>8&255, n&255]; }
   function rgba(hex,a){ var c=rgb(hex); return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')'; }
@@ -41,14 +41,12 @@
     document.documentElement.setAttribute('data-tint', id);
   }
   function applyTheme(t){ document.documentElement.classList.toggle('light', t==='light'); localStorage.setItem('theme', t); }
-  function applyFont(f){ document.documentElement.style.setProperty('--base-font', FONTS[f] || FONTS.md); document.documentElement.setAttribute('data-font', f); }
-  function applyMotion(on){ document.documentElement.classList.toggle('reduce-motion', !!on); }
+  function applyFont(f){ document.documentElement.style.setProperty('--ui-scale', FONTS[f] || FONTS.md); document.documentElement.setAttribute('data-font', f); }
   function applyCursor(off){ document.documentElement.classList.toggle('no-cursor', !!off); }
   function applyAnimBg(on){ document.documentElement.classList.toggle('static-bg', !on); }
 
   // apply saved
   applyColor(s.accent); applyFont(s.font);
-  if (s.reduceMotion) applyMotion(true);
   if (s.noCursor) applyCursor(true);
   if (!s.animBg) applyAnimBg(false);
 
@@ -68,7 +66,6 @@
     '<div class="set-row"><span class="set-label">Theme color</span><div class="swatches" id="setColor">'+swatches()+'</div></div>'+
     '<div class="set-row"><span class="set-label">Text size</span><div class="seg" id="setFont"><button data-font="sm"'+(s.font==='sm'?' class="active"':'')+'>A</button><button data-font="md"'+(s.font==='md'?' class="active"':'')+'>A</button><button data-font="lg"'+(s.font==='lg'?' class="active"':'')+'>A</button></div></div>'+
     '<div class="set-row set-toggle"><span>Animated background</span><button class="tgl'+(s.animBg?' on':'')+'" id="setAnimBg" role="switch" aria-checked="'+(!!s.animBg)+'"></button></div>'+
-    '<div class="set-row set-toggle"><span>Reduce motion</span><button class="tgl'+(s.reduceMotion?' on':'')+'" id="setMotion" role="switch" aria-checked="'+(!!s.reduceMotion)+'"></button></div>'+
     '<div class="set-row set-toggle"><span>Custom cursor</span><button class="tgl'+(s.noCursor?'':' on')+'" id="setCursor" role="switch" aria-checked="'+(!s.noCursor)+'"></button></div>'+
     '<button class="settings-reset" id="setReset">Reset to defaults</button>';
   // mark the three text-size buttons visually small/med/large
@@ -88,9 +85,8 @@
   document.getElementById('setColor').addEventListener('click', function(e){ var b=e.target.closest('.swatch'); if(!b)return; s.accent=b.dataset.color; applyColor(s.accent); save(s); this.querySelectorAll('.swatch').forEach(function(x){x.classList.toggle('active',x===b);}); });
   document.getElementById('setFont').addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b)return; s.font=b.dataset.font; applyFont(s.font); save(s); this.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b);}); });
   document.getElementById('setAnimBg').addEventListener('click', function(){ s.animBg=!s.animBg; applyAnimBg(s.animBg); this.classList.toggle('on',s.animBg); this.setAttribute('aria-checked',s.animBg); save(s); });
-  document.getElementById('setMotion').addEventListener('click', function(){ s.reduceMotion=!s.reduceMotion; applyMotion(s.reduceMotion); this.classList.toggle('on',s.reduceMotion); this.setAttribute('aria-checked',s.reduceMotion); save(s); });
   document.getElementById('setCursor').addEventListener('click', function(){ s.noCursor=!s.noCursor; applyCursor(s.noCursor); this.classList.toggle('on',!s.noCursor); this.setAttribute('aria-checked',!s.noCursor); save(s); });
-  document.getElementById('setReset').addEventListener('click', function(){ s={theme:'dark',accent:'blue',font:'md',animBg:true,reduceMotion:false,noCursor:false}; save(s); applyTheme('dark'); applyColor('blue'); applyFont('md'); applyAnimBg(true); applyMotion(false); applyCursor(false); close(); setTimeout(function(){location.reload();},150); });
+  document.getElementById('setReset').addEventListener('click', function(){ s={theme:'dark',accent:'blue',font:'md',animBg:true,noCursor:false}; save(s); applyTheme('dark'); applyColor('blue'); applyFont('md'); applyAnimBg(true); applyCursor(false); close(); setTimeout(function(){location.reload();},150); });
 
   // sync with nav theme switch
   var navToggle=document.getElementById('themeToggle');

@@ -78,12 +78,14 @@ html { overflow-x: hidden; scroll-behavior: smooth; }
     radial-gradient(55% 45% at 88% 18%, rgba(124,90,240,0.12) 0%, transparent 62%),
     radial-gradient(50% 50% at 78% 92%, rgba(76,125,240,0.10) 0%, transparent 60%),
     radial-gradient(45% 45% at 22% 88%, rgba(159,186,142,0.07) 0%, transparent 62%);
-  --base-font: 15px; }
+  --ui-scale: 1; }
 body {
   background: var(--s0); color: var(--fg1);
-  font-family: var(--font-b); font-size: var(--base-font); line-height: 1.6;
-  -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s, font-size 0.2s;
+  font-family: var(--font-b); font-size: 15px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s;
 }
+/* text-size control: scale page content */
+main, nav .nav-links, footer { zoom: var(--ui-scale); }
 /* glossy gradient-mesh atmosphere (shifts subtly with scroll) */
 body::before {
   content: ''; position: fixed; inset: -10%; pointer-events: none; z-index: 0;
