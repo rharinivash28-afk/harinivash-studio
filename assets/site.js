@@ -31,6 +31,14 @@
   if (ham && mob) ham.addEventListener("click", function(){ mob.classList.add("open"); });
   if (mobClose && mob) mobClose.addEventListener("click", function(){ mob.classList.remove("open"); });
 
+  // nav "More" dropdown
+  var dd = document.getElementById("navDd"), ddBtn = document.getElementById("navDdBtn");
+  if (dd && ddBtn){
+    ddBtn.addEventListener("click", function(e){ e.stopPropagation(); var open = dd.classList.toggle("open"); ddBtn.setAttribute("aria-expanded", open ? "true" : "false"); });
+    document.addEventListener("click", function(e){ if (!dd.contains(e.target)){ dd.classList.remove("open"); ddBtn.setAttribute("aria-expanded","false"); } });
+    document.addEventListener("keydown", function(e){ if (e.key === "Escape"){ dd.classList.remove("open"); ddBtn.setAttribute("aria-expanded","false"); } });
+  }
+
   // scroll reveal
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("on"); io.unobserve(e.target); } });
