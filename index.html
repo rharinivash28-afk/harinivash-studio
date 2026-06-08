@@ -97,6 +97,19 @@ body::after {
   background-size: 200px; opacity: 0.035; mix-blend-mode: overlay;
 }
 a { color: inherit; text-decoration: none; }
+/* ── Custom glossy arrow cursor ── */
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
+  .cursor-arrow { position: fixed; top: 0; left: 0; width: 30px; height: 34px; pointer-events: none; z-index: 100000; will-change: transform; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.45)); transition: opacity 0.25s, filter 0.25s; }
+  .cursor-arrow svg { display: block; width: 100%; height: 100%; transition: transform 0.2s var(--ease); transform-origin: 14% 8%; }
+  .cursor-arrow::after { content: ''; position: absolute; left: 13px; top: 15px; width: 12px; height: 12px; margin: -6px; border-radius: 50%; border: 2px solid var(--acc); opacity: 0; }
+  body.cur-hot .cursor-arrow svg { transform: scale(1.55) rotate(-10deg); animation: curWiggle 0.7s ease-in-out infinite; }
+  body.cur-hot .cursor-arrow { filter: drop-shadow(0 0 10px rgba(76,125,240,0.95)) drop-shadow(0 0 20px rgba(124,90,240,0.65)); }
+  body.cur-hot .cursor-arrow::after { animation: curRing 0.95s ease-out infinite; }
+  @keyframes curWiggle { 0%,100%{ transform: scale(1.55) rotate(-10deg); } 50%{ transform: scale(1.55) rotate(2deg); } }
+  @keyframes curRing { 0%{ transform: scale(0.5); opacity: 0.9; } 100%{ transform: scale(3.4); opacity: 0; } }
+  body.cur-press .cursor-arrow svg { transform: scale(1.2) rotate(-6deg); }
+}
 .mono { font-family: var(--font-d); }
 .eyebrow { font-family: var(--font-d); font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg3); }
 .wrap { max-width: 1380px; margin: 0 auto; padding: 0 40px; }
@@ -731,6 +744,38 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+})();
+
+// Custom glossy arrow cursor (animates over Book a call + nav)
+(function(){
+  if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  var c = document.createElement("div");
+  c.className = "cursor-arrow";
+  c.innerHTML =
+    '<svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg">' +
+      '<defs><linearGradient id="caG" x1="0" y1="0" x2="1" y2="1">' +
+        '<stop offset="0" stop-color="#d6f1ff"/><stop offset="0.5" stop-color="#5cc0ef"/><stop offset="1" stop-color="#2f86d6"/>' +
+      '</linearGradient></defs>' +
+      '<path d="M3 2 L3 23 L9 18 L12.5 26 L16 24.5 L12.5 16.5 L20 16.5 Z" fill="url(#caG)" stroke="#173e74" stroke-width="1.4" stroke-linejoin="round"/>' +
+      '<path d="M4.4 4 L4.4 16 L8 13 Z" fill="rgba(255,255,255,0.55)"/>' +
+      '<rect x="15.6" y="22.4" width="5" height="5" rx="1" transform="rotate(45 18.1 24.9)" fill="#7c5af0" stroke="#43299e" stroke-width="0.8"/>' +
+    '</svg>';
+  document.body.appendChild(c);
+  var x = window.innerWidth / 2, y = window.innerHeight / 2, raf;
+  document.addEventListener("mousemove", function(e){
+    x = e.clientX; y = e.clientY;
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(function(){ c.style.transform = "translate(" + (x - 3) + "px," + (y - 2) + "px)"; });
+  });
+  document.addEventListener("mousedown", function(){ document.body.classList.add("cur-press"); });
+  document.addEventListener("mouseup", function(){ document.body.classList.remove("cur-press"); });
+  document.addEventListener("mouseleave", function(){ c.style.opacity = "0"; });
+  document.addEventListener("mouseenter", function(){ c.style.opacity = "1"; });
+  var hotSel = ".btn-primary, [data-cal-link], nav, .nav-links a, .brand, .theme-switch, .nav-cta";
+  document.addEventListener("mouseover", function(e){
+    var hot = e.target.closest && e.target.closest(hotSel);
+    document.body.classList.toggle("cur-hot", !!hot);
+  });
 })();
 
 // Mouse-follow glow + 3D tilt on cards (fine pointers only)
