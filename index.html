@@ -101,14 +101,8 @@ a { color: inherit; text-decoration: none; }
 @media (hover: hover) and (pointer: fine) {
   * { cursor: none !important; }
   .cursor-arrow { position: fixed; top: 0; left: 0; width: 30px; height: 34px; pointer-events: none; z-index: 100000; will-change: transform; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.45)); transition: opacity 0.25s, filter 0.25s; }
-  .cursor-arrow svg { display: block; width: 100%; height: 100%; transition: transform 0.2s var(--ease); transform-origin: 14% 8%; }
-  .cursor-arrow::after { content: ''; position: absolute; left: 13px; top: 15px; width: 12px; height: 12px; margin: -6px; border-radius: 50%; border: 2px solid var(--acc); opacity: 0; }
-  body.cur-hot .cursor-arrow svg { transform: scale(1.55) rotate(-10deg); animation: curWiggle 0.7s ease-in-out infinite; }
-  body.cur-hot .cursor-arrow { filter: drop-shadow(0 0 10px rgba(76,125,240,0.95)) drop-shadow(0 0 20px rgba(124,90,240,0.65)); }
-  body.cur-hot .cursor-arrow::after { animation: curRing 0.95s ease-out infinite; }
-  @keyframes curWiggle { 0%,100%{ transform: scale(1.55) rotate(-10deg); } 50%{ transform: scale(1.55) rotate(2deg); } }
-  @keyframes curRing { 0%{ transform: scale(0.5); opacity: 0.9; } 100%{ transform: scale(3.4); opacity: 0; } }
-  body.cur-press .cursor-arrow svg { transform: scale(1.2) rotate(-6deg); }
+  .cursor-arrow svg { display: block; width: 100%; height: 100%; transition: transform 0.12s var(--ease); transform-origin: 14% 8%; }
+  body.cur-press .cursor-arrow svg { transform: scale(0.88); }
 }
 .mono { font-family: var(--font-d); }
 .eyebrow { font-family: var(--font-d); font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg3); }
@@ -771,11 +765,6 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
   document.addEventListener("mouseup", function(){ document.body.classList.remove("cur-press"); });
   document.addEventListener("mouseleave", function(){ c.style.opacity = "0"; });
   document.addEventListener("mouseenter", function(){ c.style.opacity = "1"; });
-  var hotSel = ".btn-primary, [data-cal-link], nav, .nav-links a, .brand, .theme-switch, .nav-cta";
-  document.addEventListener("mouseover", function(e){
-    var hot = e.target.closest && e.target.closest(hotSel);
-    document.body.classList.toggle("cur-hot", !!hot);
-  });
 })();
 
 // Mouse-follow glow + 3D tilt on cards (fine pointers only)
