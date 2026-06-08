@@ -125,19 +125,38 @@ section { padding: 100px 0; border-top: 1px solid var(--h); }
 .reveal.from-left { transform: translateX(-26px); }
 .reveal.from-right { transform: translateX(26px); }
 .reveal.from-left.on, .reveal.from-right.on { transform: none; }
+/* automation-themed reveal: scale/clip "build in" + flowing accent line */
+.reveal.build-in { clip-path: inset(0 100% 0 0); opacity: 1; transform: none; transition: clip-path 0.8s var(--ease); }
+.reveal.build-in.on { clip-path: inset(0 0 0 0); }
+.flow-divider { height: 1px; background: var(--h); position: relative; overflow: hidden; margin: 0; }
+.flow-divider::after { content: ''; position: absolute; top: 0; left: -40%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, var(--acc), var(--vio), transparent); animation: flowLine 3.4s linear infinite; box-shadow: 0 0 12px var(--acc); }
+@keyframes flowLine { to { left: 110%; } }
+/* web-design grid that draws in on scroll */
+.grid-reveal { position: relative; }
+.grid-reveal::before { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image: linear-gradient(var(--h) 1px, transparent 1px), linear-gradient(90deg, var(--h) 1px, transparent 1px);
+  background-size: 40px 40px; opacity: 0; transition: opacity 0.8s ease; mask-image: radial-gradient(circle at 50% 40%, black, transparent 75%); -webkit-mask-image: radial-gradient(circle at 50% 40%, black, transparent 75%); }
+.grid-reveal.on::before { opacity: 0.5; }
+@media (prefers-reduced-motion: reduce) { .flow-divider::after { animation: none; } }
 
 /* ── Nav ── */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 64px;
-  background: transparent; border-bottom: 1px solid transparent; box-shadow: none;
+  background: transparent; border: 1px solid transparent; box-shadow: none; border-radius: 0;
   backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
-  transition: background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), backdrop-filter 0.4s var(--ease), height 0.35s var(--ease); }
+  transition: top 0.45s var(--ease), left 0.45s var(--ease), right 0.45s var(--ease), height 0.4s var(--ease), border-radius 0.45s var(--ease), background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), backdrop-filter 0.4s var(--ease); }
 nav .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+/* scrolled: detach into a rounded glossy floating pill */
 nav.scrolled {
-  background: color-mix(in srgb, var(--s0) 62%, transparent);
+  top: 14px; left: 16px; right: 16px; height: 56px; border-radius: 18px;
+  background: var(--glass-2);
   backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur);
-  border-bottom: 1px solid var(--glass-brd);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 30px -20px rgba(0,0,0,0.5);
+  border: 1px solid var(--glass-brd);
+  box-shadow: var(--glass-shadow), 0 18px 44px -22px rgba(0,0,0,0.7);
 }
+@media (min-width: 920px) {
+  nav.scrolled { left: max(16px, calc((100% - 1180px) / 2)); right: max(16px, calc((100% - 1180px) / 2)); }
+}
+nav.scrolled .wrap { padding-left: 26px; padding-right: 26px; }
 .brand, .nav-links a { text-shadow: 0 1px 14px rgba(0,0,0,0.45); transition: text-shadow 0.4s, color 0.2s; }
 html.light .brand, html.light .nav-links a { text-shadow: 0 1px 12px rgba(255,255,255,0.6); }
 nav.scrolled .brand, nav.scrolled .nav-links a { text-shadow: none; }
@@ -308,6 +327,8 @@ html.light .net-ring { fill: rgba(255,255,255,0.9); }
 .sec-title { font-family: var(--font-s); font-style: italic; font-size: clamp(28px, 3.8vw, 46px); font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; color: var(--fg1); }
 
 /* ── Services (6 cards) ── */
+#services.grid-reveal { position: relative; }
+#services.grid-reveal > .wrap { position: relative; z-index: 1; }
 .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .svc-card { background: var(--glass); padding: 34px 30px; position: relative; transition: all 0.35s var(--ease); border: 1px solid var(--glass-brd); border-radius: 16px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: var(--glass-shadow); overflow: hidden; }
 .svc-card::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--sheen); pointer-events: none; }
@@ -402,6 +423,10 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 .foot-col a:hover { color: var(--fg1); }
 .copy-email { cursor: pointer; }
 .copy-email:hover { color: var(--acc-hi); }
+.email-row { display: flex; align-items: center; gap: 8px; }
+.copy-btn { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 7px; background: var(--glass); border: 1px solid var(--glass-brd); color: var(--fg3); cursor: pointer; transition: all 0.2s var(--ease); flex-shrink: 0; }
+.copy-btn:hover { color: var(--acc-hi); border-color: var(--acc-b); background: var(--acc-w); transform: translateY(-1px); }
+.copy-btn.copied { color: var(--ok); border-color: var(--ok); }
 .foot-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; padding-top: 28px; border-top: 1px solid var(--h); }
 .foot-copy { font-family: var(--font-d); font-size: 11px; color: var(--fg3); }
 .foot-legal { display: flex; gap: 20px; }
@@ -480,10 +505,12 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
   <div class="wrap">
     <a href="#" class="brand"><span class="brand-dot"></span>Harinivash Studio</a>
     <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#faq">FAQ</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/work.html">Work</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/stack.html">Stack</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/contact.html">Contact</a></li>
     </ul>
     <div class="nav-right">
       <button class="theme-switch" id="themeToggle" aria-label="Toggle theme">
@@ -501,10 +528,12 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
 
 <div class="mob" id="mob">
   <button class="mob-close" id="mobClose" aria-label="Close menu">&times;</button>
-  <a href="#services" onclick="closeMob()">Services</a>
-  <a href="#process" onclick="closeMob()">Process</a>
-  <a href="#about" onclick="closeMob()">About</a>
-  <a href="#faq" onclick="closeMob()">FAQ</a>
+  <a href="/about.html">About</a>
+  <a href="/work.html">Work</a>
+  <a href="/methodology.html">Methodology</a>
+  <a href="/stack.html">Stack</a>
+  <a href="/blog/">Blog</a>
+  <a href="/contact.html">Contact</a>
   <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' onclick="closeMob()">Book a call</a>
 </div>
 
@@ -575,8 +604,9 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
     </div>
   </div>
 
+  <div class="flow-divider" aria-hidden="true"></div>
   <!-- SERVICES -->
-  <section id="services">
+  <section id="services" class="grid-reveal reveal">
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">Services</span>
@@ -642,6 +672,7 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
     </div>
   </section>
 
+  <div class="flow-divider" aria-hidden="true"></div>
   <!-- PROCESS -->
   <section id="process">
     <div class="wrap">
@@ -735,23 +766,25 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
       <div class="foot-col">
         <h5>Pages</h5>
         <ul>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#process">Process</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/work.html">Work</a></li>
+          <li><a href="/methodology.html">Methodology</a></li>
+          <li><a href="/stack.html">Stack</a></li>
+          <li><a href="/blog/">Blog</a></li>
         </ul>
       </div>
       <div class="foot-col">
         <h5>Contact</h5>
         <ul>
-          <li><a href="mailto:rharinivash28@gmail.com" class="copy-email" data-email="rharinivash28@gmail.com" role="button" aria-label="Copy email address rharinivash28 at gmail dot com" title="Click to copy">rharinivash28@gmail.com</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li class="email-row"><a href="mailto:rharinivash28@gmail.com">rharinivash28@gmail.com</a><button type="button" class="copy-btn copy-email" data-email="rharinivash28@gmail.com" aria-label="Copy email address" title="Copy email"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></li>
           <li><a href="https://harinivash.studio">harinivash.studio</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bottom">
       <span class="foot-copy">© 2026 Harinivash Studio. All rights reserved.</span>
-      <div class="foot-legal"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
+      <div class="foot-legal"><a href="/privacy-policy.html">Privacy Policy</a><a href="/privacy-policy.html#terms">Terms</a></div>
     </div>
   </div>
 </footer>
@@ -933,12 +966,18 @@ function emitSpark(x, y, burst){
   setTimeout(function(){ s.remove(); }, dur + 30);
 }
 
-// Click footer email to copy to clipboard
+// Click footer email / copy button to copy to clipboard
 document.querySelectorAll(".copy-email").forEach(function(el){
   el.addEventListener("click", function(e){
     e.preventDefault();
     var email = el.getAttribute("data-email");
-    var done = function(){ showCopyToast("Email copied to clipboard"); };
+    var done = function(){
+      showCopyToast("Email copied to clipboard");
+      if (el.classList.contains("copy-btn")){
+        el.classList.add("copied");
+        setTimeout(function(){ el.classList.remove("copied"); }, 1600);
+      }
+    };
     if (navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(email).then(done).catch(function(){ fallbackCopy(email); done(); });
     } else { fallbackCopy(email); done(); }

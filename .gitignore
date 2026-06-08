@@ -5,9 +5,18 @@
 *.mkv
 *.webm
 
-# Temp / source-grab files
+# Temp / source-grab / generator files
 _*.html
+_*.py
 
 # OS junk
 Thumbs.db
 .DS_Store
+
+# Screenshots / scratch
+Screenshot*.png
+__pycache__/
+*.pyc
+
+# Editor/project config (not part of the site)
+.claude/
