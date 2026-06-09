@@ -44,6 +44,20 @@
     entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("on"); io.unobserve(e.target); } });
   }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
   document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+
+  // methodology: cycle "active" through the workflow nodes like a running flow
+  (function(){
+    var nodes = document.querySelectorAll(".flow-node");
+    if (!nodes.length) return;
+    var i = 0;
+    function step(){
+      nodes.forEach(function(n){ n.classList.remove("active"); });
+      nodes[i].classList.add("active");
+      i = (i + 1) % nodes.length;
+    }
+    step();
+    setInterval(step, 1400);
+  })();
   // stagger grid children
   document.querySelectorAll(".card-grid").forEach(function(grid){
     Array.prototype.forEach.call(grid.children, function(child, i){
