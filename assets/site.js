@@ -68,7 +68,13 @@
   // custom glossy arrow cursor
   if (window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches){
     var c = document.createElement("div"); c.className = "cursor-arrow";
-    c.innerHTML = '<svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="caG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6f1ff"/><stop offset="0.5" stop-color="#5cc0ef"/><stop offset="1" stop-color="#2f86d6"/></linearGradient></defs><path d="M3 2 L3 23 L9 18 L12.5 26 L16 24.5 L12.5 16.5 L20 16.5 Z" fill="url(#caG)" stroke="#173e74" stroke-width="1.4" stroke-linejoin="round"/><path d="M4.4 4 L4.4 16 L8 13 Z" fill="rgba(255,255,255,0.55)"/><rect x="15.6" y="22.4" width="5" height="5" rx="1" transform="rotate(45 18.1 24.9)" fill="#7c5af0" stroke="#43299e" stroke-width="0.8"/></svg>';
+    function paintCursor(){
+      var cs = getComputedStyle(document.documentElement);
+      var hi=(cs.getPropertyValue('--acc-hi')||'#6E97F4').trim(), acc=(cs.getPropertyValue('--acc')||'#4C7DF0').trim(), lo=(cs.getPropertyValue('--acc-lo')||'#3A63C8').trim(), vio=(cs.getPropertyValue('--vio')||'#7c5af0').trim();
+      c.innerHTML = '<svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="caG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.5" stop-color="'+hi+'"/><stop offset="1" stop-color="'+lo+'"/></linearGradient></defs><path d="M3 2 L3 23 L9 18 L12.5 26 L16 24.5 L12.5 16.5 L20 16.5 Z" fill="url(#caG)" stroke="'+acc+'" stroke-width="1.4" stroke-linejoin="round"/><path d="M4.4 4 L4.4 16 L8 13 Z" fill="rgba(255,255,255,0.55)"/><rect x="15.6" y="22.4" width="5" height="5" rx="1" transform="rotate(45 18.1 24.9)" fill="'+vio+'" stroke="'+lo+'" stroke-width="0.8"/></svg>';
+    }
+    paintCursor();
+    new MutationObserver(paintCursor).observe(document.documentElement, { attributes:true, attributeFilter:['data-tint','class'] });
     document.body.appendChild(c);
     var raf;
     document.addEventListener("mousemove", function(e){ var x=e.clientX, y=e.clientY; cancelAnimationFrame(raf); raf=requestAnimationFrame(function(){ c.style.transform="translate("+(x-2)+"px,"+(y-1)+"px)"; }); });

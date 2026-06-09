@@ -357,7 +357,8 @@ html.light .net-ring { fill: rgba(255,255,255,0.9); }
 .svc-card > * { position: relative; z-index: 1; }
 .svc-card:hover { background: var(--glass-2); transform: translateY(-5px); box-shadow: var(--glass-shadow), 0 30px 60px -30px var(--acc-b); }
 .svc-num { font-family: var(--font-d); font-size: 11px; color: var(--acc); letter-spacing: 0.18em; margin-bottom: 18px; }
-.svc-ico { font-size: 24px; margin-bottom: 14px; display: block; }
+.svc-ico { display: block; margin-bottom: 16px; color: var(--acc); }
+.svc-ico svg { width: 28px; height: 28px; }
 .svc-card h3 { font-family: var(--font-d); font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
 .svc-card > p { color: var(--fg2); font-size: 13.5px; line-height: 1.7; margin-bottom: 18px; }
 .svc-chips { display: flex; gap: 7px; flex-wrap: wrap; }
@@ -681,42 +682,42 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
       <div class="svc-grid">
         <div class="svc-card reveal tilt">
           <div class="svc-num">01</div>
-          <span class="svc-ico">⚡</span>
+          <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
           <h3>n8n Automation</h3>
           <p>Custom, self-hosted workflows linking any tool with an API. Bidirectional sync, webhooks with dedup and retries, zero manual entry.</p>
           <div class="svc-chips"><span class="svc-chip">Webhooks</span><span class="svc-chip">CRM sync</span><span class="svc-chip">Pipelines</span></div>
         </div>
         <div class="svc-card reveal tilt">
           <div class="svc-num">02</div>
-          <span class="svc-ico">📝</span>
+          <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="13" y2="17"></line></svg></span>
           <h3>Notion Systems</h3>
           <p>Workspaces built around how your team actually works — multi-database architectures, rollups, formulas, dashboards, and button-triggered automations.</p>
           <div class="svc-chips"><span class="svc-chip">Databases</span><span class="svc-chip">Dashboards</span><span class="svc-chip">Templates</span></div>
         </div>
         <div class="svc-card reveal tilt">
           <div class="svc-num">03</div>
-          <span class="svc-ico">🔗</span>
+          <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></span>
           <h3>Zapier &amp; Make.com</h3>
           <p>Cloud automation when you want speed and zero infrastructure. Clean, well-documented scenarios connecting the apps you already pay for.</p>
           <div class="svc-chips"><span class="svc-chip">Zapier</span><span class="svc-chip">Make</span><span class="svc-chip">No-code</span></div>
         </div>
         <div class="svc-card reveal tilt">
           <div class="svc-num">04</div>
-          <span class="svc-ico">🤖</span>
+          <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2"></rect><path d="M12 8V4"></path><circle cx="12" cy="3" r="1"></circle><circle cx="9" cy="14" r="1"></circle><circle cx="15" cy="14" r="1"></circle><path d="M2 13v2M22 13v2"></path></svg></span>
           <h3>AI Agents</h3>
           <p>LLM-powered agents that read, decide, and act — lead triage, content drafting, summarisation, and AI-enriched workflows that land structured data.</p>
           <div class="svc-chips"><span class="svc-chip">GPT</span><span class="svc-chip">Claude</span><span class="svc-chip">RAG</span></div>
         </div>
         <div class="svc-card reveal tilt">
           <div class="svc-num">05</div>
-          <span class="svc-ico">🎨</span>
+          <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="2" y1="7" x2="22" y2="7"></line><circle cx="5" cy="5" r="0.5" fill="currentColor"></circle><circle cx="7.5" cy="5" r="0.5" fill="currentColor"></circle><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></span>
           <h3>Web Design</h3>
           <p>Fast, modern, responsive websites and landing pages built from scratch — not templates. Performance-first, SEO-structured, and built to convert.</p>
           <div class="svc-chips"><span class="svc-chip">Landing pages</span><span class="svc-chip">Next.js</span><span class="svc-chip">Responsive</span></div>
         </div>
         <div class="svc-card reveal tilt">
           <div class="svc-num">06</div>
-          <span class="svc-ico">📊</span>
+          <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="4" y2="10"></line><line x1="10" y1="20" x2="10" y2="4"></line><line x1="16" y1="20" x2="16" y2="14"></line><line x1="22" y1="20" x2="2" y2="20"></line></svg></span>
           <h3>Consulting &amp; Pipelines</h3>
           <p>Not sure what to automate? I audit your stack, map where time leaks, and build the data pipelines and reporting that surface the right numbers.</p>
           <div class="svc-chips"><span class="svc-chip">Audit</span><span class="svc-chip">ETL</span><span class="svc-chip">Reporting</span></div>
@@ -880,15 +881,25 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
   if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
   var c = document.createElement("div");
   c.className = "cursor-arrow";
-  c.innerHTML =
-    '<svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg">' +
-      '<defs><linearGradient id="caG" x1="0" y1="0" x2="1" y2="1">' +
-        '<stop offset="0" stop-color="#d6f1ff"/><stop offset="0.5" stop-color="#5cc0ef"/><stop offset="1" stop-color="#2f86d6"/>' +
-      '</linearGradient></defs>' +
-      '<path d="M3 2 L3 23 L9 18 L12.5 26 L16 24.5 L12.5 16.5 L20 16.5 Z" fill="url(#caG)" stroke="#173e74" stroke-width="1.4" stroke-linejoin="round"/>' +
-      '<path d="M4.4 4 L4.4 16 L8 13 Z" fill="rgba(255,255,255,0.55)"/>' +
-      '<rect x="15.6" y="22.4" width="5" height="5" rx="1" transform="rotate(45 18.1 24.9)" fill="#7c5af0" stroke="#43299e" stroke-width="0.8"/>' +
-    '</svg>';
+  function paintCursor(){
+    var cs = getComputedStyle(document.documentElement);
+    var hi = (cs.getPropertyValue('--acc-hi')||'#6E97F4').trim();
+    var acc = (cs.getPropertyValue('--acc')||'#4C7DF0').trim();
+    var lo = (cs.getPropertyValue('--acc-lo')||'#3A63C8').trim();
+    var vio = (cs.getPropertyValue('--vio')||'#7c5af0').trim();
+    c.innerHTML =
+      '<svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg">' +
+        '<defs><linearGradient id="caG" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0" stop-color="#ffffff"/><stop offset="0.5" stop-color="'+hi+'"/><stop offset="1" stop-color="'+lo+'"/>' +
+        '</linearGradient></defs>' +
+        '<path d="M3 2 L3 23 L9 18 L12.5 26 L16 24.5 L12.5 16.5 L20 16.5 Z" fill="url(#caG)" stroke="'+acc+'" stroke-width="1.4" stroke-linejoin="round"/>' +
+        '<path d="M4.4 4 L4.4 16 L8 13 Z" fill="rgba(255,255,255,0.55)"/>' +
+        '<rect x="15.6" y="22.4" width="5" height="5" rx="1" transform="rotate(45 18.1 24.9)" fill="'+vio+'" stroke="'+lo+'" stroke-width="0.8"/>' +
+      '</svg>';
+  }
+  paintCursor();
+  // repaint when the theme color changes (settings panel sets data-tint)
+  new MutationObserver(paintCursor).observe(document.documentElement, { attributes:true, attributeFilter:['data-tint','class'] });
   document.body.appendChild(c);
   var x = window.innerWidth / 2, y = window.innerHeight / 2, raf;
   document.addEventListener("mousemove", function(e){
@@ -1015,19 +1026,25 @@ document.querySelectorAll(".btn-primary.magnetic").forEach(function(btn){
   btn.addEventListener("click", function(e){ for (var k = 0; k < 14; k++) emitSpark(e.clientX, e.clientY, true); });
   btn.addEventListener("mouseleave", function(){ btn.style.transform = ""; });
 });
-var SPARK_COLORS = [
-  { c: "#cfe0ff", g: "#6E97F4", g2: "#4C7DF0" },
-  { c: "#ffffff", g: "#9ab4ff", g2: "#6E97F4" },
-  { c: "#a9c6ff", g: "#4C7DF0", g2: "#3A63C8" },
-  { c: "#e7f0ff", g: "#7c5af0", g2: "#4C7DF0" }
-];
+function accentColors(){
+  var cs = getComputedStyle(document.documentElement);
+  return {
+    c: "#ffffff",
+    g: (cs.getPropertyValue('--acc-hi') || '#6E97F4').trim(),
+    g2: (cs.getPropertyValue('--acc') || '#4C7DF0').trim(),
+    v: (cs.getPropertyValue('--vio') || '#7c5af0').trim()
+  };
+}
 function emitSpark(x, y, burst){
   var s = document.createElement("div");
   s.className = "spark";
-  var col = SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)];
+  var col = accentColors();
+  // mix between accent and a lighter tint for variety
+  var pick = Math.random();
+  var core = pick < 0.4 ? col.c : (pick < 0.7 ? col.g : col.v);
   var size = Math.random() * 5 + 3;
   s.style.width = size + "px"; s.style.height = size + "px";
-  s.style.background = col.c;
+  s.style.background = core;
   s.style.boxShadow = "0 0 8px " + col.g + ", 0 0 16px " + col.g2;
   var ox = (Math.random() - 0.5) * 14, oy = (Math.random() - 0.5) * 14;
   s.style.left = (x + ox) + "px"; s.style.top = (y + oy) + "px";
