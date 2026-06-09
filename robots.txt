@@ -1,4 +1,24 @@
+# Harinivash Studio — crawlers welcome (search + AI assistants)
 User-agent: *
+Allow: /
+
+# Explicitly welcome AI assistant crawlers (discovery / citations)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://harinivash.studio/sitemap.xml

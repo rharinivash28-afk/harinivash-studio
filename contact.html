@@ -16,7 +16,6 @@
 <script>(function(){try{if((localStorage.getItem('theme')||'dark')==='light')document.documentElement.classList.add('light');}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="preconnect" href="https://cdn.simpleicons.org"/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap" onload="this.onload=null;this.rel='stylesheet'"/>
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap"/></noscript>
 <link rel="stylesheet" href="/assets/site.css"/>
@@ -41,6 +40,7 @@
           <a href="/stack.html" role="menuitem"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 12 15 2 8.5"></polygon><polyline points="2 15.5 12 22 22 15.5"></polyline></svg>Stack</a>
           <a href="/blog/" role="menuitem"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"></path><path d="M8 8h8M8 12h8M8 16h5"></path></svg>Blog</a>
           <a href="/contact.html" role="menuitem"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H7l-3 3z"></path></svg>Contact</a>
+          <a href="/pricing.html" role="menuitem"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>Pricing</a>
           <div class="nav-dd-sep"></div>
           <a href="/privacy-policy.html" role="menuitem"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path></svg>Privacy &amp; Terms</a>
         </div>
@@ -60,6 +60,7 @@
   <a href="/stack.html">Stack</a>
   <a href="/blog/">Blog</a>
   <a href="/contact.html">Contact</a>
+  <a href="/pricing.html">Pricing</a>
   <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}'>Book a call</a>
 </div>
 <main id="main">
@@ -69,16 +70,26 @@
   <h1 class="page-title">Let's talk.</h1>
   <p class="page-lead">Book a free 15-minute call or send me an email. I reply within 24 hours.</p>
 </div></section>
-<section class="block"><div class="wrap">
-  <div class="glass-card reveal" style="max-width:620px;margin:0 auto;text-align:center;">
-    <div style="margin-bottom:24px;"><a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary"><span>Book a free call &rarr;</span></a></div>
-    <p class="foot-tag" style="max-width:46ch;margin:0 auto;">Prefer async? Email me &mdash; tell me about your stack, your problem, and what a good outcome looks like, and I'll reply within 24 hours.</p>
-    <ul style="list-style:none;margin-top:26px;display:flex;flex-direction:column;align-items:center;gap:14px;">
+<section class="block"><div class="wrap"><div class="card-grid cols-2" style="align-items:start;">
+  <div class="reveal">
+    <div style="margin-bottom:24px;"><a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary"><span>Book a free 15-min call &rarr;</span></a></div>
+    <p class="foot-tag" style="max-width:42ch;">Prefer async? Use the form &mdash; or email me directly. Tell me about your stack, your problem, and what a good outcome looks like.</p>
+    <ul style="list-style:none;margin-top:24px;display:flex;flex-direction:column;gap:14px;">
       <li class="email-row" style="font-family:var(--font-d);font-size:15px;"><a href="mailto:rharinivash28@gmail.com">rharinivash28@gmail.com</a><button type="button" class="copy-btn copy-email" data-email="rharinivash28@gmail.com" aria-label="Copy email" title="Copy email"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></li>
       <li style="font-family:var(--font-d);font-size:13px;color:var(--fg3);">Remote worldwide &middot; replies within 24h</li>
     </ul>
   </div>
-</div></section>
+  <form class="glass-card form reveal" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="max-width:none;">
+    <div class="field"><label for="cn">Name</label><input id="cn" name="name" type="text" required placeholder="Your name"/></div>
+    <div class="field"><label for="ce">Email</label><input id="ce" name="email" type="email" required placeholder="you@company.com"/></div>
+    <div class="field"><label for="cs">Service</label><select id="cs" name="service"><option>n8n / Zapier / Make automation</option><option>Notion systems</option><option>AI agents</option><option>Web design</option><option>Data pipelines / consulting</option><option>Not sure yet</option></select></div>
+    <div class="field"><label for="cm">Message</label><textarea id="cm" name="message" required placeholder="What are you trying to build or automate?"></textarea></div>
+    <input type="hidden" name="_subject" value="New enquiry from harinivash.studio"/>
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off"/>
+    <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;"><span>Send message &rarr;</span></button>
+    <p class="form-status" id="formStatus" aria-live="polite"></p>
+  </form>
+</div></div></section>
 </main>
 <footer><div class="wrap">
   <div class="foot-grid">
@@ -91,7 +102,7 @@
         <a href="https://linkedin.com/in/harinivashr" target="_blank" rel="noopener" class="foot-social li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
       </div>
     </div>
-    <div class="foot-col"><h5>Pages</h5><ul><li><a href="/about.html">About</a></li><li><a href="/work.html">Work</a></li><li><a href="/methodology.html">Methodology</a></li><li><a href="/stack.html">Stack</a></li><li><a href="/blog/">Blog</a></li></ul></div>
+    <div class="foot-col"><h5>Pages</h5><ul><li><a href="/about.html">About</a></li><li><a href="/work.html">Work</a></li><li><a href="/methodology.html">Methodology</a></li><li><a href="/stack.html">Stack</a></li><li><a href="/blog/">Blog</a></li><li><a href="/pricing.html">Pricing</a></li></ul></div>
     <div class="foot-col"><h5>Contact</h5><ul>
       <li><a href="/contact.html">Contact</a></li>
       <li class="email-row"><a href="mailto:rharinivash28@gmail.com">rharinivash28@gmail.com</a><button type="button" class="copy-btn copy-email" data-email="rharinivash28@gmail.com" aria-label="Copy email address" title="Copy email"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></li>
@@ -103,6 +114,23 @@
     <div class="foot-legal"><a href="/privacy-policy.html">Privacy Policy</a><a href="/privacy-policy.html#terms">Terms</a></div>
   </div>
 </div></footer>
+<style>.form-status{margin-top:14px;font-size:13px;font-family:var(--font-d);min-height:18px;}.form-status.ok{color:var(--ok);}.form-status.err{color:#e0556f;}</style>
+<script>
+(function(){
+  var f=document.getElementById('contactForm'); if(!f) return;
+  var st=document.getElementById('formStatus');
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(f.action.indexOf('YOUR_FORM_ID')!==-1){ st.className='form-status err'; st.textContent='Form not configured yet — please email me directly for now.'; return; }
+    var btn=f.querySelector('button[type=submit]'); var orig=btn.innerHTML;
+    btn.disabled=true; btn.innerHTML='<span>Sending…</span>'; st.className='form-status'; st.textContent='';
+    fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
+      .then(function(r){ if(r.ok){ f.reset(); st.className='form-status ok'; st.textContent='Thanks! Your message is on its way — I\'ll reply within 24h.'; } else { return r.json().then(function(d){ throw new Error((d.errors&&d.errors[0]&&d.errors[0].message)||'Something went wrong'); }); } })
+      .catch(function(err){ st.className='form-status err'; st.textContent=err.message+' — or email me directly.'; })
+      .finally(function(){ btn.disabled=false; btn.innerHTML=orig; });
+  });
+})();
+</script>
 <script src="/assets/site.js" defer></script>
 <script src="/assets/settings.js" defer></script>
 </body>
