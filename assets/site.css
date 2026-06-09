@@ -191,6 +191,9 @@ section.block { padding: 60px 0; }
 @media (max-width: 540px) { .stk-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); } }
 
 /* pricing */
+.price-head { margin-bottom: 26px; }
+.price-eyebrow { display: block; font-family: var(--font-d); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); margin-bottom: 8px; }
+.price-h2 { font-family: var(--font-s); font-style: italic; font-weight: 400; font-size: clamp(24px, 3.4vw, 36px); }
 .price-card { display: flex; flex-direction: column; text-align: left; }
 .price-card.featured { border-color: var(--acc-b); background: linear-gradient(180deg, var(--acc-w), var(--glass)); }
 .price-badge { position: absolute; top: 16px; right: 16px; font-family: var(--font-d); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--acc); padding: 4px 10px; border-radius: 100px; z-index: 1; }
