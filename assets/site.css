@@ -1,3 +1,14 @@
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:400;font-display:swap;src:url('/assets/fonts/fraunces-400-italic.woff2') format('woff2');}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:500;font-display:swap;src:url('/assets/fonts/fraunces-500-italic.woff2') format('woff2');}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:300;font-display:swap;src:url('/assets/fonts/intertight-300-normal.woff2') format('woff2');}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/intertight-400-normal.woff2') format('woff2');}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:500;font-display:swap;src:url('/assets/fonts/intertight-500-normal.woff2') format('woff2');}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/intertight-600-normal.woff2') format('woff2');}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/intertight-700-normal.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:300;font-display:swap;src:url('/assets/fonts/jetbrainsmono-300-normal.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/jetbrainsmono-400-normal.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/assets/fonts/jetbrainsmono-500-normal.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/jetbrainsmono-600-normal.woff2') format('woff2');}
 /* Harinivash Studio — shared stylesheet for subpages */
 :root {
   --s0: #0A0A0B; --s1: #111113; --s2: #18181C; --s3: #222228;
