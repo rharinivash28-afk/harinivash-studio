@@ -1,6 +1,23 @@
-# Cloudflare Pages headers — long immutable cache for all static assets
-/assets/*
+# Cloudflare Pages headers
+# Truly static, content-addressed files → cache forever
+/assets/icons/*
   Cache-Control: public, max-age=31536000, immutable
 
-/og-image.png
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/blog/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/og-image.png
   Cache-Control: public, max-age=2592000
+
+# Code that changes between deploys → revalidate (versioned via ?v= query too)
+/assets/site.css
+  Cache-Control: public, max-age=600, must-revalidate
+
+/assets/site.js
+  Cache-Control: public, max-age=600, must-revalidate
+
+/assets/settings.js
+  Cache-Control: public, max-age=600, must-revalidate
