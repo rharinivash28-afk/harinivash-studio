@@ -13,16 +13,20 @@
   var nav = document.getElementById("nav");
   var bar = document.getElementById("scrollBar");
   var root = document.documentElement;
-  function onScroll(){
-    if (nav) nav.classList.toggle("scrolled", window.scrollY > 24);
-    var h = document.documentElement.scrollHeight - window.innerHeight;
-    var p = h > 0 ? window.scrollY / h : 0;
+  var maxScroll = 1, ticking = false;
+  function measure(){ maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight); }
+  function update(){
+    ticking = false;
+    var y = window.scrollY;
+    if (nav) nav.classList.toggle("scrolled", y > 24);
+    var p = y / maxScroll;
     if (bar) bar.style.width = (p * 100) + "%";
     root.style.setProperty("--bg-shift", (p * -70).toFixed(1) + "px");
     root.style.setProperty("--bg-hue", (p * 40).toFixed(1) + "deg");
   }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  window.addEventListener("scroll", function(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  window.addEventListener("resize", measure, { passive: true });
+  measure(); update();
 
   // mobile menu
   var ham = document.getElementById("hamburger");
