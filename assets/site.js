@@ -98,13 +98,20 @@
     document.addEventListener("mouseenter", function(){ c.style.opacity="1"; });
   }
 
-  // Cal.com booking popup (shared)
-  (function (C, A, L) { var p = function (a, ar) { a.q.push(ar); }; var d = C.document; C.Cal = C.Cal || function () { var cal = C.Cal; var ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { var api = function () { p(api, arguments); }; var ns = ar[1]; api.q = api.q || []; if(typeof ns === "string"){cal.ns[ns]=cal.ns[ns]||api;p(cal.ns[ns],ar);p(cal,["initNamespace",ns]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-  if (window.Cal){
+  // Cal.com booking popup — lazy-loaded only on first click (no third-party
+  // cookies / scripts on initial page load → better perf & best-practices)
+  var calReady = false;
+  function loadCal(){
+    (function (C, A, L) { var p = function (a, ar) { a.q.push(ar); }; var d = C.document; C.Cal = C.Cal || function () { var cal = C.Cal; var ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { var api = function () { p(api, arguments); }; var ns = ar[1]; api.q = api.q || []; if(typeof ns === "string"){cal.ns[ns]=cal.ns[ns]||api;p(cal.ns[ns],ar);p(cal,["initNamespace",ns]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
     Cal("init", "discovery", { origin: "https://cal.com" });
     Cal.ns.discovery("ui", { theme: "dark", cssVarsPerTheme: { light: { "cal-brand": "#4C7DF0" }, dark: { "cal-brand": "#4C7DF0" } }, hideEventTypeDetails: false, layout: "month_view" });
-    document.querySelectorAll('[data-cal-link]').forEach(function(el){
-      el.addEventListener("click", function(e){ e.preventDefault(); Cal.ns.discovery("modal", { calLink: "harinivash-r-du3qxx/discovery", config: { theme: "dark", name: "", email: "" } }); });
-    });
+    calReady = true;
   }
+  function openCal(){ Cal.ns.discovery("modal", { calLink: "harinivash-r-du3qxx/discovery", config: { theme: "dark", name: "", email: "" } }); }
+  document.querySelectorAll('[data-cal-link]').forEach(function(el){
+    el.addEventListener("click", function(e){
+      e.preventDefault();
+      if (!calReady){ loadCal(); setTimeout(openCal, 350); } else { openCal(); }
+    });
+  });
 })();

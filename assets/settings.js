@@ -65,8 +65,8 @@
     '<div class="set-row"><span class="set-label">Appearance</span><div class="seg" id="setTheme"><button data-theme="dark"'+(s.theme==='dark'?' class="active"':'')+'>Dark</button><button data-theme="light"'+(s.theme==='light'?' class="active"':'')+'>Light</button></div></div>'+
     '<div class="set-row"><span class="set-label">Theme color</span><div class="swatches" id="setColor">'+swatches()+'</div></div>'+
     '<div class="set-row"><span class="set-label">Text size</span><div class="seg" id="setFont"><button data-font="sm"'+(s.font==='sm'?' class="active"':'')+'>A</button><button data-font="md"'+(s.font==='md'?' class="active"':'')+'>A</button><button data-font="lg"'+(s.font==='lg'?' class="active"':'')+'>A</button></div></div>'+
-    '<div class="set-row set-toggle"><span>Animated background</span><button class="tgl'+(s.animBg?' on':'')+'" id="setAnimBg" role="switch" aria-checked="'+(!!s.animBg)+'"></button></div>'+
-    '<div class="set-row set-toggle"><span>Custom cursor</span><button class="tgl'+(s.noCursor?'':' on')+'" id="setCursor" role="switch" aria-checked="'+(!s.noCursor)+'"></button></div>'+
+    '<div class="set-row set-toggle"><span>Animated background</span><button class="tgl'+(s.animBg?' on':'')+'" id="setAnimBg" role="switch" aria-label="Animated background" aria-checked="'+(!!s.animBg)+'"></button></div>'+
+    '<div class="set-row set-toggle"><span>Custom cursor</span><button class="tgl'+(s.noCursor?'':' on')+'" id="setCursor" role="switch" aria-label="Custom cursor" aria-checked="'+(!s.noCursor)+'"></button></div>'+
     '<button class="settings-reset" id="setReset">Reset to defaults</button>';
   // mark the three text-size buttons visually small/med/large
   panel.querySelectorAll('#setFont button')[0].style.fontSize='12px';

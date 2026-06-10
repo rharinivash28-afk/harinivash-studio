@@ -23,10 +23,6 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Harinivash Studio | Automation &amp; Systems"/>
 <meta name="twitter:description" content="Automation, Notion systems, AI agents, and web design for businesses tired of tools that don't talk to each other."/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap" onload="this.onload=null;this.rel='stylesheet'"/>
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap"/></noscript>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -412,7 +408,7 @@ html.light .net-ring { fill: rgba(255,255,255,0.9); }
 .proc-step > * { position: relative; z-index: 1; }
 .proc-step:hover { background: var(--glass-2); transform: translateY(-4px); box-shadow: var(--glass-shadow), 0 22px 50px -28px var(--acc-b); }
 .proc-step-num { font-family: var(--font-d); font-size: 12px; color: var(--acc); letter-spacing: 0.1em; margin-bottom: 14px; }
-.proc-step h4 { font-family: var(--font-d); font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+.proc-step h3 { font-family: var(--font-d); font-size: 16px; font-weight: 600; margin-bottom: 10px; }
 .proc-step p { color: var(--fg2); font-size: 13.5px; line-height: 1.7; }
 
 /* ── About ── */
@@ -471,7 +467,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 .foot-social.ig:hover { color: #fff; border-color: rgba(225,48,108,0.6); background: linear-gradient(45deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888); box-shadow: 0 10px 28px -8px rgba(220,39,67,0.7), 0 0 26px -4px rgba(204,35,102,0.6), inset 0 1px 0 rgba(255,255,255,0.4); transform: translateY(-3px); }
 .foot-social.xt:hover { color: #000; border-color: rgba(255,255,255,0.8); background: #fff; box-shadow: 0 10px 28px -8px rgba(255,255,255,0.5), 0 0 26px -6px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.6); transform: translateY(-3px); }
 .foot-social.li:hover { color: #fff; border-color: rgba(10,102,194,0.7); background: linear-gradient(180deg, #0a8af0, #0a66c2); box-shadow: 0 10px 28px -8px rgba(10,102,194,0.8), 0 0 26px -4px rgba(10,102,194,0.7), inset 0 1px 0 rgba(255,255,255,0.4); transform: translateY(-3px); }
-.foot-col h5 { font-family: var(--font-d); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 18px; }
+.foot-col .foot-h { font-family: var(--font-d); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 18px; }
 .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
 .foot-col a { color: var(--fg2); font-size: 14px; transition: color 0.2s; }
 .foot-col a:hover { color: var(--fg1); }
@@ -581,6 +577,9 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
   .foot-grid { grid-template-columns: 1fr; }
 }
 </style>
+<link rel="preload" href="/assets/fonts/intertight-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="/assets/fonts/jetbrainsmono-500-normal.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="stylesheet" href="/assets/fonts/fonts.css"/>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -782,12 +781,12 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
         <p class="cta-desc" style="margin-top:18px;">No black box. No dropped handoffs. Every project follows the same six steps, from first call to final delivery.</p>
       </div>
       <div class="proc-grid">
-        <div class="proc-step reveal tilt"><div class="proc-step-num">01</div><h4>Discovery</h4><p>We get on a call. You walk me through your stack, your problem, and what a good outcome looks like. Nothing gets built until I fully understand what needs to be built.</p></div>
-        <div class="proc-step reveal tilt"><div class="proc-step-num">02</div><h4>Scoping</h4><p>I come back with a clear breakdown: what gets built, how it works, what done looks like. You approve it. No surprises mid-build.</p></div>
-        <div class="proc-step reveal tilt"><div class="proc-step-num">03</div><h4>Build</h4><p>Heads down. Production-grade workflows, systems, and sites — not prototypes. Error handling, edge cases, and retry logic covered without you asking.</p></div>
-        <div class="proc-step reveal tilt"><div class="proc-step-num">04</div><h4>Testing &amp; QA</h4><p>I break it before you do. Every build gets tested against real scenarios, failure cases, and edge inputs. You only see it when it's ready.</p></div>
-        <div class="proc-step reveal tilt"><div class="proc-step-num">05</div><h4>Handoff</h4><p>A live walkthrough call, a video recording you can rewatch, and full documentation. You leave knowing exactly what you have.</p></div>
-        <div class="proc-step reveal tilt"><div class="proc-step-num">06</div><h4>Ongoing Support</h4><p>Want someone on call for updates, fixes, and additions? I offer an optional monthly retainer after handoff. No pressure — there if you want it.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">01</div><h3>Discovery</h3><p>We get on a call. You walk me through your stack, your problem, and what a good outcome looks like. Nothing gets built until I fully understand what needs to be built.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">02</div><h3>Scoping</h3><p>I come back with a clear breakdown: what gets built, how it works, what done looks like. You approve it. No surprises mid-build.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">03</div><h3>Build</h3><p>Heads down. Production-grade workflows, systems, and sites — not prototypes. Error handling, edge cases, and retry logic covered without you asking.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">04</div><h3>Testing &amp; QA</h3><p>I break it before you do. Every build gets tested against real scenarios, failure cases, and edge inputs. You only see it when it's ready.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">05</div><h3>Handoff</h3><p>A live walkthrough call, a video recording you can rewatch, and full documentation. You leave knowing exactly what you have.</p></div>
+        <div class="proc-step reveal tilt"><div class="proc-step-num">06</div><h3>Ongoing Support</h3><p>Want someone on call for updates, fixes, and additions? I offer an optional monthly retainer after handoff. No pressure — there if you want it.</p></div>
       </div>
     </div>
   </section>
@@ -863,8 +862,7 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
           </a>
         </div>
       </div>
-      <div class="foot-col">
-        <h5>Pages</h5>
+      <div class="foot-col"><h2 class="foot-h">Pages</h2>
         <ul>
           <li><a href="/about.html">About</a></li>
           <li><a href="/work.html">Work</a></li>
@@ -873,8 +871,7 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
           <li><a href="/blog/">Blog</a></li><li><a href="/pricing.html">Pricing</a></li>
         </ul>
       </div>
-      <div class="foot-col">
-        <h5>Contact</h5>
+      <div class="foot-col"><h2 class="foot-h">Contact</h2>
         <ul>
           <li><a href="/contact.html">Contact</a></li>
           <li class="email-row"><a href="mailto:rharinivash28@gmail.com">rharinivash28@gmail.com</a><button type="button" class="copy-btn copy-email" data-email="rharinivash28@gmail.com" aria-label="Copy email address" title="Copy email"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></li>
@@ -1167,48 +1164,26 @@ document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
 
 <!-- Cal.com embed: popup booking + custom thank-you note -->
 <script type="text/javascript">
-(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-
-Cal("init", "discovery", { origin: "https://cal.com" });
-
-Cal.ns.discovery("ui", {
-  theme: "dark",
-  cssVarsPerTheme: {
-    light: { "cal-brand": "#4C7DF0" },
-    dark: { "cal-brand": "#4C7DF0" }
-  },
-  hideEventTypeDetails: false,
-  layout: "month_view"
-});
-
-// Wire all booking buttons to the popup; blank name/email for the booker
+// Lazy-load Cal.com only on first "Book a call" click (keeps third-party
+// scripts/cookies off the initial page load → better perf & best-practices)
+var calReady = false;
+function loadCalEmbed(){
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "discovery", { origin: "https://cal.com" });
+  Cal.ns.discovery("ui", { theme: "dark", cssVarsPerTheme: { light: { "cal-brand": "#4C7DF0" }, dark: { "cal-brand": "#4C7DF0" } }, hideEventTypeDetails: false, layout: "month_view" });
+  Cal.ns.discovery("on", { action: "bookingSuccessful", callback: function () {
+    var note = document.createElement("div"); note.id = "booking-thankyou";
+    note.innerHTML = '<div class="ty-card"><div class="ty-check">&#10003;</div><h3>Thank you for booking!</h3><p>Your discovery call is confirmed. A calendar invite is on its way to your inbox.</p><p class="ty-sub">I\'m really looking forward to working with you.</p><p class="ty-sign">&mdash; Harinivash</p><button onclick="document.getElementById(\'booking-thankyou\').remove()">Close</button></div>';
+    document.body.appendChild(note);
+  }});
+  calReady = true;
+}
+function openCalModal(){ Cal.ns.discovery("modal", { calLink: "harinivash-r-du3qxx/discovery", config: { theme: "dark", name: "", email: "" } }); }
 document.querySelectorAll('[data-cal-link]').forEach(function(el){
   el.addEventListener("click", function(e){
     e.preventDefault();
-    Cal.ns.discovery("modal", {
-      calLink: "harinivash-r-du3qxx/discovery",
-      config: { theme: "dark", name: "", email: "" }
-    });
+    if (!calReady){ loadCalEmbed(); setTimeout(openCalModal, 350); } else { openCalModal(); }
   });
-});
-
-// Custom thank-you note after a successful booking
-Cal.ns.discovery("on", {
-  action: "bookingSuccessful",
-  callback: function (e) {
-    var note = document.createElement("div");
-    note.id = "booking-thankyou";
-    note.innerHTML =
-      '<div class="ty-card">' +
-        '<div class="ty-check">&#10003;</div>' +
-        '<h3>Thank you for booking!</h3>' +
-        '<p>Your discovery call is confirmed. A calendar invite is on its way to your inbox.</p>' +
-        '<p class="ty-sub">I\'m really looking forward to working with you.</p>' +
-        '<p class="ty-sign">&mdash; Harinivash</p>' +
-        '<button onclick="document.getElementById(\'booking-thankyou\').remove()">Close</button>' +
-      '</div>';
-    document.body.appendChild(note);
-  }
 });
 </script>
 
