@@ -154,6 +154,10 @@ section.block { padding: 60px 0; }
 .prose ul { margin: 0 0 18px 0; padding-left: 0; list-style: none; max-width: 70ch; }
 .prose ul li { color: var(--fg2); font-size: 15.5px; line-height: 1.7; padding-left: 22px; position: relative; margin-bottom: 10px; }
 .prose ul li::before { content: '→'; position: absolute; left: 0; color: var(--acc); font-family: var(--font-d); font-size: 12px; top: 2px; }
+.prose ul li strong, .prose p strong { color: var(--fg1); font-weight: 600; }
+.prose blockquote { margin: 26px 0; padding: 18px 24px; border-left: 3px solid var(--acc); background: var(--glass); border-radius: 0 12px 12px 0; font-family: var(--font-s); font-style: italic; font-size: 18px; line-height: 1.6; color: var(--fg1); max-width: 70ch; }
+.prose a { color: var(--acc-hi); border-bottom: 1px solid var(--acc-b); transition: border-color 0.2s; }
+.prose a:hover { border-color: var(--acc-hi); }
 
 /* glass cards / grids */
 .card-grid { display: grid; gap: 18px; }
@@ -201,11 +205,23 @@ section.block { padding: 60px 0; }
 .stk-card:hover::after { opacity: 1; }
 .stk-card::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--sheen); pointer-events: none; }
 .stk-card:hover { transform: translateY(-5px); background: var(--glass-2); box-shadow: var(--glass-shadow), 0 22px 44px -24px var(--acc-b); }
-.stk-ic { position: relative; z-index: 1; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--glass); border: 1px solid var(--glass-brd); transition: transform 0.3s var(--ease); }
-.stk-card:hover .stk-ic { transform: scale(1.1) rotate(-4deg); }
-.stk-ic img { width: 28px; height: 28px; }
+.stk-ic { position: relative; z-index: 1; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--glass); border: 1px solid var(--glass-brd); will-change: transform; animation: stkFloatA 3.8s ease-in-out infinite; }
+/* continuous, organic "the apps are moving" motion — varied per position */
+.stk-grid .stk-card:nth-child(3n) .stk-ic { animation: stkFloatB 4.6s ease-in-out infinite; }
+.stk-grid .stk-card:nth-child(3n+1) .stk-ic { animation: stkFloatC 4.2s ease-in-out infinite; }
+.stk-grid .stk-card:nth-child(odd) .stk-ic { animation-delay: -1.3s; }
+.stk-grid .stk-card:nth-child(4n) .stk-ic { animation-delay: -2.4s; }
+.stk-grid .stk-card:nth-child(5n) .stk-ic { animation-delay: -0.7s; }
+@keyframes stkFloatA { 0%,100%{ transform: translateY(0) rotate(0deg); } 50%{ transform: translateY(-7px) rotate(3deg); } }
+@keyframes stkFloatB { 0%,100%{ transform: translate(0,0) rotate(0deg); } 33%{ transform: translate(4px,-6px) rotate(-3deg); } 66%{ transform: translate(-3px,-3px) rotate(2deg); } }
+@keyframes stkFloatC { 0%,100%{ transform: translateY(0) rotate(0deg) scale(1); } 50%{ transform: translateY(-5px) rotate(-4deg) scale(1.06); } }
+html.static-bg .stk-ic { animation: none !important; }
+.stk-ic img { width: 28px; height: 28px; transition: transform 0.3s var(--ease); }
+.stk-card:hover .stk-ic img { transform: scale(1.18) rotate(-6deg); }
+.stk-card:hover .stk-ic { box-shadow: 0 0 22px -6px var(--acc-b); border-color: var(--acc-b); }
 .stk-name { position: relative; z-index: 1; font-family: var(--font-d); font-size: 12px; color: var(--fg1); text-align: center; }
 @media (max-width: 540px) { .stk-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); } }
+@media (prefers-reduced-motion: reduce) { .stk-ic { animation: none; } }
 
 /* ── About page (full-width) ── */
 .about-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 40px; align-items: start; }

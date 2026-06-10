@@ -94,25 +94,44 @@
 <section class="page-hero"><div class="wrap reveal" style="max-width:780px;">
   <span class="page-eyebrow">Notion</span>
   <h1 class="page-title" style="font-size:clamp(30px,5vw,52px);">Turning Notion into your operating system</h1>
-  <p class="page-lead" style="font-family:var(--font-d);font-size:13px;color:var(--fg3);">Jun 2026 · 7 min read</p>
+  <p class="page-lead" style="font-family:var(--font-d);font-size:13px;color:var(--fg3);">Jun 2026 &middot; 8 min read</p>
 </div></section>
 <section class="block" style="padding-top:0;"><div class="wrap"><div class="post-cover reveal"><img src="/assets/blog/notion-as-an-operating-system.svg" alt="" width="1200" height="630" loading="eager"/></div></div></section>
 <section class="block"><div class="wrap prose reveal" style="max-width:760px;">
 
-  <p>Notion is most often a place where docs go to be forgotten. Architected properly, it becomes the system your operations actually run on.</p>
+  <p>Most teams use Notion as a prettier place to dump documents. That's a waste. Architected properly, Notion stops being a filing cabinet and becomes the system your operations actually run on &mdash; the place where work happens, not just where it's recorded.</p>
+
   <h2>Start with databases, not pages</h2>
-  <p>Everything that has a status, owner, or date should be a database row &mdash; not a bullet in a doc. Relations connect them into one model of your business.</p>
-  <h2>Rollups and formulas do the math</h2>
-  <p>Let Notion calculate health scores, totals, and statuses so your team reads answers instead of computing them.</p>
-  <h2>Buttons trigger real automation</h2>
-  <p>A Notion button can fire an n8n workflow &mdash; generate a contract, send an invoice, notify a channel &mdash; turning your workspace into a control panel.</p>
-  <h2>The result</h2>
-  <p>A workspace that doesn't just store information but <strong>does things on its own.</strong></p>
-  <div style="margin-top:40px;padding-top:28px;border-top:1px solid var(--h);">
+  <p>The single biggest shift: anything with a status, an owner, or a date should be a <strong>database row</strong>, not a bullet in a doc. Clients, projects, tasks, invoices, content &mdash; each becomes a database. Once they're databases, you can filter, sort, roll up, and most importantly, <em>relate</em> them to each other.</p>
+  <p>A client links to their projects. A project links to its tasks and its invoices. Suddenly you have one connected model of your business instead of scattered docs.</p>
+
+  <h2>Relations and rollups do the thinking</h2>
+  <p>This is where Notion earns its keep. A rollup can total every unpaid invoice for a client, count active projects, or surface the next due date &mdash; automatically. Your team reads answers instead of computing them. A "client health" view can pull together revenue, open tasks, and last contact date in one glance.</p>
+  <blockquote>If your team is doing math in their head or in a side spreadsheet, that logic belongs in Notion.</blockquote>
+
+  <h2>Formulas for the logic your team relies on</h2>
+  <p>Statuses that update themselves, flags that turn red when something's overdue, calculated fields that encode your actual business rules. Done well, formulas mean the workspace reflects reality without anyone manually updating it.</p>
+
+  <h2>Buttons that trigger real automation</h2>
+  <p>Here's the part most people miss: a Notion button can fire an n8n workflow. Click "Generate invoice" and it creates the PDF, emails the client, and updates the record. Click "Onboard" and it kicks off the whole sequence. Notion becomes a <strong>control panel</strong>, not just a database.</p>
+  <ul>
+    <li>Button &rarr; webhook &rarr; n8n &rarr; action across your whole stack.</li>
+    <li>The team works in Notion; the automation happens invisibly behind it.</li>
+  </ul>
+
+  <h2>Dashboards for the right person</h2>
+  <p>Filtered views and linked databases mean each person sees exactly what they need &mdash; a sales view, an ops view, a "my tasks today" view &mdash; all reading from the same underlying data. No duplication, no "which version is current."</p>
+
+  <h2>The trap to avoid</h2>
+  <p>The mistake is treating Notion like a wiki and stopping there. The value isn't in the pages; it's in the <strong>architecture</strong> &mdash; designing the databases and connections around how your team actually works. That's the difference between "we use Notion" and "Notion runs our operations."</p>
+  <p>Build it right and you get a workspace that doesn't just store information &mdash; it does things on its own. That's the goal.</p>
+
+  <div style="margin-top:44px;padding-top:28px;border-top:1px solid var(--h);">
     <a href="/blog/" style="color:var(--acc-hi);font-family:var(--font-d);font-size:13px;">&larr; All posts</a>
     <div style="margin-top:20px;"><a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary"><span>Book a free call &rarr;</span></a></div>
   </div>
 </div></section>
+
 </main>
 <footer><div class="wrap">
   <div class="foot-grid">

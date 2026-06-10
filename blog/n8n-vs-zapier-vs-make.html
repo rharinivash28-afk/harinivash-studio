@@ -94,25 +94,53 @@
 <section class="page-hero"><div class="wrap reveal" style="max-width:780px;">
   <span class="page-eyebrow">Comparison</span>
   <h1 class="page-title" style="font-size:clamp(30px,5vw,52px);">n8n vs Zapier vs Make: which to use in 2026</h1>
-  <p class="page-lead" style="font-family:var(--font-d);font-size:13px;color:var(--fg3);">Jun 2026 · 8 min read</p>
+  <p class="page-lead" style="font-family:var(--font-d);font-size:13px;color:var(--fg3);">Jun 2026 &middot; 9 min read</p>
 </div></section>
 <section class="block" style="padding-top:0;"><div class="wrap"><div class="post-cover reveal"><img src="/assets/blog/n8n-vs-zapier-vs-make.svg" alt="" width="1200" height="630" loading="eager"/></div></div></section>
 <section class="block"><div class="wrap prose reveal" style="max-width:760px;">
 
-  <p>All three connect your apps. The difference is cost, control, and complexity ceiling. Here's the honest breakdown.</p>
-  <h2>Zapier</h2>
-  <p>Best for speed and simplicity. If you want a 2-3 step automation live today and don't want to think about infrastructure, it's the fastest path. Costs scale with task volume.</p>
-  <h2>Make.com</h2>
-  <p>More visual and powerful than Zapier for branching logic, at a friendlier price for higher volumes. Great middle ground.</p>
-  <h2>n8n</h2>
-  <p>Self-hostable, code-friendly, and effectively unlimited. Best when you have complex logic, high volume, or data you'd rather keep on your own infrastructure. The trade-off is you (or I) manage the hosting.</p>
-  <h2>How I choose</h2>
-  <ul><li>Simple, low volume, fast &rarr; Zapier</li><li>Complex logic, mid volume, budget-aware &rarr; Make</li><li>High volume, custom logic, data control &rarr; n8n</li></ul>
-  <div style="margin-top:40px;padding-top:28px;border-top:1px solid var(--h);">
+  <p>All three connect your apps and run automations. The real differences are <strong>cost, control, and complexity ceiling</strong>. Here's the honest breakdown from someone who builds in all three &mdash; no affiliate spin.</p>
+
+  <h2>Zapier &mdash; fastest to ship</h2>
+  <p>Zapier is the most polished and the easiest to start with. The app library is enormous, the UI is friendly, and you can have a 2&ndash;3 step automation live in minutes. If you want something working <em>today</em> and don't want to think about infrastructure, it's the path of least resistance.</p>
+  <p><strong>Where it bites:</strong> pricing scales with task volume, so high-traffic automations get expensive fast. Complex branching and loops are possible but clunky. It's a rent-forever model.</p>
+  <ul>
+    <li><strong>Best for:</strong> simple, low-volume automations; non-technical teams; "just make it work."</li>
+    <li><strong>Watch:</strong> per-task pricing at scale.</li>
+  </ul>
+
+  <h2>Make.com &mdash; the visual middle ground</h2>
+  <p>Make (formerly Integromat) gives you a visual canvas with far more power than Zapier for branching, iteration, and data manipulation &mdash; at a friendlier price for higher volumes. The learning curve is a little steeper, but you can build genuinely sophisticated scenarios without code.</p>
+  <ul>
+    <li><strong>Best for:</strong> complex logic, mid-to-high volume, budget-conscious teams.</li>
+    <li><strong>Watch:</strong> the visual canvas gets busy on very large scenarios.</li>
+  </ul>
+
+  <h2>n8n &mdash; power and control</h2>
+  <p>n8n is open-source and self-hostable. That changes the economics completely: instead of paying per task, you pay for the server it runs on. For high-volume automation, that's the difference between $20/month and $2,000/month. It's also code-friendly &mdash; drop into a function node and do anything JavaScript can do.</p>
+  <p>The trade-off is that someone has to host and maintain it (that's often me). But for serious automation &mdash; complex logic, big volume, or data you'd rather keep on your own infrastructure &mdash; nothing else comes close on value.</p>
+  <ul>
+    <li><strong>Best for:</strong> high volume, custom logic, data control, cost at scale.</li>
+    <li><strong>Watch:</strong> needs hosting + maintenance (managed for you on a retainer).</li>
+  </ul>
+
+  <h2>How I actually choose</h2>
+  <p>I don't have a favorite &mdash; I match the tool to the job:</p>
+  <ul>
+    <li><strong>Simple, low volume, need it now</strong> &rarr; Zapier</li>
+    <li><strong>Complex logic, mid volume, budget-aware</strong> &rarr; Make</li>
+    <li><strong>High volume, custom logic, data control</strong> &rarr; n8n (self-hosted)</li>
+  </ul>
+  <p>Often a business runs more than one: Zapier for a quick internal alert, n8n for the heavy customer-facing pipeline. The platform matters less than the <em>design</em> &mdash; a well-architected workflow on any of the three beats a sloppy one on the "best" tool.</p>
+  <h2>The honest takeaway</h2>
+  <p>Don't pick a platform first. Map the problem, estimate the volume, decide how much control you need &mdash; then the right tool is usually obvious. If you're not sure, that's exactly what a discovery call is for.</p>
+
+  <div style="margin-top:44px;padding-top:28px;border-top:1px solid var(--h);">
     <a href="/blog/" style="color:var(--acc-hi);font-family:var(--font-d);font-size:13px;">&larr; All posts</a>
     <div style="margin-top:20px;"><a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary"><span>Book a free call &rarr;</span></a></div>
   </div>
 </div></section>
+
 </main>
 <footer><div class="wrap">
   <div class="foot-grid">
