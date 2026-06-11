@@ -62,6 +62,20 @@ body::after {
 }
 a { color: inherit; text-decoration: none; }
 
+/* ── Smooth page transitions (modern browsers; graceful fallback everywhere) ── */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vtFadeOut 0.28s cubic-bezier(0.4,0,0.2,1) both; }
+::view-transition-new(root) { animation: vtFadeIn 0.42s cubic-bezier(0.2,0.9,0.1,1) both; }
+@keyframes vtFadeOut { to { opacity: 0; transform: translateY(-10px) scale(0.995); } }
+@keyframes vtFadeIn { from { opacity: 0; transform: translateY(14px) scale(0.99); } }
+/* universal content entrance on load (works in every browser) */
+@keyframes pageEnter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+main { animation: pageEnter 0.6s cubic-bezier(0.2,0.9,0.1,1) both; }
+@media (prefers-reduced-motion: reduce) {
+  main { animation: none; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
 /* ── Cross-browser fallbacks (only apply when a feature is unsupported) ── */
 @supports not (background: color-mix(in srgb, red, blue)) {
   nav.scrolled { background: rgba(12,12,16,0.82); }
