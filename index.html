@@ -146,6 +146,19 @@ body::after {
   background-size: 200px; opacity: 0.035; mix-blend-mode: overlay;
 }
 a { color: inherit; text-decoration: none; }
+/* ── Cross-browser fallbacks (only when a feature is unsupported) ── */
+@supports not (background: color-mix(in srgb, red, blue)) {
+  nav.scrolled { background: rgba(12,12,16,0.82); }
+  html.light nav.scrolled { background: rgba(250,250,248,0.86); }
+  .mob { background: rgba(10,10,12,0.96); }
+  html.light .mob { background: rgba(250,250,248,0.97); }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root { --glass: rgba(26,26,32,0.92); --glass-2: rgba(34,34,42,0.95); }
+  html.light { --glass: rgba(255,255,255,0.94); --glass-2: rgba(255,255,255,0.97); }
+  nav.scrolled, .mob, footer { background: rgba(12,12,16,0.97); }
+  html.light nav.scrolled, html.light .mob, html.light footer { background: rgba(250,250,248,0.98); }
+}
 /* ── Custom glossy arrow cursor ── */
 @media (hover: hover) and (pointer: fine) {
   * { cursor: none !important; }
@@ -593,6 +606,7 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
 </style>
 <link rel="preload" href="/assets/fonts/intertight-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="/assets/fonts/jetbrainsmono-500-normal.woff2" as="font" type="font/woff2" crossorigin/>
+<noscript><style>.reveal{opacity:1!important;transform:none!important;filter:none!important}.cursor-arrow,.settings-btn{display:none!important}</style></noscript>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -1155,26 +1169,32 @@ function animateCount(el){
 }
 
 // Scroll reveal (with stagger inside grids) + stat triggers
-var io = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if (e.isIntersecting){
-      e.target.classList.add("on");
-      var c = e.target.querySelector("[data-count]");
-      if (c && !c._done){ c._done = true; animateCount(c); }
-      // clear the stagger delay once revealed so it doesn't lag hover/tilt later
-      var delay = parseFloat(e.target.style.transitionDelay) || 0;
-      setTimeout(function(){ e.target.style.transitionDelay = ""; }, (delay + 0.7) * 1000);
-      io.unobserve(e.target);
-    }
+if (!("IntersectionObserver" in window)) {
+  // fallback: reveal everything + run counters immediately
+  document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("on"); });
+  document.querySelectorAll("[data-count]").forEach(function(c){ if(!c._done){ c._done=true; animateCount(c); } });
+} else {
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){
+        e.target.classList.add("on");
+        var c = e.target.querySelector("[data-count]");
+        if (c && !c._done){ c._done = true; animateCount(c); }
+        // clear the stagger delay once revealed so it doesn't lag hover/tilt later
+        var delay = parseFloat(e.target.style.transitionDelay) || 0;
+        setTimeout(function(){ e.target.style.transitionDelay = ""; }, (delay + 0.7) * 1000);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+  // stagger reveals within a grid
+  document.querySelectorAll(".svc-grid, .proc-grid, .stats-grid").forEach(function(grid){
+    Array.prototype.forEach.call(grid.children, function(child, idx){
+      if (child.classList.contains("reveal")) child.style.transitionDelay = (idx % 3) * 0.08 + "s";
+    });
   });
-}, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
-// stagger reveals within a grid
-document.querySelectorAll(".svc-grid, .proc-grid, .stats-grid").forEach(function(grid){
-  Array.prototype.forEach.call(grid.children, function(child, idx){
-    if (child.classList.contains("reveal")) child.style.transitionDelay = (idx % 3) * 0.08 + "s";
-  });
-});
-document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+  document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+}
 </script>
 
 <!-- Cal.com embed: popup booking + custom thank-you note -->
@@ -1237,6 +1257,6 @@ document.querySelectorAll('[data-cal-link]').forEach(function(el){
 }
 #booking-thankyou button:hover { transform: translateY(-2px); }
 </style>
-<script src="/assets/settings.js?v=20260610a" defer></script>
+<script src="/assets/settings.js?v=20260610b" defer></script>
 </body>
 </html>

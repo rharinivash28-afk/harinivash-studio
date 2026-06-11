@@ -43,11 +43,15 @@
     document.addEventListener("keydown", function(e){ if (e.key === "Escape"){ dd.classList.remove("open"); ddBtn.setAttribute("aria-expanded","false"); } });
   }
 
-  // scroll reveal
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("on"); io.unobserve(e.target); } });
-  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-  document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+  // scroll reveal (with fallback for browsers without IntersectionObserver)
+  if (!("IntersectionObserver" in window)) {
+    document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("on"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("on"); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+  }
 
   // methodology: cycle "active" through the workflow nodes like a running flow
   (function(){
