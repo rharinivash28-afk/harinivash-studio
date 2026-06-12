@@ -243,7 +243,8 @@ section.block { padding: 60px 0; }
 .stk-card:hover::after { opacity: 1; }
 .stk-card::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--sheen); pointer-events: none; }
 .stk-card:hover { transform: translateY(-5px); background: var(--glass-2); box-shadow: var(--glass-shadow), 0 22px 44px -24px var(--acc-b); }
-.stk-ic { position: relative; z-index: 1; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--glass); border: 1px solid var(--glass-brd); will-change: transform; animation: stkFloatA 3.8s ease-in-out infinite; }
+.stk-ic { position: relative; z-index: 1; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.92); border: 1px solid rgba(255,255,255,0.18); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px -4px rgba(0,0,0,0.4); will-change: transform; animation: stkFloatA 3.8s ease-in-out infinite; }
+html.light .stk-ic { background: #fff; border-color: rgba(0,0,0,0.08); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 4px 12px -6px rgba(0,0,0,0.18); }
 /* continuous, organic "the apps are moving" motion — varied per position */
 .stk-grid .stk-card:nth-child(3n) .stk-ic { animation: stkFloatB 4.6s ease-in-out infinite; }
 .stk-grid .stk-card:nth-child(3n+1) .stk-ic { animation: stkFloatC 4.2s ease-in-out infinite; }
@@ -255,10 +256,9 @@ section.block { padding: 60px 0; }
 @keyframes stkFloatC { 0%,100%{ transform: translateY(0) rotate(0deg) scale(1); } 50%{ transform: translateY(-5px) rotate(-4deg) scale(1.06); } }
 html.static-bg .stk-ic { animation: none !important; }
 /* monochrome by default (always legible on any theme), brand colour on hover */
-.stk-ic img { width: 28px; height: 28px; transition: transform 0.3s var(--ease), filter 0.3s, opacity 0.3s; filter: brightness(0) invert(1); opacity: 0.85; }
-html.light .stk-ic img { filter: brightness(0); opacity: 0.78; }
-.stk-card:hover .stk-ic img { filter: none; opacity: 1; transform: scale(1.18) rotate(-6deg); }
-.stk-card:hover .stk-ic { box-shadow: 0 0 22px -6px var(--acc-b); border-color: var(--acc-b); background: var(--glass-2); }
+.stk-ic img { width: 28px; height: 28px; transition: transform 0.3s var(--ease), filter 0.3s, opacity 0.3s; opacity: 1; }
+.stk-card:hover .stk-ic img { transform: scale(1.18) rotate(-6deg); }
+.stk-card:hover .stk-ic { background: #fff; box-shadow: 0 0 22px -4px var(--acc-b), inset 0 1px 0 rgba(255,255,255,0.7); border-color: var(--acc-b); }
 .stk-name { position: relative; z-index: 1; font-family: var(--font-d); font-size: 12px; color: var(--fg1); text-align: center; }
 @media (max-width: 540px) { .stk-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); } }
 @media (prefers-reduced-motion: reduce) { .stk-ic { animation: none; } }
