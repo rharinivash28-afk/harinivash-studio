@@ -402,17 +402,15 @@ html.light .net-ring { fill: rgba(255,255,255,0.9); }
 .ticker-wrap { padding-top: 34px; }
 .ticker-cap { display: block; text-align: center; font-family: var(--font-d); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 20px; }
 .ticker { padding: 16px 0; border-top: 1px solid var(--h); border-bottom: 1px solid var(--h); overflow-x: hidden; overflow-y: visible; background: var(--glass); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); display: flex; flex-direction: column; gap: 16px; }
-.ticker-row { display: flex; width: max-content; gap: 18px; animation: tickerScroll 50s linear infinite; }
-.ticker-row.rev { animation: tickerScrollRev 44s linear infinite; }
+.ticker-row { display: flex; width: max-content; gap: 18px; animation: tickerScroll 65s linear infinite; }
+.ticker-row.rev { animation: tickerScrollRev 58s linear infinite; }
 .ticker:hover .ticker-row { animation-play-state: paused; }
-.ti-ic { position: relative; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0; background: var(--glass-2); border: 1px solid var(--glass-brd); box-shadow: var(--glass-shadow); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); transition: transform 0.25s var(--ease), box-shadow 0.25s, border-color 0.25s; }
+.ti-ic { position: relative; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0; overflow: hidden; background: var(--glass-2); border: 1px solid var(--glass-brd); box-shadow: var(--glass-shadow); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); transition: transform 0.25s var(--ease), box-shadow 0.25s, border-color 0.25s; }
 .ti-ic:hover { animation-play-state: paused; transform: translateY(-3px) scale(1.12); box-shadow: 0 0 22px -4px var(--acc-b); border-color: var(--acc-b); z-index: 3; }
-.tic { width: 26px; height: 26px; flex-shrink: 0; }
-.ti-tip { position: absolute; top: calc(100% + 9px); left: 50%; transform: translateX(-50%) translateY(-5px); background: rgba(12,12,16,0.96); color: #fff; font-family: var(--font-d); font-size: 11px; font-weight: 500; letter-spacing: -0.01em; padding: 4px 10px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; border: 1px solid var(--glass-brd); box-shadow: 0 8px 20px -8px rgba(0,0,0,0.6); transition: opacity 0.2s, transform 0.2s; z-index: 5; }
-.ti-tip::after { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-bottom-color: rgba(12,12,16,0.96); }
-html.light .ti-tip { background: #1a1a1f; }
-html.light .ti-tip::after { border-bottom-color: #1a1a1f; }
-.ti-ic:hover .ti-tip { opacity: 1; transform: translateX(-50%) translateY(0); }
+.tic { width: 26px; height: 26px; flex-shrink: 0; transition: opacity 0.2s, transform 0.2s; }
+.ti-ic:hover .tic { opacity: 0; transform: scale(0.6); }
+.ti-tip { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4px; background: var(--glass-2); color: var(--fg1); font-family: var(--font-d); font-size: 8.5px; font-weight: 600; letter-spacing: 0.01em; line-height: 1.15; opacity: 0; transition: opacity 0.2s; }
+.ti-ic:hover .ti-tip { opacity: 1; }
 @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes tickerScrollRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
@@ -638,6 +636,7 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
   <div class="wrap">
     <a href="#" class="brand"><span class="brand-dot"></span>Harinivash Studio</a>
     <ul class="nav-links">
+      <li><a href="/">Home</a></li>
       <li><a href="/about.html">About</a></li>
       <li><a href="/work.html">Work</a></li>
       <li><a href="/blog/">Blog</a></li>
@@ -674,6 +673,7 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
 
 <div class="mob" id="mob">
   <button class="mob-close" id="mobClose" aria-label="Close menu">&times;</button>
+  <a href="/">Home</a>
   <a href="/about.html">About</a>
   <a href="/work.html">Work</a>
   <a href="/methodology.html">Methodology</a>
@@ -1478,6 +1478,6 @@ document.querySelectorAll('[data-cal-link]').forEach(function(el){
 }
 #booking-thankyou button:hover { transform: translateY(-2px); }
 </style>
-<script src="/assets/settings.js?v=20260612i" defer></script>
+<script src="/assets/settings.js?v=20260612j" defer></script>
 </body>
 </html>
