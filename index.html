@@ -401,14 +401,16 @@ html.light .net-ring { fill: rgba(255,255,255,0.9); }
 /* ── App logo ticker ── */
 .ticker-wrap { padding-top: 34px; }
 .ticker-cap { display: block; text-align: center; font-family: var(--font-d); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 20px; }
-.ticker { padding: 0; border-top: 1px solid var(--h); border-bottom: 1px solid var(--h); overflow: hidden; background: var(--glass); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.ticker-row { display: flex; width: max-content; animation: tickerScroll 34s linear infinite; }
+.ticker { padding: 16px 0; border-top: 1px solid var(--h); border-bottom: 1px solid var(--h); overflow: hidden; background: var(--glass); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); display: flex; flex-direction: column; gap: 16px; }
+.ticker-row { display: flex; width: max-content; gap: 18px; animation: tickerScroll 36s linear infinite; }
+.ticker-row.rev { animation: tickerScrollRev 32s linear infinite; }
 .ticker:hover .ticker-row { animation-play-state: paused; }
-.ti { display: inline-flex; align-items: center; gap: 11px; padding: 18px 26px; font-family: var(--font-d); font-size: 14px; letter-spacing: 0.01em; color: var(--fg2); white-space: nowrap; transition: color 0.2s, transform 0.2s; }
-.ti:hover { color: var(--fg1); transform: translateY(-2px); }
-.tic { width: 21px; height: 21px; flex-shrink: 0; filter: drop-shadow(0 0 6px rgba(0,0,0,0.4)); }
-.ti::after { content: '·'; margin-left: 26px; color: var(--acc); font-size: 18px; opacity: 0.5; }
+.ti-ic { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0; background: rgba(255,255,255,0.92); border: 1px solid rgba(255,255,255,0.18); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px -4px rgba(0,0,0,0.4); transition: transform 0.25s var(--ease), box-shadow 0.25s, border-color 0.25s; }
+html.light .ti-ic { background: #fff; border-color: rgba(0,0,0,0.08); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 4px 12px -6px rgba(0,0,0,0.18); }
+.ti-ic:hover { transform: translateY(-3px) scale(1.08); box-shadow: 0 0 22px -4px var(--acc-b), inset 0 1px 0 rgba(255,255,255,0.7); border-color: var(--acc-b); }
+.tic { width: 26px; height: 26px; flex-shrink: 0; }
 @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes tickerScrollRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
 /* ── Section header ── */
 .sec-head { margin-bottom: 56px; }
@@ -728,18 +730,20 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
     <span class="ticker-cap">Works with your stack</span>
     <div class="ticker" aria-hidden="true">
       <div class="ticker-row" id="tickerRow">
-        <span class="ti"><img class="tic" src="/assets/icons/n8n-EA4B71.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>n8n</span>
-        <span class="ti"><img class="tic" src="/assets/icons/notion-B6B6B6.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>Notion</span>
-        <span class="ti"><img class="tic" src="/assets/icons/zapier-FF4F00.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>Zapier</span>
-        <span class="ti"><img class="tic" src="/assets/icons/make-A259FF.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>Make</span>
-        <span class="ti"><img class="tic" src="/assets/icons/googlegemini-10A37F.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>Gemini</span>
-        <span class="ti"><img class="tic" src="/assets/icons/claude-D97757.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>Claude</span>
-        <span class="ti"><img class="tic" src="/assets/icons/googlemeet-36C5F0.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>Google Meet</span>
-        <span class="ti"><img class="tic" src="/assets/icons/stripe-635BFF.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>Stripe</span>
-        <span class="ti"><img class="tic" src="/assets/icons/airtable-18BFFF.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>Airtable</span>
-        <span class="ti"><img class="tic" src="/assets/icons/googlesheets-0F9D58.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>Google Sheets</span>
-        <span class="ti"><img class="tic" src="/assets/icons/hubspot-FF7A59.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>HubSpot</span>
-        <span class="ti"><img class="tic" src="/assets/icons/nextdotjs-B6B6B6.svg" alt="" loading="lazy" decoding="async" width="21" height="21" onerror="this.style.display='none'"/>Next.js</span>
+        <span class="ti-ic"><img class="tic" src="/assets/icons/n8n-EA4B71.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
+        <span class="ti-ic"><img class="tic" src="/assets/icons/notion-B6B6B6.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
+        <span class="ti-ic"><img class="tic" src="/assets/icons/zapier-FF4F00.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
+        <span class="ti-ic"><img class="tic" src="/assets/icons/make-A259FF.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
+        <span class="ti-ic"><img class="tic" src="/assets/icons/googlegemini-10A37F.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
+        <span class="ti-ic"><img class="tic" src="/assets/icons/claude-D97757.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
+      </div>
+      <div class="ticker-row rev" id="tickerRow2">
+        <span class="ti-ic"><img class="tic" src="/assets/icons/googlemeet-36C5F0.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
+        <span class="ti-ic"><img class="tic" src="/assets/icons/stripe-635BFF.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
+        <span class="ti-ic"><img class="tic" src="/assets/icons/airtable-18BFFF.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
+        <span class="ti-ic"><img class="tic" src="/assets/icons/googlesheets-0F9D58.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
+        <span class="ti-ic"><img class="tic" src="/assets/icons/hubspot-FF7A59.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
+        <span class="ti-ic"><img class="tic" src="/assets/icons/nextdotjs-B6B6B6.svg" alt="" loading="lazy" decoding="async" width="26" height="26" onerror="this.parentNode.style.display='none'"/></span>
       </div>
     </div>
   </div>
@@ -1131,8 +1135,10 @@ function closeMob(){ document.getElementById("mob").classList.remove("open"); }
 
 // Duplicate ticker content for seamless loop
 (function(){
-  var row = document.getElementById("tickerRow");
-  if (row) row.innerHTML += row.innerHTML;
+  ["tickerRow","tickerRow2"].forEach(function(id){
+    var row = document.getElementById(id);
+    if (row) row.innerHTML += row.innerHTML;
+  });
 })();
 
 // Magnetic "Book a call" buttons: cursor pull + sheen follow + spark emit
@@ -1326,6 +1332,6 @@ document.querySelectorAll('[data-cal-link]').forEach(function(el){
 }
 #booking-thankyou button:hover { transform: translateY(-2px); }
 </style>
-<script src="/assets/settings.js?v=20260612e" defer></script>
+<script src="/assets/settings.js?v=20260612f" defer></script>
 </body>
 </html>
