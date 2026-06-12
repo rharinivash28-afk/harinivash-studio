@@ -39,10 +39,10 @@ html.light {
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { overflow-x: hidden; scroll-behavior: smooth; }
 :root { --site-mesh:
-    radial-gradient(60% 50% at 12% 8%, rgba(76,125,240,0.32) 0%, transparent 60%),
-    radial-gradient(55% 45% at 88% 18%, rgba(124,90,240,0.26) 0%, transparent 62%),
-    radial-gradient(50% 50% at 78% 92%, rgba(76,125,240,0.22) 0%, transparent 60%),
-    radial-gradient(45% 45% at 22% 88%, rgba(159,186,142,0.16) 0%, transparent 62%);
+    radial-gradient(60% 50% at 12% 8%, rgba(76,125,240,0.20) 0%, transparent 60%),
+    radial-gradient(55% 45% at 88% 18%, rgba(124,90,240,0.16) 0%, transparent 62%),
+    radial-gradient(50% 50% at 78% 92%, rgba(76,125,240,0.13) 0%, transparent 60%),
+    radial-gradient(45% 45% at 22% 88%, rgba(110,151,244,0.10) 0%, transparent 62%);
   --ui-scale: 1; }
 body { background: var(--s0); color: var(--fg1); font-family: var(--font-b); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s; }
 /* text-size control: scale page content (reliable for px-based layout) */
