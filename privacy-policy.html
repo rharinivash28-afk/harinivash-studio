@@ -24,7 +24,7 @@
 <script>(function(){try{if((localStorage.getItem('theme')||'dark')==='light')document.documentElement.classList.add('light');}catch(e){}})();</script>
 <link rel="preload" href="/assets/fonts/intertight-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="/assets/fonts/jetbrainsmono-500-normal.woff2" as="font" type="font/woff2" crossorigin/>
-<link rel="stylesheet" href="/assets/site.css?v=20260610c"/>
+<link rel="stylesheet" href="/assets/site.css?v=20260612a"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -97,29 +97,76 @@
   <h1 class="page-title">Privacy &amp; Terms.</h1>
   <p class="page-lead">Last updated June 2026. Plain-language version &mdash; ask me anything that's unclear.</p>
 </div></section>
-<section class="block"><div class="wrap prose reveal">
-  <h2>Privacy Policy</h2>
-  <p>Harinivash Studio respects your privacy. This page explains what data is collected and how it's used.</p>
-  <h3>What I collect</h3>
-  <ul>
-    <li>Information you send me directly (name, email, message) via the contact form or email.</li>
-    <li>Booking details you provide through the scheduling tool (Cal.com) when you book a call.</li>
-    <li>Basic, privacy-friendly analytics about page visits (no personal profiling).</li>
-  </ul>
-  <h3>How it's used</h3>
-  <ul><li>To reply to you, scope work, and deliver projects.</li><li>I never sell or rent your data to anyone.</li></ul>
-  <h3>Client credentials</h3>
-  <p>During projects, any API keys or tool access you share are stored in end-to-end encrypted vaults, never exposed, and revoked once the project is handed off (unless you're on a retainer).</p>
-  <h3>Your rights</h3>
-  <p>You can ask me to access, correct, or delete any data you've shared. Email <a href="mailto:rharinivash28@gmail.com" style="color:var(--acc-hi);">rharinivash28@gmail.com</a>.</p>
-  <h2 id="terms">Terms of Service</h2>
-  <p>Projects are scoped and priced before work begins. Deliverables, timelines, and payment terms are confirmed in writing per engagement.</p>
-  <ul>
-    <li>Quotes are fixed-scope; changes are re-scoped transparently.</li>
-    <li>You own all deliverables on final payment, with full documentation.</li>
-    <li>Optional retainers cover maintenance after handoff.</li>
-  </ul>
-</div></section>
+<section class="block"><div class="wrap"><div class="legal-grid">
+  <article class="legal-col reveal">
+    <h2 class="legal-h2">Privacy Policy</h2>
+    <p class="legal-intro">Harinivash Studio ("I", "me", "my") respects your privacy. This page explains, in plain language, exactly what data is collected, why, and what control you have over it. No dark patterns, no fine print designed to confuse.</p>
+
+    <h3>1. What I collect</h3>
+    <ul class="legal-list">
+      <li><strong>What you send me directly</strong> — your name, email, and message when you use the contact form or email me.</li>
+      <li><strong>Booking details</strong> — information you enter into the scheduling tool (Cal.com) when you book a call, such as your name, email, and chosen time.</li>
+      <li><strong>Basic analytics</strong> — privacy-friendly, aggregated page-visit data (e.g. which pages are popular). No cross-site tracking, no personal profiling, no advertising cookies.</li>
+      <li><strong>Project data</strong> — during an engagement, the documents, access, and information you share so I can build what you've asked for.</li>
+    </ul>
+
+    <h3>2. How your data is used</h3>
+    <ul class="legal-list">
+      <li>To reply to your enquiry, scope the work, and deliver your project.</li>
+      <li>To send you what we've agreed (proposals, invoices, deliverables, updates).</li>
+      <li>To improve the site based on aggregate, anonymous usage.</li>
+      <li>I <strong>never sell, rent, or trade</strong> your data to anyone. Ever.</li>
+    </ul>
+
+    <h3>3. Third-party tools</h3>
+    <p>A few trusted services help run things: <strong>Cal.com</strong> (scheduling), <strong>FormSubmit</strong> (contact form delivery), <strong>Cloudflare</strong> (hosting &amp; security), and <strong>Google Fonts/Simple Icons</strong> (self-hosted where possible). Each only receives the minimum data needed to do its job, and each has its own privacy policy.</p>
+
+    <h3>4. Client credentials &amp; access</h3>
+    <p>During projects, any API keys, passwords, or tool access you share are stored in end-to-end encrypted vaults, never committed to code, never exposed publicly, and never shared with anyone. Once a project is handed off, all access is revoked and removed from my side &mdash; unless you're on an ongoing retainer and want me to keep it for maintenance.</p>
+
+    <h3>5. Data retention</h3>
+    <p>Enquiry emails are kept while we're in contact and for a reasonable period after, in case you return. Project files are kept for the duration of the engagement and a short handover window. You can ask me to delete anything sooner at any time.</p>
+
+    <h3>6. Your rights</h3>
+    <p>You can ask me to access, correct, export, or delete any personal data you've shared &mdash; no questions asked. Just email <a href="mailto:rharinivash28@gmail.com">rharinivash28@gmail.com</a> and I'll action it promptly.</p>
+  </article>
+
+  <article class="legal-col reveal" id="terms">
+    <h2 class="legal-h2">Terms of Service</h2>
+    <p class="legal-intro">These terms cover how we work together. Anything specific to your project (scope, price, timeline) is always confirmed separately in writing before work begins &mdash; this page just sets the baseline.</p>
+
+    <h3>1. Scope &amp; pricing</h3>
+    <ul class="legal-list">
+      <li>Every project is <strong>scoped and priced before work starts</strong>. You approve the scope and the fixed price first &mdash; no hourly surprises.</li>
+      <li>Quotes are for a defined scope. If you want to add or change things mid-project, we re-scope that part transparently and agree the cost before I build it.</li>
+      <li>Most projects run on a deposit-up-front, balance-on-delivery basis, confirmed per engagement.</li>
+    </ul>
+
+    <h3>2. Delivery &amp; ownership</h3>
+    <ul class="legal-list">
+      <li>You receive full documentation and a walkthrough so you're never dependent on me to run your own system.</li>
+      <li><strong>You own all deliverables</strong> outright on final payment &mdash; the workflows, the Notion build, the website, the code.</li>
+      <li>I may reference the <em>type</em> of work in a portfolio or case study, anonymised, unless you ask me not to.</li>
+    </ul>
+
+    <h3>3. Timelines</h3>
+    <p>Timelines are estimates agreed up front and given in good faith. Most projects run 2&ndash;10 weeks. Delays caused by waiting on access, content, or feedback from your side move the timeline accordingly &mdash; I'll always flag this early.</p>
+
+    <h3>4. Support &amp; maintenance</h3>
+    <p>Each build ships with documentation and a short post-launch support window. APIs change and tools update over time; an optional monthly retainer covers ongoing fixes, updates, and additions. It's never required &mdash; you own everything regardless.</p>
+
+    <h3>5. Liability</h3>
+    <p>I build production-grade work and test it thoroughly, but I can't guarantee third-party tools (n8n, Zapier, Cal.com, etc.) will never change or have outages. My liability is limited to the value of the project. I'm not liable for indirect or consequential losses.</p>
+
+    <h3>6. Cancellation</h3>
+    <p>If you need to stop a project, you pay for the work completed and approved up to that point, and you keep everything delivered so far. Retainers can be cancelled any time with notice for the current cycle.</p>
+
+    <div class="legal-cta">
+      <p>Questions about any of this? I'm happy to explain anything in plain language.</p>
+      <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary"><span>Book a call &rarr;</span></a>
+    </div>
+  </article>
+</div></div></section>
 </main>
 <footer><div class="wrap">
   <div class="foot-grid">

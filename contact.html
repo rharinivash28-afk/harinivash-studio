@@ -24,7 +24,7 @@
 <script>(function(){try{if((localStorage.getItem('theme')||'dark')==='light')document.documentElement.classList.add('light');}catch(e){}})();</script>
 <link rel="preload" href="/assets/fonts/intertight-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="/assets/fonts/jetbrainsmono-500-normal.woff2" as="font" type="font/woff2" crossorigin/>
-<link rel="stylesheet" href="/assets/site.css?v=20260610c"/>
+<link rel="stylesheet" href="/assets/site.css?v=20260612a"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -111,22 +111,32 @@
   <h1 class="page-title">Let's talk.</h1>
   <p class="page-lead">Book a free 15-minute call or send me an email. I reply within 24 hours.</p>
 </div></section>
-<section class="block"><div class="wrap"><div class="card-grid cols-2" style="align-items:start;">
-  <div class="reveal">
-    <div style="margin-bottom:24px;"><a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary"><span>Book a free 15-min call &rarr;</span></a></div>
-    <p class="foot-tag" style="max-width:42ch;">Prefer async? Use the form &mdash; or email me directly. Tell me about your stack, your problem, and what a good outcome looks like.</p>
-    <ul style="list-style:none;margin-top:24px;display:flex;flex-direction:column;gap:14px;">
-      <li class="email-row" style="font-family:var(--font-d);font-size:15px;"><a href="mailto:rharinivash28@gmail.com">rharinivash28@gmail.com</a><button type="button" class="copy-btn copy-email" data-email="rharinivash28@gmail.com" aria-label="Copy email" title="Copy email"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></li>
-      <li style="font-family:var(--font-d);font-size:13px;color:var(--fg3);">Remote worldwide &middot; replies within 24h</li>
+<section class="block"><div class="wrap"><div class="contact-grid">
+  <div class="contact-side reveal">
+    <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary" style="margin-bottom:26px;"><span>Book a free 15-min call &rarr;</span></a>
+    <p class="contact-lead">Tell me about your stack, the problem you're trying to solve, and what a good outcome looks like. The more detail, the more useful my reply.</p>
+    <ul class="contact-meta">
+      <li class="email-row"><a href="mailto:rharinivash28@gmail.com">rharinivash28@gmail.com</a><button type="button" class="copy-btn copy-email" data-email="rharinivash28@gmail.com" aria-label="Copy email" title="Copy email"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></li>
+      <li><span class="cm-k">Location</span> Remote worldwide &middot; based in India (IST)</li>
+      <li><span class="cm-k">Response</span> Within 24 hours, usually faster</li>
+      <li><span class="cm-k">Best for</span> Founders, small teams &amp; agencies (5&ndash;100 people)</li>
     </ul>
+    <div class="contact-steps">
+      <div class="cs-row"><span class="cs-num">1</span><span>You send a message or book a call.</span></div>
+      <div class="cs-row"><span class="cs-num">2</span><span>I reply with questions &amp; a rough direction &mdash; free, no pitch.</span></div>
+      <div class="cs-row"><span class="cs-num">3</span><span>If it's a fit, you get a clear scope &amp; fixed price before any work starts.</span></div>
+    </div>
   </div>
-  <form class="glass-card form reveal" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="max-width:none;">
+  <form class="glass-card form reveal" id="contactForm" action="https://formsubmit.co/ajax/rharinivash28@gmail.com" method="POST">
+    <h2 class="contact-form-title">Send a message</h2>
     <div class="field"><label for="cn">Name</label><input id="cn" name="name" type="text" required placeholder="Your name"/></div>
     <div class="field"><label for="ce">Email</label><input id="ce" name="email" type="email" required placeholder="you@company.com"/></div>
-    <div class="field"><label for="cs">Service</label><select id="cs" name="service"><option>n8n / Zapier / Make automation</option><option>Notion systems</option><option>AI agents</option><option>Web design</option><option>Data pipelines / consulting</option><option>Not sure yet</option></select></div>
-    <div class="field"><label for="cm">Message</label><textarea id="cm" name="message" required placeholder="What are you trying to build or automate?"></textarea></div>
+    <div class="field"><label for="cs">What do you need?</label><select id="cs" name="service"><option>n8n / Zapier / Make automation</option><option>Notion systems</option><option>AI agents</option><option>Web design</option><option>Data pipelines / consulting</option><option>A bit of everything</option><option>Not sure yet</option></select></div>
+    <div class="field"><label for="cm">Message</label><textarea id="cm" name="message" required placeholder="What are you trying to build or automate? What's the current pain?"></textarea></div>
     <input type="hidden" name="_subject" value="New enquiry from harinivash.studio"/>
-    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off"/>
+    <input type="hidden" name="_template" value="table"/>
+    <input type="hidden" name="_captcha" value="false"/>
+    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off"/>
     <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;"><span>Send message &rarr;</span></button>
     <p class="form-status" id="formStatus" aria-live="polite"></p>
   </form>
@@ -155,19 +165,35 @@
     <div class="foot-legal"><a href="/privacy-policy.html">Privacy Policy</a><a href="/privacy-policy.html#terms">Terms</a></div>
   </div>
 </div></footer>
-<style>.form-status{margin-top:14px;font-size:13px;font-family:var(--font-d);min-height:18px;}.form-status.ok{color:var(--ok);}.form-status.err{color:#e0556f;}</style>
+<style>
+.contact-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:start;}
+.contact-side{display:flex;flex-direction:column;}
+.contact-side .btn-primary{align-self:flex-start;}
+.contact-lead{color:var(--fg2);font-size:16px;line-height:1.7;max-width:44ch;margin-bottom:26px;}
+.contact-meta{list-style:none;display:flex;flex-direction:column;gap:16px;padding-top:24px;border-top:1px solid var(--h);}
+.contact-meta li{font-size:14px;color:var(--fg2);line-height:1.5;}
+.contact-meta .email-row{font-family:var(--font-d);font-size:15px;color:var(--fg1);}
+.contact-meta .cm-k{display:block;font-family:var(--font-d);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg3);margin-bottom:4px;}
+.contact-steps{margin-top:30px;padding-top:24px;border-top:1px solid var(--h);display:flex;flex-direction:column;gap:14px;}
+.cs-row{display:flex;align-items:center;gap:14px;font-size:14px;color:var(--fg2);line-height:1.45;}
+.cs-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--acc-w);border:1px solid var(--acc-b);color:var(--acc-hi);font-family:var(--font-d);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;}
+.contact-form-title{font-family:var(--font-s);font-style:italic;font-weight:400;font-size:24px;margin-bottom:22px;}
+.form-status{margin-top:14px;font-size:13px;font-family:var(--font-d);min-height:18px;line-height:1.5;}
+.form-status.ok{color:var(--ok);}.form-status.err{color:#e0556f;}
+@media (max-width:820px){.contact-grid{grid-template-columns:1fr;gap:34px;}}
+</style>
 <script>
 (function(){
   var f=document.getElementById('contactForm'); if(!f) return;
   var st=document.getElementById('formStatus');
   f.addEventListener('submit', function(e){
     e.preventDefault();
-    if(f.action.indexOf('YOUR_FORM_ID')!==-1){ st.className='form-status err'; st.textContent='Form not configured yet — please email me directly for now.'; return; }
     var btn=f.querySelector('button[type=submit]'); var orig=btn.innerHTML;
     btn.disabled=true; btn.innerHTML='<span>Sending…</span>'; st.className='form-status'; st.textContent='';
     fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
-      .then(function(r){ if(r.ok){ f.reset(); st.className='form-status ok'; st.textContent='Thanks! Your message is on its way — I\'ll reply within 24h.'; } else { return r.json().then(function(d){ throw new Error((d.errors&&d.errors[0]&&d.errors[0].message)||'Something went wrong'); }); } })
-      .catch(function(err){ st.className='form-status err'; st.textContent=err.message+' — or email me directly.'; })
+      .then(function(r){ return r.json().then(function(d){ if(r.ok && (d.success==='true'||d.success===true)) return d; throw new Error(d.message||'Something went wrong'); }); })
+      .then(function(){ f.reset(); st.className='form-status ok'; st.textContent='Thanks! Your message is on its way — I\'ll reply within 24 hours.'; })
+      .catch(function(err){ st.className='form-status err'; st.textContent=(err.message||'Could not send')+' — or email me directly at rharinivash28@gmail.com'; })
       .finally(function(){ btn.disabled=false; btn.innerHTML=orig; });
   });
 })();
