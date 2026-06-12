@@ -33,10 +33,10 @@
     r.setProperty('--acc-w', rgba(c.acc, 0.08)); r.setProperty('--acc-b', rgba(c.acc, 0.30));
     // whole-site tint: recolour the fixed gradient-mesh background to this hue
     var mesh =
-      'radial-gradient(60% 50% at 12% 8%, '+rgba(c.acc,0.18)+' 0%, transparent 60%),'+
-      'radial-gradient(55% 45% at 88% 18%, '+rgba(c.vio,0.14)+' 0%, transparent 62%),'+
-      'radial-gradient(50% 50% at 78% 92%, '+rgba(c.acc,0.12)+' 0%, transparent 60%),'+
-      'radial-gradient(45% 45% at 22% 88%, '+rgba(c.hi,0.09)+' 0%, transparent 62%)';
+      'radial-gradient(60% 50% at 12% 8%, '+rgba(c.acc,0.32)+' 0%, transparent 60%),'+
+      'radial-gradient(55% 45% at 88% 18%, '+rgba(c.vio,0.26)+' 0%, transparent 62%),'+
+      'radial-gradient(50% 50% at 78% 92%, '+rgba(c.acc,0.22)+' 0%, transparent 60%),'+
+      'radial-gradient(45% 45% at 22% 88%, '+rgba(c.hi,0.16)+' 0%, transparent 62%)';
     r.setProperty('--site-mesh', mesh);
     document.documentElement.setAttribute('data-tint', id);
   }
