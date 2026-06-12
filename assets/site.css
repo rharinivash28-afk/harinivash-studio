@@ -193,6 +193,9 @@ section.block { padding: 60px 0; }
 .prose blockquote { margin: 26px 0; padding: 18px 24px; border-left: 3px solid var(--acc); background: var(--glass); border-radius: 0 12px 12px 0; font-family: var(--font-s); font-style: italic; font-size: 18px; line-height: 1.6; color: var(--fg1); max-width: 70ch; }
 .prose a { color: var(--acc-hi); border-bottom: 1px solid var(--acc-b); transition: border-color 0.2s; }
 .prose a:hover { border-color: var(--acc-hi); }
+/* CTA buttons inside prose must stay bright (not inherit the faint link style) */
+.prose a.btn { border-bottom: 0; }
+.prose a.btn-primary, .prose a.btn-primary:hover { color: #fff; border-bottom: 0; }
 
 /* glass cards / grids */
 .card-grid { display: grid; gap: 18px; }
