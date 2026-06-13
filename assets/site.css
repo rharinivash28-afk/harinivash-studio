@@ -167,18 +167,18 @@ a { color: inherit; text-decoration: none; }
 @keyframes star-twinkle-b { 0%,100% { opacity: 0.85; } 50% { opacity: 0.4; } }
 html.light .starfield { opacity: 0.22; }
 html.static-bg .starfield::before, html.static-bg .starfield::after { animation: none !important; opacity: 0.75; }
-.shooting-star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: 0; box-shadow: 0 0 6px 2px rgba(255,255,255,0.5); animation: shoot-fall linear infinite; }
+.shooting-star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: 0; box-shadow: 0 0 6px 2px rgba(255,255,255,0.5); animation: shoot-fall linear infinite; --ang: 35deg; --tx: 280px; --ty: 195px; }
 .shooting-star::before { content: ''; position: absolute; top: 50%; right: 0; width: 120px; height: 1px; background: linear-gradient(to left, rgba(255,255,255,0.85), transparent); transform: translateY(-50%); }
-.shooting-star.s1 { top: 8%;  left: 22%; animation-duration: 7.5s;  animation-delay: 0.5s; }
-.shooting-star.s2 { top: 18%; left: 68%; animation-duration: 9.5s;  animation-delay: 3.2s; }
-.shooting-star.s3 { top: 4%;  left: 85%; animation-duration: 11s;   animation-delay: 6.4s; }
-.shooting-star.s4 { top: 32%; left: 42%; animation-duration: 8.5s;  animation-delay: 1.8s; }
-.shooting-star.s5 { top: 14%; left: 6%;  animation-duration: 10.5s; animation-delay: 4.6s; }
+.shooting-star.s1 { top: 4%;  left: 6%;  --ang: 28deg;  --tx: 300px;  --ty: 160px; animation-duration: 7.5s;  animation-delay: 0.5s; }
+.shooting-star.s2 { top: 2%;  left: 38%; --ang: 42deg;  --tx: 240px;  --ty: 215px; animation-duration: 9.5s;  animation-delay: 3.2s; }
+.shooting-star.s3 { top: 10%; left: 60%; --ang: 35deg;  --tx: 280px;  --ty: 195px; animation-duration: 11s;   animation-delay: 6.4s; }
+.shooting-star.s4 { top: 6%;  left: 88%; --ang: 150deg; --tx: -260px; --ty: 150px; animation-duration: 8.5s;  animation-delay: 1.8s; }
+.shooting-star.s5 { top: 16%; left: 14%; --ang: 68deg;  --tx: 140px;  --ty: 345px; animation-duration: 10.5s; animation-delay: 4.6s; }
 @keyframes shoot-fall {
-  0%   { opacity: 0; transform: translate(0,0); }
+  0%   { opacity: 0; transform: translate(0,0) rotate(var(--ang)); }
   2%   { opacity: 1; }
-  16%  { opacity: 0; transform: translate(-280px, 200px); }
-  100% { opacity: 0; transform: translate(-280px, 200px); }
+  16%  { opacity: 0; transform: translate(var(--tx), var(--ty)) rotate(var(--ang)); }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) rotate(var(--ang)); }
 }
 html.static-bg .shooting-star, html.reduce-motion .shooting-star { display: none; }
 
