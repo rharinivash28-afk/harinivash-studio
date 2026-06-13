@@ -88,6 +88,17 @@
     });
   });
 
+  // copy discord username
+  document.querySelectorAll(".copy-discord").forEach(function(el){
+    el.addEventListener("click", function(e){
+      e.preventDefault();
+      var handle = el.getAttribute("data-discord");
+      var done = function(){ toast("Discord username copied to clipboard"); el.classList.add("copied"); setTimeout(function(){el.classList.remove("copied");},1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(handle).then(done).catch(function(){fallbackCopy(handle);done();});
+      else { fallbackCopy(handle); done(); }
+    });
+  });
+
   // custom glossy arrow cursor
   if (window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches){
     var c = document.createElement("div"); c.className = "cursor-arrow";
