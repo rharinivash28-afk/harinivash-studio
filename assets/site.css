@@ -531,7 +531,7 @@ footer { background: var(--glass); border-top: 1px solid var(--glass-brd); paddi
 .foot-tag { color: var(--fg2); font-size: 14px; line-height: 1.7; max-width: 280px; }
 .foot-socials { display: flex; gap: 12px; margin-top: 22px; }
 .foot-social { width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; background: var(--glass); border: 1px solid var(--glass-brd); color: var(--fg2); transition: all 0.28s var(--ease); position: relative; overflow: hidden; }
-.foot-social svg { position: relative; z-index: 1; width: 18px; height: 18px; }
+.foot-social svg { position: relative; z-index: 1; width: 18px; height: 18px; display: block; }
 .foot-social.ig:hover { color: #fff; border-color: rgba(225,48,108,0.6); background: linear-gradient(45deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888); transform: translateY(-3px); }
 .foot-social.xt:hover { color: #000; border-color: rgba(255,255,255,0.8); background: #fff; transform: translateY(-3px); }
 .foot-social.li:hover { color: #fff; border-color: rgba(10,102,194,0.7); background: linear-gradient(180deg, #0a8af0, #0a66c2); transform: translateY(-3px); }
