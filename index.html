@@ -439,7 +439,7 @@ html.light .ts-thumb { transform: translateX(30px); background: radial-gradient(
 }
 @keyframes appGlow { 0%,100%{ box-shadow: var(--glass-shadow); } 50%{ box-shadow: var(--glass-shadow), 0 0 20px -2px rgba(76,125,240,0.45); } }
 @media (prefers-reduced-motion: reduce) { .app-float { animation: none; } }
-@media (max-width: 760px) { .app-float.af-far { display: none; } .app-float { opacity: 0.38 !important; transform: scale(0.85); } }
+@media (max-width: 760px) { .app-float.af-far { opacity: 0.32 !important; transform: scale(0.7); } .app-float { opacity: 0.55 !important; transform: scale(0.85); } }
 .hero-copy { position: relative; z-index: 2; }
 .hero-centered { max-width: 820px; margin: 0 auto; text-align: center; }
 .hero-centered .hero-sub { margin-left: auto; margin-right: auto; }
@@ -688,10 +688,28 @@ html.no-cursor .cursor-arrow { display: none !important; }
 .copy-toast .ct-check { color: var(--ok); font-size: 15px; }
 
 /* ── Mobile menu ── */
-.mob { display: none; position: fixed; inset: 0; background: color-mix(in srgb, var(--s0) 75%, transparent); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); z-index: 200; flex-direction: column; padding: 80px 40px; gap: 8px; }
+.mob { display: none; position: fixed; inset: 0; background: color-mix(in srgb, var(--s0) 75%, transparent); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); z-index: 200; flex-direction: column; padding: 80px 28px 28px; overflow-y: auto; }
 .mob.open { display: flex; }
-.mob a { font-family: var(--font-d); font-size: 22px; padding: 14px 0; border-bottom: 1px solid var(--h); }
-.mob-close { position: absolute; top: 22px; right: 40px; background: none; border: none; color: var(--fg1); font-size: 28px; cursor: pointer; }
+.mob-links { display: flex; flex-direction: column; gap: 2px; }
+.mob-links a { font-family: var(--font-d); font-size: 18px; font-weight: 500; padding: 14px 8px; border-bottom: 1px solid var(--h); display: flex; align-items: center; gap: 14px; border-radius: 10px; transition: background 0.2s, color 0.2s; }
+.mob-links a .dd-ic { width: 18px; height: 18px; color: var(--acc); flex-shrink: 0; }
+.mob-links a:hover, .mob-links a:active { color: var(--acc-hi); background: var(--acc-w); }
+.mob.open .mob-links a { animation: mobLinkIn 0.5s var(--ease) backwards; }
+.mob.open .mob-links a:nth-child(1) { animation-delay: 0.03s; }
+.mob.open .mob-links a:nth-child(2) { animation-delay: 0.07s; }
+.mob.open .mob-links a:nth-child(3) { animation-delay: 0.11s; }
+.mob.open .mob-links a:nth-child(4) { animation-delay: 0.15s; }
+.mob.open .mob-links a:nth-child(5) { animation-delay: 0.19s; }
+.mob.open .mob-links a:nth-child(6) { animation-delay: 0.23s; }
+.mob.open .mob-links a:nth-child(7) { animation-delay: 0.27s; }
+.mob.open .mob-links a:nth-child(8) { animation-delay: 0.31s; }
+@keyframes mobLinkIn { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: translateX(0); } }
+.mob-foot { margin-top: auto; padding-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+.mob.open .mob-foot { animation: mobFootIn 0.5s var(--ease) 0.32s backwards; }
+@keyframes mobFootIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.mob-socials { display: flex; gap: 10px; }
+.mob-cta { width: 100%; justify-content: center; padding: 14px 18px; font-size: 14px; }
+.mob-close { position: absolute; top: 22px; right: 28px; background: none; border: none; color: var(--fg1); font-size: 28px; cursor: pointer; z-index: 1; }
 
 /* ── Extra motion: drifting blobs, mouse glow, tilt, scroll bar ── */
 .fx-blobs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
@@ -745,6 +763,8 @@ html.light .mouse-glow { background: radial-gradient(circle, rgba(76,125,240,0.1
   section { padding: 70px 0; }
   .svc-grid, .proc-grid { grid-template-columns: 1fr; }
   .foot-grid { grid-template-columns: 1fr; }
+  .stats-grid { gap: 14px; }
+  .stat-cell { background: var(--glass); border: 1px solid var(--glass-brd); border-radius: 14px; padding: 22px 10px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); box-shadow: var(--glass-shadow); }
 }
 </style>
 <link rel="preload" href="/assets/fonts/intertight-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
@@ -800,15 +820,24 @@ html.light .mouse-glow { background: radial-gradient(circle, rgba(76,125,240,0.1
 
 <div class="mob" id="mob">
   <button class="mob-close" id="mobClose" aria-label="Close menu">&times;</button>
-  <a href="/">Home</a>
-  <a href="/about.html">About</a>
-  <a href="/work.html">Work</a>
-  <a href="/methodology.html">Methodology</a>
-  <a href="/stack.html">Stack</a>
-  <a href="/blog/">Blog</a>
-  <a href="/contact.html">Contact</a>
-  <a href="/pricing.html">Pricing</a>
-  <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' onclick="closeMob()">Book a call</a>
+  <nav class="mob-links">
+    <a href="/"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"></path></svg><span>Home</span></a>
+    <a href="/about.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg><span>About</span></a>
+    <a href="/work.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg><span>Work</span></a>
+    <a href="/methodology.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg><span>Methodology</span></a>
+    <a href="/stack.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 12 15 2 8.5"></polygon><polyline points="2 15.5 12 22 22 15.5"></polyline></svg><span>Stack</span></a>
+    <a href="/blog/"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"></path><path d="M8 8h8M8 12h8M8 16h5"></path></svg><span>Blog</span></a>
+    <a href="/contact.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H7l-3 3z"></path></svg><span>Contact</span></a>
+    <a href="/pricing.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg><span>Pricing</span></a>
+  </nav>
+  <div class="mob-foot">
+    <div class="mob-socials">
+      <a href="https://instagram.com/harinivash_consultant" target="_blank" rel="noopener" class="foot-social ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+      <a href="https://x.com/Harinivah_R" target="_blank" rel="noopener" class="foot-social xt" aria-label="X (Twitter)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
+      <a href="https://linkedin.com/in/harinivashr" target="_blank" rel="noopener" class="foot-social li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+    </div>
+    <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary mob-cta" onclick="closeMob()"><span class="btn-sheen"></span><span>Book a call →</span></a>
+  </div>
 </div>
 
 <main id="main">
@@ -1529,6 +1558,6 @@ document.querySelectorAll('[data-cal-link]').forEach(function(el){
 }
 #booking-thankyou button:hover { transform: translateY(-2px); }
 </style>
-<script src="/assets/settings.js?v=20260612q" defer></script>
+<script src="/assets/settings.js?v=20260612r" defer></script>
 </body>
 </html>

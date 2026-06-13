@@ -24,7 +24,7 @@
 <script>(function(){try{var d=document.documentElement,S={};try{S=JSON.parse(localStorage.getItem('hs_settings'))||{};}catch(e){}var t=S.theme||localStorage.getItem('theme')||'dark';if(t==='light')d.classList.add('light');var C={blue:['#4C7DF0','#6E97F4','#3A63C8','#7c5af0'],violet:['#7c5af0','#9a7ff5','#5e3fcf','#b06cf5'],green:['#19b88a','#3fd0a4','#12916c','#36c2a8'],amber:['#e0922f','#f0ad53','#bd751c','#e0b34f'],rose:['#e0556f','#f07a90','#bd3d54','#f078a8'],cyan:['#2bb6d6','#54cce8','#1d8fab','#4fc6e0'],crimson:['#e23b54','#f0607a','#bd2840','#f05a86'],lime:['#7bbf3a','#9bd45e','#5e9a26','#a6d36c']},a=S.accent||'blue',c=C[a]||C.blue,r=d.style;function g(h,al){var n=parseInt(h.slice(1),16);return'rgba('+(n>>16&255)+','+(n>>8&255)+','+(n&255)+','+al+')';}r.setProperty('--acc',c[0]);r.setProperty('--acc-hi',c[1]);r.setProperty('--acc-lo',c[2]);r.setProperty('--vio',c[3]);r.setProperty('--acc-w',g(c[0],0.08));r.setProperty('--acc-b',g(c[0],0.30));r.setProperty('--site-mesh','radial-gradient(60% 50% at 12% 8%,'+g(c[0],0.20)+' 0%,transparent 60%),radial-gradient(55% 45% at 88% 18%,'+g(c[3],0.16)+' 0%,transparent 62%),radial-gradient(50% 50% at 78% 92%,'+g(c[0],0.13)+' 0%,transparent 60%),radial-gradient(45% 45% at 22% 88%,'+g(c[1],0.10)+' 0%,transparent 62%)');d.setAttribute('data-tint',a);var F={sm:0.92,md:1,lg:1.12};r.setProperty('--ui-scale',F[S.font]||1);d.setAttribute('data-font',S.font||'md');if(S.noCursor)d.classList.add('no-cursor');if(S.animBg===false)d.classList.add('static-bg');}catch(e){}})();</script>
 <link rel="preload" href="/assets/fonts/intertight-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="/assets/fonts/jetbrainsmono-500-normal.woff2" as="font" type="font/woff2" crossorigin/>
-<link rel="stylesheet" href="/assets/site.css?v=20260612q"/>
+<link rel="stylesheet" href="/assets/site.css?v=20260612r"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -127,15 +127,24 @@
 </div></nav>
 <div class="mob" id="mob">
   <button class="mob-close" id="mobClose" aria-label="Close menu">&times;</button>
-  <a href="/">Home</a>
-  <a href="/about.html">About</a>
-  <a href="/work.html">Work</a>
-  <a href="/methodology.html">Methodology</a>
-  <a href="/stack.html">Stack</a>
-  <a href="/blog/">Blog</a>
-  <a href="/contact.html">Contact</a>
-  <a href="/pricing.html">Pricing</a>
-  <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}'>Book a call</a>
+  <nav class="mob-links">
+    <a href="/"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"></path></svg><span>Home</span></a>
+    <a href="/about.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg><span>About</span></a>
+    <a href="/work.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg><span>Work</span></a>
+    <a href="/methodology.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg><span>Methodology</span></a>
+    <a href="/stack.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 12 15 2 8.5"></polygon><polyline points="2 15.5 12 22 22 15.5"></polyline></svg><span>Stack</span></a>
+    <a href="/blog/"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"></path><path d="M8 8h8M8 12h8M8 16h5"></path></svg><span>Blog</span></a>
+    <a href="/contact.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H7l-3 3z"></path></svg><span>Contact</span></a>
+    <a href="/pricing.html"><svg class="dd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg><span>Pricing</span></a>
+  </nav>
+  <div class="mob-foot">
+    <div class="mob-socials">
+      <a href="https://instagram.com/harinivash_consultant" target="_blank" rel="noopener" class="foot-social ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+      <a href="https://x.com/Harinivah_R" target="_blank" rel="noopener" class="foot-social xt" aria-label="X (Twitter)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
+      <a href="https://linkedin.com/in/harinivashr" target="_blank" rel="noopener" class="foot-social li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+    </div>
+    <a href="https://cal.com/harinivash-r-du3qxx/discovery" data-cal-link="harinivash-r-du3qxx/discovery" data-cal-config='{"theme":"dark"}' class="btn btn-primary mob-cta"><span>Book a call →</span></a>
+  </div>
 </div>
 <main id="main">
 
@@ -281,7 +290,7 @@
     <div class="foot-legal"><a href="/privacy-policy.html">Privacy Policy</a><a href="/privacy-policy.html#terms">Terms</a></div>
   </div>
 </div></footer>
-<script src="/assets/site.js?v=20260612q" defer></script>
-<script src="/assets/settings.js?v=20260612q" defer></script>
+<script src="/assets/site.js?v=20260612r" defer></script>
+<script src="/assets/settings.js?v=20260612r" defer></script>
 </body>
 </html>
