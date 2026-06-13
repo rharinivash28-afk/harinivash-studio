@@ -111,6 +111,11 @@ html.light {
   --glass-brd: rgba(255,255,255,0.7);
   --sheen: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.35) 20%, transparent 48%);
   --glass-shadow: 0 16px 40px -20px rgba(60,80,140,0.28), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 0 0 1px rgba(255,255,255,0.4);
+  --site-mesh:
+    radial-gradient(60% 50% at 12% 8%, rgba(123,178,255,0.26) 0%, transparent 60%),
+    radial-gradient(55% 45% at 88% 18%, rgba(255,191,138,0.22) 0%, transparent 62%),
+    radial-gradient(50% 50% at 78% 92%, rgba(196,166,255,0.18) 0%, transparent 60%),
+    radial-gradient(45% 45% at 22% 88%, rgba(150,224,200,0.18) 0%, transparent 62%);
 }
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { overflow-x: hidden; scroll-behavior: smooth; }
@@ -135,7 +140,7 @@ body::before {
   filter: hue-rotate(var(--bg-hue, 0deg)) saturate(var(--bg-sat, 1));
   transition: opacity 0.3s, filter 0.4s ease, background 0.5s ease;
 }
-html.light body::before { opacity: 0.7; }
+html.light body::before { opacity: 0.9; }
 html.static-bg body::before { transform: none !important; }
 html.static-bg .fx-blobs, html.static-bg .blob, html.static-bg .hero-stage::before, html.static-bg .cta-card::before { animation: none !important; }
 .wrap, nav, footer, main { position: relative; z-index: 1; }
@@ -145,6 +150,7 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.45 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.8'/%3E%3C/svg%3E");
   background-size: 200px; opacity: 0.035; mix-blend-mode: overlay;
 }
+html.light body::after { opacity: 0.018; }
 a { color: inherit; text-decoration: none; }
 /* ── Starfield (twinkling stars + shooting stars) ── */
 .starfield { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
@@ -249,7 +255,7 @@ a { color: inherit; text-decoration: none; }
 }
 @keyframes star-twinkle-a { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
 @keyframes star-twinkle-b { 0%,100% { opacity: 0.85; } 50% { opacity: 0.4; } }
-html.light .starfield { opacity: 0.22; }
+html.light .starfield { display: none; }
 html.static-bg .starfield::before, html.static-bg .starfield::after { animation: none !important; opacity: 0.75; }
 .shooting-star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: 0; box-shadow: 0 0 6px 2px rgba(255,255,255,0.5); animation: shoot-fall linear infinite; --ang: 35deg; --tx: 280px; --ty: 195px; }
 .shooting-star::before { content: ''; position: absolute; top: 50%; right: 0; width: 120px; height: 1px; background: linear-gradient(to left, rgba(255,255,255,0.85), transparent); transform: translateY(-50%); }
@@ -700,6 +706,7 @@ html.light .blob { opacity: 0.35; mix-blend-mode: normal; }
 @media (prefers-reduced-motion: reduce) { .blob { animation: none; } }
 
 .mouse-glow { position: fixed; width: 520px; height: 520px; border-radius: 50%; pointer-events: none; z-index: 0; background: radial-gradient(circle, rgba(76,125,240,0.12), transparent 62%); transform: translate(-50%,-50%); opacity: 0; transition: opacity 0.5s; mix-blend-mode: screen; }
+html.light .mouse-glow { background: radial-gradient(circle, rgba(76,125,240,0.10), transparent 62%); mix-blend-mode: multiply; }
 
 .scroll-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 300; background: linear-gradient(90deg, var(--acc), var(--vio)); box-shadow: 0 0 12px var(--acc-b); }
 
@@ -1522,6 +1529,6 @@ document.querySelectorAll('[data-cal-link]').forEach(function(el){
 }
 #booking-thankyou button:hover { transform: translateY(-2px); }
 </style>
-<script src="/assets/settings.js?v=20260612p" defer></script>
+<script src="/assets/settings.js?v=20260612q" defer></script>
 </body>
 </html>
