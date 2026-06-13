@@ -404,12 +404,12 @@ html.light .net-ring { fill: rgba(255,255,255,0.9); }
 .ticker { padding: 16px 0; border-top: 1px solid var(--h); border-bottom: 1px solid var(--h); overflow-x: hidden; overflow-y: visible; background: var(--glass); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); display: flex; flex-direction: column; gap: 16px; }
 .ticker-row { display: flex; width: max-content; gap: 18px; animation: tickerScroll 65s linear infinite; }
 .ticker-row.rev { animation: tickerScrollRev 58s linear infinite; }
-.ticker:hover .ticker-row { animation-play-state: paused; }
-.ti-ic { position: relative; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0; overflow: hidden; background: var(--glass-2); border: 1px solid var(--glass-brd); box-shadow: var(--glass-shadow); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); transition: transform 0.25s var(--ease), box-shadow 0.25s, border-color 0.25s; }
-.ti-ic:hover { animation-play-state: paused; transform: translateY(-3px) scale(1.12); box-shadow: 0 0 22px -4px var(--acc-b); border-color: var(--acc-b); z-index: 3; }
-.tic { width: 26px; height: 26px; flex-shrink: 0; transition: opacity 0.2s, transform 0.2s; }
-.ti-ic:hover .tic { opacity: 0; transform: scale(0.6); }
-.ti-tip { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4px; background: linear-gradient(135deg, var(--acc), var(--vio)); color: #fff; font-family: var(--font-d); font-size: 9px; font-weight: 700; letter-spacing: 0.02em; line-height: 1.15; text-shadow: 0 1px 5px rgba(0,0,0,0.35); opacity: 0; transform: scale(0.8); transition: opacity 0.22s var(--ease), transform 0.22s var(--ease); }
+.ticker-row:hover, .ticker-row.paused { animation-play-state: paused; }
+.ti-ic { position: relative; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0; overflow: hidden; background: var(--glass-2); border: 1px solid var(--glass-brd); box-shadow: var(--glass-shadow); backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur); transition: transform 0.25s var(--ease), box-shadow 0.25s, border-color 0.25s; cursor: pointer; }
+.ti-ic:hover { transform: translateY(-3px) scale(1.12); box-shadow: 0 0 22px -4px var(--acc-b); border-color: var(--acc-b); z-index: 3; }
+.tic { width: 26px; height: 26px; flex-shrink: 0; transition: opacity 0.2s, transform 0.2s, filter 0.2s; }
+.ti-ic:hover .tic { opacity: 0.3; transform: scale(1.15); filter: blur(3px); }
+.ti-tip { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4px; background: linear-gradient(135deg, #f0556f, #e0922f); color: #fff; font-family: var(--font-d); font-size: 9px; font-weight: 700; letter-spacing: 0.02em; line-height: 1.15; text-shadow: 0 1px 5px rgba(0,0,0,0.35); opacity: 0; transform: scale(0.8); transition: opacity 0.22s var(--ease), transform 0.22s var(--ease); }
 .ti-ic:hover .ti-tip { opacity: 1; transform: scale(1); }
 @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes tickerScrollRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
@@ -1201,11 +1201,13 @@ function closeMob(){ document.getElementById("mob").classList.remove("open"); }
   document.addEventListener("keydown", function(e){ if (e.key === "Escape"){ dd.classList.remove("open"); btn.setAttribute("aria-expanded","false"); } });
 })();
 
-// Duplicate ticker content for seamless loop
+// Duplicate ticker content for seamless loop + click a row to stop just that row
 (function(){
   ["tickerRow","tickerRow2"].forEach(function(id){
     var row = document.getElementById(id);
-    if (row) row.innerHTML += row.innerHTML;
+    if (!row) return;
+    row.innerHTML += row.innerHTML;
+    row.addEventListener("click", function(){ row.classList.toggle("paused"); });
   });
 })();
 
@@ -1400,6 +1402,6 @@ document.querySelectorAll('[data-cal-link]').forEach(function(el){
 }
 #booking-thankyou button:hover { transform: translateY(-2px); }
 </style>
-<script src="/assets/settings.js?v=20260612k" defer></script>
+<script src="/assets/settings.js?v=20260612l" defer></script>
 </body>
 </html>
