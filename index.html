@@ -708,6 +708,99 @@ html.light .mouse-glow { background: radial-gradient(circle, rgba(76,125,240,0.1
 @property --a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 @keyframes spinBorder { to { --a: 360deg; } }
 
+/* ════════════════════════════════════════════════════════════
+   Homepage polish — services depth · stats · process connector ·
+   section rhythm · micro-detail. Additive only.
+   ════════════════════════════════════════════════════════════ */
+
+/* — Eyebrow editorial index (e.g. "02 / SERVICES") — */
+.eyebrow[data-idx]::before {
+  content: attr(data-idx) " / "; color: var(--acc); opacity: 0.85;
+}
+
+/* — Services: feature the first card across two columns — */
+.svc-card.svc-feature { grid-column: span 2; }
+.svc-card.svc-feature > p { max-width: 52ch; }
+.svc-card.svc-feature .svc-ico svg { width: 34px; height: 34px; }
+.svc-card.svc-feature h3 { font-size: 23px; }
+/* faint circuit motif drifting behind the feature card */
+.svc-feature::before {
+  background:
+    var(--sheen),
+    radial-gradient(120% 90% at 100% 0%, var(--acc-w) 0%, transparent 55%),
+    repeating-linear-gradient(90deg, transparent 0 38px, color-mix(in srgb, var(--acc) 9%, transparent) 38px 39px),
+    repeating-linear-gradient(0deg, transparent 0 38px, color-mix(in srgb, var(--acc) 7%, transparent) 38px 39px);
+  -webkit-mask: radial-gradient(120% 100% at 100% 0%, #000, transparent 70%);
+  mask: radial-gradient(120% 100% at 100% 0%, #000, transparent 70%);
+}
+@media (max-width: 980px) { .svc-card.svc-feature { grid-column: span 2; } }
+@media (max-width: 640px) { .svc-card.svc-feature { grid-column: span 1; } }
+
+/* — Numbered badge: chip + glow pulse on hover — */
+.svc-num, .proc-step-num {
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.svc-num::before, .proc-step-num::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--acc); box-shadow: 0 0 0 0 var(--acc-b);
+  transition: box-shadow 0.4s var(--ease);
+}
+.svc-card:hover .svc-num::before, .proc-step:hover .proc-step-num::before {
+  box-shadow: 0 0 0 5px var(--acc-w), 0 0 14px var(--acc);
+}
+
+/* — Chips light up on card hover — */
+.svc-card:hover .svc-chip {
+  border-color: var(--acc-b); color: var(--acc-hi);
+  background: var(--acc-w);
+}
+.svc-chip { transition: border-color 0.3s, color 0.3s, background 0.3s; }
+
+/* — Stats: glass cell on every breakpoint + draw-in underline + spark — */
+#stats .stats-grid { gap: 16px; }
+.stat-cell {
+  background: var(--glass); border: 1px solid var(--glass-brd); border-radius: 16px;
+  padding: 30px 18px 26px; backdrop-filter: var(--gloss-blur); -webkit-backdrop-filter: var(--gloss-blur);
+  box-shadow: var(--glass-shadow); position: relative; overflow: hidden;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.stat-cell::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--sheen); pointer-events: none; }
+.stat-cell:hover { transform: translateY(-4px); box-shadow: var(--glass-shadow), 0 26px 54px -30px var(--acc-b); }
+.stat-cell > * { position: relative; z-index: 1; }
+/* the underline draws itself in as the cell reveals */
+.stat-cell .stat-rule {
+  height: 2px; width: 0; margin: 16px auto 0; border-radius: 2px;
+  background: linear-gradient(90deg, var(--acc), var(--vio));
+  box-shadow: 0 0 12px var(--acc-b); transition: width 0.9s var(--ease) 0.25s;
+}
+.stat-cell.on .stat-rule { width: 46px; }
+
+/* — Process: connector line threading the six steps — */
+#process .proc-grid { z-index: 1; }
+.proc-connector { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: visible; color: var(--acc); }
+.proc-connector path {
+  fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 6px var(--acc-b));
+  transition: stroke-dashoffset 1.6s var(--ease);
+}
+.proc-grid.on .proc-connector path { stroke-dashoffset: 0; }
+@media (max-width: 980px) { .proc-connector { display: none; } }
+
+/* — Directional + scale reveal helpers (choreographed scroll) — */
+.reveal.from-down { transform: translateY(34px); }
+.reveal.from-down.on { transform: none; }
+.reveal.pop { transform: translateY(22px) scale(0.97); }
+.reveal.pop.on { transform: none; }
+
+/* — Keyboard focus ring (accessibility) — */
+a:focus-visible, button:focus-visible, .btn:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--acc-hi); outline-offset: 3px; border-radius: 8px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .stat-cell .stat-rule, .proc-connector path { transition: none; }
+}
+
 /* blur-in reveal variant */
 .reveal.blur-in { filter: blur(12px); }
 .reveal.blur-in.on { filter: blur(0); }
@@ -941,46 +1034,46 @@ html.light .mouse-glow { background: radial-gradient(circle, rgba(76,125,240,0.1
   <section id="services" class="grid-reveal reveal">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">Services</span>
+        <span class="eyebrow" data-idx="01">Services</span>
         <h2 class="sec-title">Six disciplines.<br>One connected system.</h2>
       </div>
       <div class="svc-grid">
-        <div class="svc-card reveal tilt">
+        <div class="svc-card svc-feature reveal from-left tilt">
           <div class="svc-num">01</div>
           <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
           <h3>n8n Automation</h3>
           <p>Custom, self-hosted workflows linking any tool with an API. Bidirectional sync, webhooks with dedup and retries, zero manual entry.</p>
           <div class="svc-chips"><span class="svc-chip">Webhooks</span><span class="svc-chip">CRM sync</span><span class="svc-chip">Pipelines</span></div>
         </div>
-        <div class="svc-card reveal tilt">
+        <div class="svc-card reveal pop tilt">
           <div class="svc-num">02</div>
           <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="13" y2="17"></line></svg></span>
           <h3>Notion Systems</h3>
           <p>Workspaces built around how your team actually works — multi-database architectures, rollups, formulas, dashboards, and button-triggered automations.</p>
           <div class="svc-chips"><span class="svc-chip">Databases</span><span class="svc-chip">Dashboards</span><span class="svc-chip">Templates</span></div>
         </div>
-        <div class="svc-card reveal tilt">
+        <div class="svc-card reveal pop tilt">
           <div class="svc-num">03</div>
           <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></span>
           <h3>Zapier &amp; Make.com</h3>
           <p>Cloud automation when you want speed and zero infrastructure. Clean, well-documented scenarios connecting the apps you already pay for.</p>
           <div class="svc-chips"><span class="svc-chip">Zapier</span><span class="svc-chip">Make</span><span class="svc-chip">No-code</span></div>
         </div>
-        <div class="svc-card reveal tilt">
+        <div class="svc-card reveal pop tilt">
           <div class="svc-num">04</div>
           <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2"></rect><path d="M12 8V4"></path><circle cx="12" cy="3" r="1"></circle><circle cx="9" cy="14" r="1"></circle><circle cx="15" cy="14" r="1"></circle><path d="M2 13v2M22 13v2"></path></svg></span>
           <h3>AI Agents</h3>
           <p>LLM-powered agents that read, decide, and act — lead triage, content drafting, summarization, and AI-enriched workflows that land structured data.</p>
           <div class="svc-chips"><span class="svc-chip">GPT</span><span class="svc-chip">Claude</span><span class="svc-chip">RAG</span></div>
         </div>
-        <div class="svc-card reveal tilt">
+        <div class="svc-card reveal pop tilt">
           <div class="svc-num">05</div>
           <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="2" y1="7" x2="22" y2="7"></line><circle cx="5" cy="5" r="0.5" fill="currentColor"></circle><circle cx="7.5" cy="5" r="0.5" fill="currentColor"></circle><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></span>
           <h3>Web Design</h3>
           <p>Fast, modern, responsive websites and landing pages built from scratch — not templates. Performance-first, SEO-structured, and built to convert.</p>
           <div class="svc-chips"><span class="svc-chip">Landing pages</span><span class="svc-chip">Next.js</span><span class="svc-chip">Responsive</span></div>
         </div>
-        <div class="svc-card reveal tilt">
+        <div class="svc-card reveal pop tilt">
           <div class="svc-num">06</div>
           <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="4" y2="10"></line><line x1="10" y1="20" x2="10" y2="4"></line><line x1="16" y1="20" x2="16" y2="14"></line><line x1="22" y1="20" x2="2" y2="20"></line></svg></span>
           <h3>Consulting &amp; Pipelines</h3>
@@ -992,14 +1085,15 @@ html.light .mouse-glow { background: radial-gradient(circle, rgba(76,125,240,0.1
     </div>
   </section>
 
+  <div class="flow-divider" aria-hidden="true"></div>
   <!-- STATS -->
   <section id="stats">
     <div class="wrap">
       <div class="stats-grid">
-        <div class="stat-cell reveal"><div class="stat-v" data-count="500" data-suffix="+">0</div><div class="stat-k">Hours saved for clients</div></div>
-        <div class="stat-cell reveal"><div class="stat-v" data-count="12" data-suffix="+">0</div><div class="stat-k">Clients across IN, US &amp; EU</div></div>
-        <div class="stat-cell reveal"><div class="stat-v" data-count="40" data-suffix="+">0</div><div class="stat-k">Systems &amp; sites shipped</div></div>
-        <div class="stat-cell reveal"><div class="stat-v" data-count="100" data-suffix="%">0</div><div class="stat-k">Production-grade builds</div></div>
+        <div class="stat-cell reveal pop"><div class="stat-v" data-count="500" data-suffix="+">0</div><div class="stat-rule"></div><div class="stat-k">Hours saved for clients</div></div>
+        <div class="stat-cell reveal pop"><div class="stat-v" data-count="12" data-suffix="+">0</div><div class="stat-rule"></div><div class="stat-k">Clients across IN, US &amp; EU</div></div>
+        <div class="stat-cell reveal pop"><div class="stat-v" data-count="40" data-suffix="+">0</div><div class="stat-rule"></div><div class="stat-k">Systems &amp; sites shipped</div></div>
+        <div class="stat-cell reveal pop"><div class="stat-v" data-count="100" data-suffix="%">0</div><div class="stat-rule"></div><div class="stat-k">Production-grade builds</div></div>
       </div>
     </div>
   </section>
@@ -1009,26 +1103,30 @@ html.light .mouse-glow { background: radial-gradient(circle, rgba(76,125,240,0.1
   <section id="process">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">Process</span>
+        <span class="eyebrow" data-idx="03">Process</span>
         <h2 class="sec-title">How I work.</h2>
         <p class="cta-desc" style="margin-top:18px;">No black box. No dropped handoffs. Every project follows the same six steps, from first call to final delivery.</p>
       </div>
       <div class="proc-grid">
-        <div class="proc-step reveal tilt"><div class="proc-step-num">01</div><h3>Discovery</h3><p>We get on a call. You walk me through your stack, your problem, and what a good outcome looks like. Nothing gets built until I fully understand what needs to be built.</p></div>
-        <div class="proc-step reveal tilt"><div class="proc-step-num">02</div><h3>Scoping</h3><p>I come back with a clear breakdown: what gets built, how it works, what done looks like. You approve it. No surprises mid-build.</p></div>
-        <div class="proc-step reveal tilt"><div class="proc-step-num">03</div><h3>Build</h3><p>Heads down. Production-grade workflows, systems, and sites — not prototypes. Error handling, edge cases, and retry logic covered without you asking.</p></div>
-        <div class="proc-step reveal tilt"><div class="proc-step-num">04</div><h3>Testing &amp; QA</h3><p>I break it before you do. Every build gets tested against real scenarios, failure cases, and edge inputs. You only see it when it's ready.</p></div>
-        <div class="proc-step reveal tilt"><div class="proc-step-num">05</div><h3>Handoff</h3><p>A live walkthrough call, a video recording you can rewatch, and full documentation. You leave knowing exactly what you have.</p></div>
-        <div class="proc-step reveal tilt"><div class="proc-step-num">06</div><h3>Ongoing Support</h3><p>Want someone on call for updates, fixes, and additions? I offer an optional monthly retainer after handoff. No pressure — there if you want it.</p></div>
+        <svg class="proc-connector" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M16 26 H84 Q92 26 92 38 V62 Q92 74 84 74 H16" pathLength="1"/>
+        </svg>
+        <div class="proc-step reveal from-left tilt"><div class="proc-step-num">01</div><h3>Discovery</h3><p>We get on a call. You walk me through your stack, your problem, and what a good outcome looks like. Nothing gets built until I fully understand what needs to be built.</p></div>
+        <div class="proc-step reveal from-right tilt"><div class="proc-step-num">02</div><h3>Scoping</h3><p>I come back with a clear breakdown: what gets built, how it works, what done looks like. You approve it. No surprises mid-build.</p></div>
+        <div class="proc-step reveal pop tilt"><div class="proc-step-num">03</div><h3>Build</h3><p>Heads down. Production-grade workflows, systems, and sites — not prototypes. Error handling, edge cases, and retry logic covered without you asking.</p></div>
+        <div class="proc-step reveal from-left tilt"><div class="proc-step-num">04</div><h3>Testing &amp; QA</h3><p>I break it before you do. Every build gets tested against real scenarios, failure cases, and edge inputs. You only see it when it's ready.</p></div>
+        <div class="proc-step reveal pop tilt"><div class="proc-step-num">05</div><h3>Handoff</h3><p>A live walkthrough call, a video recording you can rewatch, and full documentation. You leave knowing exactly what you have.</p></div>
+        <div class="proc-step reveal from-right tilt"><div class="proc-step-num">06</div><h3>Ongoing Support</h3><p>Want someone on call for updates, fixes, and additions? I offer an optional monthly retainer after handoff. No pressure — there if you want it.</p></div>
       </div>
     </div>
   </section>
 
+  <div class="flow-divider" aria-hidden="true"></div>
   <!-- ABOUT -->
   <section id="about">
     <div class="wrap">
       <div class="about-body reveal">
-        <span class="eyebrow" style="display:block;margin-bottom:24px;">About</span>
+        <span class="eyebrow" data-idx="04" style="display:block;margin-bottom:24px;">About</span>
         <h2>Hey, I'm Harinivash.</h2>
         <div class="about-cols">
           <p>I'm the founder of Harinivash Studio. I build automation workflows, Notion systems, AI agents, and websites for businesses that are tired of tools that don't talk to each other.</p>
@@ -1044,7 +1142,7 @@ html.light .mouse-glow { background: radial-gradient(circle, rgba(76,125,240,0.1
   <section id="faq">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">FAQ</span>
+        <span class="eyebrow" data-idx="05">FAQ</span>
         <h2 class="sec-title">Common questions.</h2>
       </div>
       <div class="faq-list reveal">
@@ -1416,6 +1514,7 @@ function animateCount(el){
 if (!("IntersectionObserver" in window)) {
   // fallback: reveal everything + run counters immediately
   document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("on"); });
+  document.querySelectorAll(".proc-grid").forEach(function(el){ el.classList.add("on"); });
   document.querySelectorAll("[data-count]").forEach(function(c){ if(!c._done){ c._done=true; animateCount(c); } });
 } else {
   var io = new IntersectionObserver(function(entries){
@@ -1438,6 +1537,11 @@ if (!("IntersectionObserver" in window)) {
     });
   });
   document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+  // process connector: draw the threading line once the grid scrolls into view
+  var procIo = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("on"); procIo.unobserve(e.target); } });
+  }, { threshold: 0.3 });
+  document.querySelectorAll(".proc-grid").forEach(function(g){ procIo.observe(g); });
 }
 </script>
 
