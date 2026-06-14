@@ -120,20 +120,29 @@
 
   // Cal.com booking popup — lazy-loaded only on first click (no third-party
   // cookies / scripts on initial page load → better perf & best-practices)
-  var calReady = false;
+  var CAL_URL = "https://cal.com/harinivash-r-du3qxx/discovery";
+  var calReady = false, calOk = false;
   function loadCal(){
     (function (C, A, L) { var p = function (a, ar) { a.q.push(ar); }; var d = C.document; C.Cal = C.Cal || function () { var cal = C.Cal; var ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { var api = function () { p(api, arguments); }; var ns = ar[1]; api.q = api.q || []; if(typeof ns === "string"){cal.ns[ns]=cal.ns[ns]||api;p(cal.ns[ns],ar);p(cal,["initNamespace",ns]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
     Cal("init", "discovery", { origin: "https://cal.com" });
     Cal.ns.discovery("ui", { theme: "dark", cssVarsPerTheme: { light: { "cal-brand": "#4C7DF0" }, dark: { "cal-brand": "#4C7DF0" } }, hideEventTypeDetails: false, layout: "month_view" });
+    // track whether the embed script actually loaded — if a blocker/network kills
+    // it, we fall back to the booking page so the button is never dead
+    var sc = document.querySelector('script[src*="app.cal.com/embed/embed.js"]');
+    if (sc){ sc.addEventListener("load", function(){ calOk = true; }); sc.addEventListener("error", function(){ calOk = false; }); }
     calReady = true;
   }
-  function openCal(){ Cal.ns.discovery("modal", { calLink: "harinivash-r-du3qxx/discovery", config: { theme: "dark", name: "", email: "" } }); }
+  function openCal(){ try { Cal.ns.discovery("modal", { calLink: "harinivash-r-du3qxx/discovery", config: { theme: "dark", name: "", email: "" } }); } catch(e){} }
   document.querySelectorAll('[data-cal-link]').forEach(function(el){
     el.addEventListener("click", function(e){
       e.preventDefault();
       if (!calReady){ loadCal(); }
       // Cal's snippet queues calls, so openCal runs as soon as embed.js is ready
       openCal();
+      // fallback: if the Cal embed never loaded (ad-blocker, offline, slow network),
+      // send the visitor to the real booking page so "Book a call" always works
+      var href = el.getAttribute("href") || CAL_URL;
+      setTimeout(function(){ if (!calOk){ window.location.href = href; } }, 2500);
     });
   });
 })();
