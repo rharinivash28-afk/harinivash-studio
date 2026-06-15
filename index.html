@@ -777,18 +777,6 @@ html.light .mouse-glow { background: radial-gradient(circle, rgba(76,125,240,0.1
 }
 .stat-cell.on .stat-rule { width: 46px; }
 
-/* — Process: connector line threading the six steps — */
-#process .proc-grid { z-index: 1; }
-.proc-connector { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: visible; color: var(--acc); }
-.proc-connector path {
-  fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round;
-  stroke-dasharray: 1; stroke-dashoffset: 1;
-  filter: drop-shadow(0 0 6px var(--acc-b));
-  transition: stroke-dashoffset 1.6s var(--ease);
-}
-.proc-grid.on .proc-connector path { stroke-dashoffset: 0; }
-@media (max-width: 980px) { .proc-connector { display: none; } }
-
 /* — Directional + scale reveal helpers (choreographed scroll) — */
 .reveal.from-down { transform: translateY(34px); }
 .reveal.from-down.on { transform: none; }
@@ -800,7 +788,7 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, summary:focus-visible
   outline: 2px solid var(--acc-hi); outline-offset: 3px; border-radius: 8px;
 }
 @media (prefers-reduced-motion: reduce) {
-  .stat-cell .stat-rule, .proc-connector path { transition: none; }
+  .stat-cell .stat-rule { transition: none; }
 }
 
 /* blur-in reveal variant */
@@ -1085,9 +1073,6 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, summary:focus-visible
         <p class="cta-desc" style="margin-top:18px;">No black box. No dropped handoffs. Every project follows the same six steps, from first call to final delivery.</p>
       </div>
       <div class="proc-grid">
-        <svg class="proc-connector" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M16 26 H84 Q92 26 92 38 V62 Q92 74 84 74 H16" pathLength="1"/>
-        </svg>
         <div class="proc-step reveal from-left tilt"><div class="proc-step-num">01</div><h3>Discovery</h3><p>We get on a call. You walk me through your stack, your problem, and what a good outcome looks like. Nothing gets built until I fully understand what needs to be built.</p></div>
         <div class="proc-step reveal from-right tilt"><div class="proc-step-num">02</div><h3>Scoping</h3><p>I come back with a clear breakdown: what gets built, how it works, what done looks like. You approve it. No surprises mid-build.</p></div>
         <div class="proc-step reveal pop tilt"><div class="proc-step-num">03</div><h3>Build</h3><p>Heads down. Production-grade workflows, systems, and sites — not prototypes. Error handling, edge cases, and retry logic covered without you asking.</p></div>
@@ -1471,7 +1456,6 @@ function animateCount(el){
 if (!("IntersectionObserver" in window)) {
   // fallback: reveal everything + run counters immediately
   document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("on"); });
-  document.querySelectorAll(".proc-grid").forEach(function(el){ el.classList.add("on"); });
   document.querySelectorAll("[data-count]").forEach(function(c){ if(!c._done){ c._done=true; animateCount(c); } });
 } else {
   var io = new IntersectionObserver(function(entries){
@@ -1494,11 +1478,6 @@ if (!("IntersectionObserver" in window)) {
     });
   });
   document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
-  // process connector: draw the threading line once the grid scrolls into view
-  var procIo = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("on"); procIo.unobserve(e.target); } });
-  }, { threshold: 0.3 });
-  document.querySelectorAll(".proc-grid").forEach(function(g){ procIo.observe(g); });
 }
 </script>
 
