@@ -55,7 +55,7 @@ main, nav .nav-links, footer { zoom: var(--ui-scale); }
 body::before {
   content: ''; position: fixed; inset: -10%; pointer-events: none; z-index: 0;
   background: var(--site-mesh);
-  transform: translateY(var(--bg-shift, 0px)); filter: hue-rotate(var(--bg-hue, 0deg)) saturate(var(--bg-sat, 1)); transition: opacity 0.3s, filter 0.4s ease, background 0.5s ease;
+  transform: translateY(var(--bg-shift, 0px)); transition: opacity 0.3s, background 0.5s ease;
 }
 html.static-bg body::before { transform: none !important; }
 html.static-bg .fx-blobs, html.static-bg .blob { animation: none !important; }
@@ -561,4 +561,15 @@ html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after 
 @media (max-width: 860px) {
   .nav-links, .nav-right .btn { display: none; }
   .hamburger { display: flex; }
+}
+
+/* ── Mobile performance: drop heaviest always-on layers + GPU-killing blur on phones ── */
+@media (max-width: 640px) {
+  .fx-blobs, .mouse-glow, .starfield { display: none !important; }
+  body::after { display: none; }
+  body::before { transform: none; }
+  :root { --glass: rgba(26,26,32,0.92); --glass-2: rgba(34,34,42,0.95); --gloss-blur: none; }
+  html.light { --glass: rgba(255,255,255,0.94); --glass-2: rgba(255,255,255,0.97); }
+  nav.scrolled, .mob, footer { background: rgba(12,12,16,0.97); }
+  html.light nav.scrolled, html.light .mob, html.light footer { background: rgba(250,250,248,0.98); }
 }

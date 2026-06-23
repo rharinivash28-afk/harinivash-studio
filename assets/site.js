@@ -22,8 +22,6 @@
     var p = y / maxScroll;
     if (bar) bar.style.width = (p * 100) + "%";
     root.style.setProperty("--bg-shift", (p * -70).toFixed(1) + "px");
-    root.style.setProperty("--bg-hue", (p * 55).toFixed(1) + "deg");
-    root.style.setProperty("--bg-sat", (1 + p * 0.12).toFixed(2));
   }
   window.addEventListener("scroll", function(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }, { passive: true });
   window.addEventListener("resize", measure, { passive: true });
