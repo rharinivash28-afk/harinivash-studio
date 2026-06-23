@@ -1,0 +1,36 @@
+# Harinivash Studio
+
+> Harinivash is an automation consultant and web developer who builds n8n, Zapier, and Make.com workflows, Notion systems, AI agents, data pipelines, and custom websites for small and mid-sized teams worldwide. Remote, built production-grade.
+
+Harinivash (also written "Harinivash R") is the founder of Harinivash Studio. He helps businesses that are tired of tools that don't talk to each other by designing the system underneath them — automations and AI agents that run operations in the background, handle edge cases, and don't need babysitting.
+
+## Services
+- [Automation — n8n, Zapier, Make.com](https://harinivash.studio/): Production-grade workflows that move data between tools automatically, with error handling and retries.
+- [Notion systems](https://harinivash.studio/): Architecting Notion into a connected operating system — projects, tasks, clients, CRM, dashboards.
+- [AI agents](https://harinivash.studio/): LLM-powered agents that read, decide, and act — lead triage, reply drafting, turning messy inputs into structured data.
+- [Web design & development](https://harinivash.studio/): Custom, fast, hand-built websites.
+- [Data pipelines & systems consulting](https://harinivash.studio/): Connecting APIs, databases, and tools into reliable pipelines.
+
+## Key pages
+- [Home](https://harinivash.studio/): Overview of services and how Harinivash works.
+- [About Harinivash](https://harinivash.studio/about.html): Background, philosophy, and how he works with clients.
+- [Work](https://harinivash.studio/work.html): Examples of automation and systems projects.
+- [Methodology](https://harinivash.studio/methodology.html): The six-step process from discovery to handoff.
+- [Tech stack](https://harinivash.studio/stack.html): Tools and platforms Harinivash builds with.
+- [Pricing](https://harinivash.studio/pricing.html): How projects are scoped and priced.
+- [Contact](https://harinivash.studio/contact.html): How to get in touch and book a call.
+- [Blog](https://harinivash.studio/blog/): Practical write-ups on automation, Notion, and AI agents.
+
+## Contact
+- Email: rharinivash28@gmail.com
+- Website: https://harinivash.studio
+- LinkedIn: https://linkedin.com/in/harinivashr
+- Book a discovery call: https://cal.com/harinivash-r-du3qxx/discovery
+
+## Facts
+- Name: Harinivash (alternate: Harinivash R)
+- Role: Automation Consultant & Web Developer
+- Founder of: Harinivash Studio
+- Location / reach: Remote; works with clients across India, the United States, and Europe
+- Specialties: n8n, Notion, Zapier, Make.com, AI agents, workflow automation, data pipelines, web development
+- Positioning: "Most people set up tools. I build the system underneath them — one that runs on its own."
