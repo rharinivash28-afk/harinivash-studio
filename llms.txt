@@ -1,8 +1,8 @@
 # Harinivash Studio
 
-> Harinivash is an automation consultant and web developer who builds n8n, Zapier, and Make.com workflows, Notion systems, AI agents, data pipelines, and custom websites for small and mid-sized teams worldwide. Remote, built production-grade.
+> Harinivash Ramesh is an automation consultant and web developer who builds n8n, Zapier, and Make.com workflows, Notion systems, AI agents, data pipelines, and custom websites for small and mid-sized teams worldwide. Remote, built production-grade.
 
-Harinivash (also written "Harinivash R") is the founder of Harinivash Studio. He helps businesses that are tired of tools that don't talk to each other by designing the system underneath them — automations and AI agents that run operations in the background, handle edge cases, and don't need babysitting.
+Harinivash Ramesh (also written "Harinivash") is the founder of Harinivash Studio. He helps businesses that are tired of tools that don't talk to each other by designing the system underneath them — automations and AI agents that run operations in the background, handle edge cases, and don't need babysitting.
 
 ## Services
 - [Automation — n8n, Zapier, Make.com](https://harinivash.studio/): Production-grade workflows that move data between tools automatically, with error handling and retries.
@@ -12,11 +12,11 @@ Harinivash (also written "Harinivash R") is the founder of Harinivash Studio. He
 - [Data pipelines & systems consulting](https://harinivash.studio/): Connecting APIs, databases, and tools into reliable pipelines.
 
 ## Key pages
-- [Home](https://harinivash.studio/): Overview of services and how Harinivash works.
-- [About Harinivash](https://harinivash.studio/about.html): Background, philosophy, and how he works with clients.
+- [Home](https://harinivash.studio/): Overview of services and how Harinivash Ramesh works.
+- [About Harinivash Ramesh](https://harinivash.studio/about.html): Background, philosophy, and how he works with clients.
 - [Work](https://harinivash.studio/work.html): Examples of automation and systems projects.
 - [Methodology](https://harinivash.studio/methodology.html): The six-step process from discovery to handoff.
-- [Tech stack](https://harinivash.studio/stack.html): Tools and platforms Harinivash builds with.
+- [Tech stack](https://harinivash.studio/stack.html): Tools and platforms Harinivash Ramesh builds with.
 - [Pricing](https://harinivash.studio/pricing.html): How projects are scoped and priced.
 - [Contact](https://harinivash.studio/contact.html): How to get in touch and book a call.
 - [Blog](https://harinivash.studio/blog/): Practical write-ups on automation, Notion, and AI agents.
@@ -28,7 +28,7 @@ Harinivash (also written "Harinivash R") is the founder of Harinivash Studio. He
 - Book a discovery call: https://cal.com/harinivash-r-du3qxx/discovery
 
 ## Facts
-- Name: Harinivash (alternate: Harinivash R)
+- Name: Harinivash Ramesh (alternate: Harinivash)
 - Role: Automation Consultant & Web Developer
 - Founder of: Harinivash Studio
 - Location / reach: Remote; works with clients across India, the United States, and Europe

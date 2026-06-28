@@ -573,3 +573,50 @@ html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after 
   nav.scrolled, .mob, footer { background: rgba(12,12,16,0.97); }
   html.light nav.scrolled, html.light .mob, html.light footer { background: rgba(250,250,248,0.98); }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   POLISH LAYER — subtle whole-site UI/UX refinement
+   accessibility · typographic detail · interaction feedback
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Keyboard focus ring on every interactive element (a11y: focus-states) */
+a:focus-visible, button:focus-visible, .btn:focus-visible,
+input:focus-visible, textarea:focus-visible, select:focus-visible,
+summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--acc-hi); outline-offset: 3px; border-radius: 8px;
+}
+
+/* Brand-tinted text selection */
+::selection { background: var(--acc); color: #fff; }
+
+/* Fixed-nav offset so in-page anchors aren't hidden behind the navbar */
+:target { scroll-margin-top: 96px; }
+
+/* Even heading wrap + no orphan words in leads (premium typographic detail) */
+.page-title, .sec-title, .price-h2, .legal-h2, .about-values-title,
+.stack-note h2, .glass-card h3 { text-wrap: balance; }
+.page-lead, .sec-sub, .about-story p, .legal-intro { text-wrap: pretty; }
+
+/* Tactile press feedback on buttons (interaction: press/scale feedback) */
+.btn:active { transform: translateY(0) scale(0.985); transition-duration: 0.08s; }
+
+/* Mobile inputs: 16px prevents iOS auto-zoom; comfortable ≥44px touch height */
+.field input, .field select { font-size: 16px; min-height: 44px; }
+.field textarea { font-size: 16px; }
+
+/* Branded thin scrollbar on precise pointers (premium detail) */
+@media (pointer: fine) {
+  * { scrollbar-width: thin; scrollbar-color: var(--glass-brd) transparent; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--glass-brd); border: 2px solid transparent; background-clip: padding-box; border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--acc-lo); background-clip: padding-box; }
+}
+
+/* Honor OS "reduce motion" even without the in-site toggle */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .starfield::before, .starfield::after, .shooting-star,
+  .brand-dot, .flow-run-dot, .stk-ic { animation: none !important; }
+}
